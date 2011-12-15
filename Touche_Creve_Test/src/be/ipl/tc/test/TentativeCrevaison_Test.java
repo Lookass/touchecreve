@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.security.auth.login.FailedLoginException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import be.ipl.tc.domaine.joueurRouge;
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.Voiture;
 import be.ipl.tc.exceptions.PartieException;
@@ -47,7 +47,7 @@ public class TentativeCrevaison_Test {
 		partieEnCours = new Partie(new Joueur("Joueur de test rouge"), "TentativeCrevaison_Test" + nomPartieUnique++);
 		partieEnCours.ajouterJoueurBleu(new Joueur("Joueur de test bleu"));
 		
-		Voiture v = new Voiture("Citadine", nbrPneus)		
+		// Placer les voitures et commencer la partie..
 	}
 	
 	/**
@@ -193,6 +193,20 @@ public class TentativeCrevaison_Test {
 	public void testTenterCrevaison13() throws Exception {
 		
 		uccTentatives.tenterCrevaison(partieTerminee, partieTerminee.getJoueurRouge(), 0, 0);
+		
+	}
+	
+	/**
+	 * Tentative de crevaison valide
+	 * @throws Exception
+	 */
+	public void testTenterCrevaison14() throws Exception {
+		
+		try {
+			uccTentatives.tenterCrevaison(partieEnCours, partieEnCours.getJoueurRouge(), 0, 0);
+		} catch (Throwable t) {
+			fail();
+		}
 		
 	}
 		
