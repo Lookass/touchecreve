@@ -1,16 +1,9 @@
 package be.ipl.tc.test;
 
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.exceptions.PartieException;
