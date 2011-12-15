@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -25,10 +28,18 @@
 			</div>
 			
 			<div class="journal_container">
-				<c:forEach var="mouvements" items="${mouvements}">
-		
-		<p><span class="joueur_rouge">${partie.joueurRouge.nom}</span> tente de crever un pneu en <span class="case_jeu">${mouvements.ligne}:${mouvements.colonne}</span> -> <span class="tentative_rate">${mouvements.etatTentative}</span></p>
-	</c:forEach>
+			<c:set var="couleurCount" value="0" />
+			<c:forEach var="mouvements" items="${mouvements}">
+				<c:choose>
+					 <c:when test='${couleurCount mod 2 == "0"}'>
+	        			<p><span class="joueur_rouge">${partie.joueurRouge.nom}</span> tente de crever un pneu en <span class="case_jeu">${mouvements.ligne}:${mouvements.colonne}</span> -> <span class="tentative_rate">${mouvements.etatTentative}</span></p>
+			    	</c:when>
+			    	<c:otherwise>
+	        			<p><span class="joueur_bleu">${partie.joueurBleu.nom}</span> tente de crever un pneu en <span class="case_jeu">${mouvements.ligne}:${mouvements.colonne}</span> -> <span class="tentative_rate">${mouvements.etatTentative}</span></p>
+	    			</c:otherwise>
+				</c:choose>
+				<c:set var="couleurCount" value="{couleurCount + 1}" />
+			</c:forEach>
 				
 		
 		
