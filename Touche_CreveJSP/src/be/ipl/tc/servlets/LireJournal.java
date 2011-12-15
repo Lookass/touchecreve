@@ -1,6 +1,8 @@
 package be.ipl.tc.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import be.ipl.tc.domaine.TentativeCrevaison;
 
+import be.ipl.tc.domaine.Joueur;
+import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.sessions.SessionManager;
 
 /**
@@ -34,6 +39,29 @@ public class LireJournal extends HttpServlet {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
 		} else {
+			ArrayList<TentativeCrevaison> mvt  = new ArrayList<TentativeCrevaison>();
+			TentativeCrevaison tc = new TentativeCrevaison(1,1);
+			tc.setEtatTentative(0);
+			mvt.add(tc);
+			tc = new TentativeCrevaison(1,5);
+			tc.setEtatTentative(2);
+			mvt.add(tc);
+			tc = new TentativeCrevaison(4,8);
+			tc.setEtatTentative(1);
+			mvt.add(tc);
+			tc = new TentativeCrevaison(0,9);
+			tc.setEtatTentative(1);
+			mvt.add(tc);
+			tc = new TentativeCrevaison(7,8);
+			tc.setEtatTentative(0);
+			mvt.add(tc);
+			tc = new TentativeCrevaison(4,5);
+			tc.setEtatTentative(0);
+			mvt.add(tc);
+			Partie x = new Partie(new Joueur("Yassan"), "Partie de Yassan");
+			x.ajouterJoueurBleu(new Joueur("Un Inconnu"));
+			request.setAttribute("partie", x);
+			request.setAttribute("movements", tc);
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
 			rd.forward(request, response);
 		}
