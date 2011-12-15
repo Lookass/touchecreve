@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import be.ipl.tc.dao.VoitureDao;
@@ -13,8 +14,10 @@ import be.ipl.tc.domaine.Voiture;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.VoitureException;
 import be.ipl.tc.usecases.GestionVoitures;
+import be.ipl.tc.usecases.GestionVoituresRemote;
 
 @Stateless
+@Remote(GestionVoituresRemote.class)
 public class GestionVoituresImpl implements GestionVoitures {
 	
 	@EJB VoitureDao voitureDao;

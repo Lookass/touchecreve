@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import be.ipl.tc.dao.PartieDao;
@@ -13,10 +14,11 @@ import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
-import be.ipl.tc.exceptions.TentativeCrevaisonException;
 import be.ipl.tc.usecases.GestionTentativesCrevaison;
+import be.ipl.tc.usecases.GestionTentativesCrevaisonRemote;
 
 @Stateless
+@Remote(GestionTentativesCrevaisonRemote.class)
 public class GestionTentativesCrevaisonImpl implements
 		GestionTentativesCrevaison {
 	

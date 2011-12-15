@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
@@ -95,6 +96,9 @@ public class Partie implements Serializable {
 					if(tc.getLigne() == ligne && tc.getColonne() == colonne)
 						throw new PartieException("Tentative déjà effectuée en [" + ligne + ":" + colonne + "].");
 				
+				if(!joueur.equals(partie.getTour()))
+					throw new PartieException("Ce n'est pas à votre tour de jouer.");
+				
 				TentativeCrevaison tentative = new TentativeCrevaison(ligne, colonne);
 				
 				for(Voiture v : joueur.getVoitures()) {
@@ -104,6 +108,8 @@ public class Partie implements Serializable {
 				}
 				
 				joueur.ajouterTentativeCrevaison(tentative);
+				
+				partie.tourSuivant();
 				
 				return tentative;
 			}
@@ -142,7 +148,7 @@ public class Partie implements Serializable {
 	
 	@Id @GeneratedValue
 	private int id;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String nom;
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "idJoueurRouge")
@@ -154,6 +160,8 @@ public class Partie implements Serializable {
 	private Calendar dateDebut;
 	@Enumerated
 	private Partie.Etat etat = Partie.Etat.EN_ATTENTE;
+	@Transient
+	private Joueur tour;
 	
 	public Partie(){}
 	
@@ -161,6 +169,7 @@ public class Partie implements Serializable {
 		super();
 		this.joueurRouge = joueurRouge;
 		this.nom = nom;
+		this.tour = joueurRouge;
 	}
 	
 	public int getId() {
@@ -177,6 +186,21 @@ public class Partie implements Serializable {
 
 	public Joueur getJoueurBleu() {
 		return joueurBleu;
+	}
+	
+	private Joueur getTour() {
+		return tour;
+	}
+	
+	public Partie.Etat getEtat() {
+		return etat;
+	}
+	
+	private void tourSuivant() {
+		if(tour == joueurRouge)
+			tour = joueurBleu;
+		else
+			tour = joueurRouge;
 	}
 	
 	public void ajouterJoueurBleu(Joueur joueurBleu) {
