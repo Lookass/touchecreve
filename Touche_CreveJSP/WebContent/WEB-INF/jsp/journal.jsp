@@ -10,7 +10,7 @@
 <body>
 	Journal de $(partie)<br/>
 	<c:forEach var="mouvements" items="${mouvements}">
-		$(mouvements.ligne) - $(mouvements.colonne) - $()mouvement.etatTentative
+		$(mouvements.ligne) - $(mouvements.colonne) - $(mouvement.etatTentative)
 	</c:forEach>
 </body>
 </html>
