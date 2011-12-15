@@ -14,7 +14,7 @@ import be.ipl.tc.sessions.SessionManager;
 /**
  * Servlet implementation class LireJournal
  */
-@WebServlet("/LireJournal")
+@WebServlet("/journal.html")
 public class LireJournal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
