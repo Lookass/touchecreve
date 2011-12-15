@@ -52,13 +52,20 @@ public class GestionVoituresImpl implements GestionVoitures {
 		
 			Voiture newVoiture = null;
 			
+			// Le nom en paramètre doit correspondre au nom d'une des voitures à placer
 			for(Voiture v : voituresAPlacer) {
 				if(v.getNom().equals(nomVoiture))
 					newVoiture = (Voiture) v.clone();
 			}
 			
+			// Le nom ne correspond pas à une voiture à placer
 			if(newVoiture == null)
 				throw new VoitureException();
+			
+			// Le joueur ne peut placer deux fois la même voiture
+			for(Voiture v : joueur.getVoitures())
+				if(v.equals(newVoiture))
+					throw new VoitureException();
 		
 			newVoiture.setDirection(direction);
 			newVoiture.setLigne(ligne);
