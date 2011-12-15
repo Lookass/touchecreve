@@ -31,10 +31,12 @@ public class LireJournal extends HttpServlet {
 	 */
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (!SessionManager.isNameSet(request.getSession(true)))
+		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
-		RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
-		rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
