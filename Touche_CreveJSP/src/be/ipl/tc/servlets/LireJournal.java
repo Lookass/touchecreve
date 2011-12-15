@@ -3,6 +3,7 @@ package be.ipl.tc.servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +40,7 @@ public class LireJournal extends HttpServlet {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
 		} else {
-			ArrayList<TentativeCrevaison> mvt  = new ArrayList<TentativeCrevaison>();
+			List<TentativeCrevaison> mvt  = new ArrayList<TentativeCrevaison>();
 			TentativeCrevaison tc = new TentativeCrevaison(1,1);
 			tc.setEtatTentative(0);
 			mvt.add(tc);
@@ -61,7 +62,7 @@ public class LireJournal extends HttpServlet {
 			Partie x = new Partie(new Joueur("Yassan"), "Partie de Yassan");
 			x.ajouterJoueurBleu(new Joueur("Un Inconnu"));
 			request.setAttribute("partie", x);
-			request.setAttribute("movements", tc);
+			request.setAttribute("mouvements", mvt);
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
 			rd.forward(request, response);
 		}
