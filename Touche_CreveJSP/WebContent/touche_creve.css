@@ -1,0 +1,147 @@
+
+body
+{
+	width: 800px;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	background-image: url("img/mustang_monster_email.jpg");
+	background-attachment: fixed;
+	background-size: 100%;
+	color: white;
+	font-family: Calibri, sans-serif;
+}
+.container_1st_level
+{
+	background-image: url("img/bg_black_a50.png");
+	padding: 10px;
+	margin-bottom: 30px;
+	border: 1px solid white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+h2
+{
+	display: block;
+	font-family: "Times New Roman", Arial, Verdana, sans-serif;
+	text-align: center;
+	background-image: url("img/bg_black_a75.png");
+	border: 1px solid white;
+	width: 350px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin: auto;
+	margin-top: 25px;
+	margin-bottom: 70px;
+	padding: 15px;
+}
+
+table
+{
+	margin: auto;
+	margin-bottom: 25px;
+	background-image: url("img/bg_black_a75.png");
+	text-align: center;
+	border-collapse: collapse;
+	width: 75%;
+}
+
+th, td
+{
+	border: 1px solid white;
+	padding: 3px;
+}
+
+th
+{
+	background-image: url("img/bg_white_a50.png");
+}
+
+table .selected
+{
+	background-image: url("img/bg_blue_a50.png");
+}
+
+td:hover
+{
+	cursor: pointer;
+}
+
+.table_filter_container
+{
+	margin-left: 12.5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-image: url("img/bg_black_a75.png");
+	border: 1px solid white;
+	width: 35%;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.action_buttons_container
+{
+	margin-left: 12.5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.nom_joueur_container
+{
+	font-family: calibri, sans-serif;
+}
+
+.nom_joueur
+{
+	font-weight: bold;
+}
+
+.joueur_rouge
+{
+	color: rgba(255, 0, 0, 0.5);
+}
+
+.joueur_bleu
+{
+	color: rgba(81, 175, 206, 0.8);
+}
+
+.journal_container
+{
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 15px;
+	background-image: url("img/bg_black_a75.png");
+	border: 1px solid white;
+	width: 75%;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.journal_meta_info_container
+{	
+	margin: auto;
+	background-image: url("img/bg_black_a75.png");
+	border: 1px solid white;
+	width: 75%;
+	padding: 15px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.tentative_rate
+{
+	color: rgba(100, 100, 100, 75);
+}
+
+.tentative_touche
+{
+	color: rgba(0, 255, 0, 75);
+}
+
+.tentative_creve
+{
+	color: rgba(200, 170, 30, 75);
+}
