@@ -129,19 +129,19 @@ public class Partie implements Serializable {
 		};
 		
 		public boolean ajouterJoueurBleu(Partie partie, Joueur joueur) {
-			return false;
+			throw new IllegalStateException();
 		}
 		
 		public boolean placerVoiture(Partie partie, Joueur joueur, Voiture voiture) throws ArgumentInvalideException {
-			return false;
+			throw new IllegalStateException();
 		}
 		
 		public TentativeCrevaison tenterCrevaison(Partie partie, Joueur joueur, int ligne, int colonne) throws ArgumentInvalideException {
-			return null;
+			throw new IllegalStateException();
 		}
 		
 		public Joueur getVainqueur(Partie partie) {
-			return null;
+			throw new IllegalStateException();
 		}
 		
 	}	

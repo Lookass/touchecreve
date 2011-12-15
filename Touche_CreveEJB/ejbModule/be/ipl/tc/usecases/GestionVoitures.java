@@ -25,6 +25,6 @@ public interface GestionVoitures {
 	 * @throws ArgumentInvalideException
 	 * @throws VoitureException
 	 */
-	void placerVoiture(Partie partie, Joueur joueur, String nomVoiture, int ligne, int colonne, int nbPneus, int direction) throws ArgumentInvalideException, VoitureException;
+	void placerVoiture(Partie partie, Joueur joueur, String nomVoiture, int ligne, int colonne, int direction) throws ArgumentInvalideException, VoitureException;
 
 }

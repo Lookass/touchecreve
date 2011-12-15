@@ -47,15 +47,24 @@ public class GestionVoituresImpl implements GestionVoitures {
 
 	@Override
 	public void placerVoiture(Partie partie, Joueur joueur,
-			String nomVoiture, int ligne, int colonne, int nbPneus, int direction)
+			String nomVoiture, int ligne, int colonne, int direction)
 			throws ArgumentInvalideException, VoitureException {
+		
+			Voiture newVoiture = null;
 			
-			Voiture v = new Voiture(nomVoiture, nbPneus);
-			v.setDirection(direction);
-			v.setLigne(ligne);
-			v.setColonne(colonne);
-			partie.placerVoiture(joueur, v);
-			voitureDao.enregistrer(v);
+			for(Voiture v : voituresAPlacer) {
+				if(v.getNom().equals(nomVoiture))
+					newVoiture = (Voiture) v.clone();
+			}
+			
+			if(newVoiture == null)
+				throw new VoitureException();
+		
+			newVoiture.setDirection(direction);
+			newVoiture.setLigne(ligne);
+			newVoiture.setColonne(colonne);
+			partie.placerVoiture(joueur, newVoiture);
+			voitureDao.enregistrer(newVoiture);
 	}
 
 }
