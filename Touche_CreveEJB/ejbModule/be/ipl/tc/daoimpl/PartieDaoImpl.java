@@ -13,7 +13,7 @@ public class PartieDaoImpl extends DaoImpl<Integer, Partie> implements
 	
 	
 	public Partie rechercherPartieNonTerminée(String nom) {
-		String query="select p from Parties p where p.nom like ?1 AND p.etat != 3";
+		String query="select p from Partie p where p.nom like ?1";
 		return recherche(query, nom);
 	}
 

@@ -52,13 +52,14 @@ public class GestionPartiesImpl implements GestionParties {
 	@Override
 	public Partie creerPartie(String nomJoueur, String nomPartie)
 			throws PartieException {
-
+		Partie partieRecherche=partieDao.rechercherPartieNonTerminée(nomPartie);
+		if(partieRecherche!=null)throw new PartieException("Le nom est déja utilisé");
 		Joueur joueurRouge = new Joueur(nomJoueur);
 		Partie partie = new Partie(joueurRouge, nomPartie);
 		// Persist de la partie pour générer son ID
 		try {
 			partie = partieDao.enregistrer(partie);
-		} catch (Exception t) {
+		} catch (EJBException t) {
 			throw new PartieException();
 		}
 		
