@@ -78,13 +78,17 @@ public class LireJournal extends HttpServlet {
 					break;
 				}
 			}
-			List<TentativeCrevaison> mvt  = gestionTC.listerTentatives(partie.getId());
-			
-			request.setAttribute("partie", partie);
-			request.setAttribute("mouvements", mvt);
-			
-			RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
-			rd.forward(request, response);
+			if (partie == null) {
+				response.sendRedirect("index.html"); //TODO Erreur pour dire ID de la partie incorrecte
+			} else {
+				List<TentativeCrevaison> mvt  = gestionTC.listerTentatives(partie.getId());
+				
+				request.setAttribute("partie", partie);
+				request.setAttribute("mouvements", mvt);
+				
+				RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
+				rd.forward(request, response);
+			}
 		}
 	}
 
