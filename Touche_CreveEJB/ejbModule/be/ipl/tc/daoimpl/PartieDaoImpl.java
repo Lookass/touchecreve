@@ -10,5 +10,11 @@ import be.ipl.tc.domaine.Partie;
 @Stateless
 public class PartieDaoImpl extends DaoImpl<Integer, Partie> implements
 		PartieDao {
+	
+	
+	public Partie rechercherPartieNonTerminée(String nom) {
+		String query="select p from Parties p where p.nom like ?1 AND p.etat != 3";
+		return recherche(query, nom);
+	}
 
 }
