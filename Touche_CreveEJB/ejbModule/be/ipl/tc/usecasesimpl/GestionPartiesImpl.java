@@ -62,7 +62,9 @@ public class GestionPartiesImpl implements GestionParties {
 			System.out.println("Test clef");
 			throw new PartieException();
 		}
+		
 		partiesEnAttente.put(partie.getId(), partie);
+
 		return partie;
 
 	}
@@ -88,6 +90,7 @@ public class GestionPartiesImpl implements GestionParties {
 
 		// La partie n'est plus en attente
 		partiesEnAttente.remove(idPartie);
+		
 		partieDao.mettreAJour(partie);
 
 		return partie;

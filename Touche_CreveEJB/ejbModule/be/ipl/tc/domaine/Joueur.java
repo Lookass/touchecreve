@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,10 +30,10 @@ public class Joueur implements Serializable {
 	private int idJoueur;
 	@Column(nullable = false)
 	private String nom;
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="idJoueur")
 	private List<TentativeCrevaison> tentativesCrevaison = new ArrayList<TentativeCrevaison>();
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "idJoueur")
 	private List<Voiture> voitures = new ArrayList<Voiture>();
 	

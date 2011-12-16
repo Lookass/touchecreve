@@ -14,6 +14,7 @@ import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
+import be.ipl.tc.exceptions.TentativeCrevaisonException;
 import be.ipl.tc.usecases.GestionTentativesCrevaison;
 import be.ipl.tc.usecases.GestionTentativesCrevaisonRemote;
 
@@ -30,9 +31,13 @@ public class GestionTentativesCrevaisonImpl implements
 			Joueur joueur, int ligne, int colonne)
 			throws ArgumentInvalideException, PartieException {
 		
+		System.out.println("Test 1");
+		
 		TentativeCrevaison tentative = partie.tenterCrevaison(joueur, ligne, colonne);
 		
+		System.out.println("Test 1");
 		tentativeCrevaisonDao.enregistrer(tentative);
+		System.out.println("Test 2");
 		
 		return tentative;
 	}
