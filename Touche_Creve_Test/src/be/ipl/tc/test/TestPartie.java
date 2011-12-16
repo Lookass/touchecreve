@@ -37,7 +37,7 @@ public class TestPartie {
 		uccPartie.creerPartie("Joueur 2", "Partie 2");
 	}
 
-	@Test(expected = PartieException.class)
+	@Test(expected = Exception.class)
 	public void testCreerPartie2() {
 		uccPartie.creerPartie("Joueur 2", "Partie 1");
 	}
@@ -58,7 +58,7 @@ public class TestPartie {
 
 	}
 
-	@Test(expected = PartieException.class)
+	@Test(expected = Exception.class)
 	public void testRejoindrePartieSiPartieNull() {
 		uccPartie.rejoindrePartie(-1, "Joueur 1");
 	}
@@ -70,7 +70,7 @@ public class TestPartie {
 		assertTrue("Joueur2".equals(partie2.getJoueurBleu().getNom()));
 	}
 
-	@Test(expected = PartieException.class)
+	@Test(expected = Exception.class)
 	public void testRejoindrePartieSiPleine() {
 		Partie partie = uccPartie.creerPartie("Joueur 1", "Partie 4");
 		uccPartie.rejoindrePartie(partie.getId(), "Joueur 2");
