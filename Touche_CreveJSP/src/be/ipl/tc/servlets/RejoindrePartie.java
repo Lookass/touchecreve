@@ -16,7 +16,7 @@ import be.ipl.tc.usecases.GestionParties;
 /**
  * Servlet implementation class RejoindrePartie
  */
-@WebServlet("/RejoindrePartie")
+@WebServlet("/join.html")
 public class RejoindrePartie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
