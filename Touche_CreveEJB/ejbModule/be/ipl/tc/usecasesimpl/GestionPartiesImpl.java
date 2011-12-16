@@ -51,15 +51,14 @@ public class GestionPartiesImpl implements GestionParties {
 
 	@Override
 	public Partie creerPartie(String nomJoueur, String nomPartie)
-			throws EJBException {
+			throws PartieException {
 
 		Joueur joueurRouge = new Joueur(nomJoueur);
 		Partie partie = new Partie(joueurRouge, nomPartie);
 		// Persist de la partie pour générer son ID
 		try {
 			partie = partieDao.enregistrer(partie);
-		} catch (Throwable t) {
-			System.out.println("Test clef");
+		} catch (Exception t) {
 			throw new PartieException();
 		}
 		
