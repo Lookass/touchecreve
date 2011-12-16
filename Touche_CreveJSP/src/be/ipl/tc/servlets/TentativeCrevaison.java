@@ -12,7 +12,7 @@ import be.ipl.tc.sessions.SessionManager;
 /**
  * Servlet implementation class TentativeCrevaison
  */
-@WebServlet("/TentativeCrevaison")
+@WebServlet("/gameaction.html")
 public class TentativeCrevaison extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
