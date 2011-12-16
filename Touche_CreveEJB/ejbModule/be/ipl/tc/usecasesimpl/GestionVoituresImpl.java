@@ -1,9 +1,12 @@
 package be.ipl.tc.usecasesimpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -47,9 +50,21 @@ public class GestionVoituresImpl implements GestionVoitures {
 	public List<Voiture> listerVoituresAPlacer() {
 		
 		List<Voiture> listeVoitures = new ArrayList<Voiture>(voituresAPlacer.size());
-		for(int i = 0; i < voituresAPlacer.size(); ++i) {
-			listeVoitures.add((Voiture) voituresAPlacer.get(i).clone());
+		Set<String> nomsVoituresAPlacer = voituresAPlacer.keySet();
+		for(String nomVoiture : nomsVoituresAPlacer) {
+			Voiture v = voituresAPlacer.get(nomVoiture);
+			listeVoitures.add((Voiture) v.clone());
 		}
+		// On présente les voitures de façon triée selon leur grandeur (nbPneus)
+		Collections.sort(listeVoitures, new Comparator<Voiture>() {
+
+			@Override
+			public int compare(Voiture arg0, Voiture arg1) {
+				
+				return arg0.getNbrPneus() - arg1.getNbrPneus();
+			}
+			
+		});
 		return listeVoitures;
 		
 	}
