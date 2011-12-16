@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.resource.spi.IllegalStateException;
 
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
@@ -27,8 +28,8 @@ public class Partie implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private final static int LIGNE_INDICE_MAX = 9;
-	private final static int COLONNE_INDICE_MAX = 9;
+	public final static int LIGNE_INDICE_MAX = 9;
+	public final static int COLONNE_INDICE_MAX = 9;
 	
 	public enum Etat {
 		
@@ -36,10 +37,12 @@ public class Partie implements Serializable {
 			
 			public boolean ajouterJoueurBleu(Partie partie, Joueur joueur) {
 				
+				System.out.println("ajouterJoueurBleu (Partie) : 1");
 				if(partie.getJoueurRouge().getNom().equals(joueur.getNom()))
 					throw new PartieException("Le joueur rouge est déjà nommé " + partie.getJoueurRouge().getNom());
 				partie.joueurBleu = joueur;
 				partie.etat = Etat.EN_PLACEMENT;
+				System.out.println("ajouterJoueurBleu (Partie) : 2");
 				return true;
 				
 			}
@@ -48,32 +51,35 @@ public class Partie implements Serializable {
 		
 		EN_PLACEMENT {
 			
-			public boolean placerVoiture(Partie partie, Joueur joueur, Voiture v) throws ArgumentInvalideException {
+			public boolean placerVoiture(Partie partie, Joueur joueur, Voiture v)  {
 				
-				if(!joueur.equals(partie.getJoueurBleu()) && !joueur.equals(partie.getJoueurRouge()))
+				System.out.println("placerVoiture (Partie) : 1");
+				if(!partie.contientJoueur(joueur))
 					throw new PartieException("Le joueur n'appartient pas à la partie.");
-				
+				System.out.println("placerVoiture (Partie) : 2");
 				if(v.getLigne() < 0 || v.getLigne() > Partie.LIGNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
-				
+				System.out.println("placerVoiture (Partie) : 3");
 				if(v.getColonne() < 0 || v.getColonne() > Partie.COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
-				
+				System.out.println("placerVoiture (Partie) : 4");
 				if(v.getDirection() == Voiture.DIRECTION_VERTICAL && v.getLigne() + v.getNbrPneus() > LIGNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
-				
+				System.out.println("placerVoiture (Partie) : 5");
 				if(v.getDirection() == Voiture.DIRECTION_HORIZONTAL && v.getColonne() + v.getNbrPneus() > COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
-				
+				System.out.println("placerVoiture (Partie) : 6");
 				// La voiture à placer ne doit pas occuper de case utilisée par une autre voiture
 				for(Voiture autre : joueur.getVoitures())
 					if(autre.occupePlace(v.getLigne(), v.getColonne()))
 						throw new PartieException("L'emplacement [ " + v.getLigne() + ":" + v.getColonne() + "] est déjà occupé.");
-				
-				
-				
+				System.out.println("placerVoiture (Partie) : 7");
 				joueur.ajouterVoiture(v);
-				
+				System.out.println("placerVoiture (Partie) : 8");
+				// On lance la partie si toutes les voitures ont été placées
+				if(partie.getJoueurRouge().getVoitures().size() == 5 && partie.getJoueurBleu().getVoitures().size() == 5)
+					partie.etat = Etat.EN_COURS;
+				System.out.println("placerVoiture (Partie) : 9");
 				return false;
 			}
 			
@@ -81,9 +87,9 @@ public class Partie implements Serializable {
 		
 		EN_COURS {
 			
-			public TentativeCrevaison tenterCrevaison(Partie partie, Joueur joueur, int ligne, int colonne) throws ArgumentInvalideException {
+			public TentativeCrevaison tenterCrevaison(Partie partie, Joueur joueur, int ligne, int colonne) {
 				
-				if(!joueur.equals(partie.getJoueurBleu()) && !joueur.equals(partie.getJoueurRouge()))
+				if(!partie.contientJoueur(joueur))
 					throw new PartieException("Le joueur n'appartient pas à la partie.");
 				
 				if(ligne < 0 || ligne > Partie.LIGNE_INDICE_MAX)
@@ -129,19 +135,19 @@ public class Partie implements Serializable {
 		};
 		
 		public boolean ajouterJoueurBleu(Partie partie, Joueur joueur) {
-			throw new IllegalStateException();
+			throw new PartieException("Etat inccorect");
 		}
 		
-		public boolean placerVoiture(Partie partie, Joueur joueur, Voiture voiture) throws ArgumentInvalideException {
-			throw new IllegalStateException();
+		public boolean placerVoiture(Partie partie, Joueur joueur, Voiture voiture) {
+			throw new PartieException("Etat inccorect");
 		}
 		
-		public TentativeCrevaison tenterCrevaison(Partie partie, Joueur joueur, int ligne, int colonne) throws ArgumentInvalideException {
-			throw new IllegalStateException();
+		public TentativeCrevaison tenterCrevaison(Partie partie, Joueur joueur, int ligne, int colonne)  {
+			throw new PartieException("Etat inccorect");
 		}
 		
 		public Joueur getVainqueur(Partie partie) {
-			throw new IllegalStateException();
+			throw new PartieException("Etat inccorect");
 		}
 		
 	}	
@@ -189,6 +195,16 @@ public class Partie implements Serializable {
 		return joueurBleu;
 	}
 	
+	public boolean contientJoueur(Joueur joueur) {
+		if(joueur == null)
+			return false;
+		if(joueurRouge.equals(joueur))
+			return true;
+		if(joueurBleu.equals(joueur))
+			return true;
+		return false;
+	}
+	
 	private Joueur getTour() {
 		return tour;
 	}
@@ -208,11 +224,11 @@ public class Partie implements Serializable {
 		this.etat.ajouterJoueurBleu(this, joueurBleu);
 	}
 	
-	public void placerVoiture(Joueur joueur, Voiture voiture) throws ArgumentInvalideException {
+	public void placerVoiture(Joueur joueur, Voiture voiture) {
 		this.etat.placerVoiture(this, joueur, voiture);
 	}
 	
-	public TentativeCrevaison tenterCrevaison(Joueur joueur, int ligne, int colonne) throws ArgumentInvalideException {
+	public TentativeCrevaison tenterCrevaison(Joueur joueur, int ligne, int colonne) {
 		return this.etat.tenterCrevaison(this, joueur, ligne, colonne);
 	}
 	

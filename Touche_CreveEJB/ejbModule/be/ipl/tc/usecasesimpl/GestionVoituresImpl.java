@@ -1,17 +1,22 @@
 package be.ipl.tc.usecasesimpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 
+import be.ipl.tc.dao.JoueurDao;
+import be.ipl.tc.dao.PartieDao;
 import be.ipl.tc.dao.VoitureDao;
 import be.ipl.tc.domaine.Joueur;
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.Voiture;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
+import be.ipl.tc.exceptions.PartieException;
 import be.ipl.tc.exceptions.VoitureException;
 import be.ipl.tc.usecases.GestionVoitures;
 import be.ipl.tc.usecases.GestionVoituresRemote;
@@ -21,17 +26,20 @@ import be.ipl.tc.usecases.GestionVoituresRemote;
 public class GestionVoituresImpl implements GestionVoitures {
 	
 	@EJB VoitureDao voitureDao;
+	@EJB PartieDao partieDao;
+	@EJB JoueurDao joueurDao;
+	
 	/**
-	 * Liste des voitures à placer par le joueur
+	 * Map des voitures à placer par chaque joueur
 	 */
-	private List<Voiture> voituresAPlacer = new ArrayList<Voiture>(5);
+	private Map<String, Voiture> voituresAPlacer = new HashMap<String, Voiture>(5);
 	
 	{
-		voituresAPlacer.add(new Voiture("Citadine", 2));
-		voituresAPlacer.add(new Voiture("Coupé", 3));
-		voituresAPlacer.add(new Voiture("Berline", 3));
-		voituresAPlacer.add(new Voiture("Break", 4));
-		voituresAPlacer.add(new Voiture("Limousine", 5));
+		voituresAPlacer.put("Citadine", new Voiture("Citadine", 2));
+		voituresAPlacer.put("Coupé", new Voiture("Coupé", 3));
+		voituresAPlacer.put("Berline", new Voiture("Berline", 3));
+		voituresAPlacer.put("Break", new Voiture("Break", 4));
+		voituresAPlacer.put("Limousine", new Voiture("Limousine", 5));
 	}
 
 	@Override
@@ -46,32 +54,43 @@ public class GestionVoituresImpl implements GestionVoitures {
 	}
 
 	@Override
-	public void placerVoiture(Partie partie, Joueur joueur,
+	public void placerVoiture(int idPartie, int idJoueur,
 			String nomVoiture, int ligne, int colonne, int direction)
 			throws ArgumentInvalideException, VoitureException {
 		
-			Voiture newVoiture = null;
+			Partie partie = partieDao.rechercher(idPartie);
+			Joueur joueur = joueurDao.rechercher(idJoueur);
 			
+			// Le joueur doit être dans la partie spécifiée
+			if(!partie.contientJoueur(joueur))
+				throw new PartieException();
+			
+			System.out.println("placerVoiture : 1");
 			// Le nom en paramètre doit correspondre au nom d'une des voitures à placer
-			for(Voiture v : voituresAPlacer) {
-				if(v.getNom().equals(nomVoiture))
-					newVoiture = (Voiture) v.clone();
-			}
-			
-			// Le nom ne correspond pas à une voiture à placer
+			Voiture newVoiture = voituresAPlacer.get(nomVoiture);
 			if(newVoiture == null)
 				throw new VoitureException();
+			newVoiture = (Voiture) newVoiture.clone();
+			
+			System.out.println("placerVoiture : 2");
 			
 			// Le joueur ne peut placer deux fois la même voiture
 			for(Voiture v : joueur.getVoitures())
 				if(v.equals(newVoiture))
 					throw new VoitureException();
+			
+			System.out.println("placerVoiture : 3");
 		
 			newVoiture.setDirection(direction);
 			newVoiture.setLigne(ligne);
 			newVoiture.setColonne(colonne);
 			partie.placerVoiture(joueur, newVoiture);
+			
+			System.out.println("placerVoiture : 4");
+			
 			voitureDao.enregistrer(newVoiture);
+			
+			System.out.println("placerVoiture : 5");
 	}
 
 }

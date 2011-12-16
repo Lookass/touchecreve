@@ -1,7 +1,7 @@
 package be.ipl.tc.exceptions;
 
 @SuppressWarnings("serial")
-public class ArgumentInvalideException extends Exception {
+public class ArgumentInvalideException extends RuntimeException {
 
 	public ArgumentInvalideException() {
 	}
