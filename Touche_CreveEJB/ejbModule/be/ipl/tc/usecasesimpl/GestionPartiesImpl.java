@@ -11,6 +11,7 @@ import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import be.ipl.tc.dao.JoueurDao;
 import be.ipl.tc.dao.PartieDao;
 import be.ipl.tc.domaine.Joueur;
 import be.ipl.tc.domaine.Partie;
@@ -24,8 +25,8 @@ import be.ipl.tc.usecases.GestionPartiesRemote;
 public class GestionPartiesImpl implements GestionParties {
 
 	// Seules les parties terminées sont persistées
-	@EJB
-	PartieDao partieDao;
+	@EJB PartieDao partieDao;
+	@EJB JoueurDao joueurDao;
 
 	// Les parties en attente d'adversaire sont gardées en mémoire
 	private Map<Integer, Partie> partiesEnAttente = new HashMap<Integer, Partie>();
@@ -57,11 +58,7 @@ public class GestionPartiesImpl implements GestionParties {
 		Joueur joueurRouge = new Joueur(nomJoueur);
 		Partie partie = new Partie(joueurRouge, nomPartie);
 		// Persist de la partie pour générer son ID
-		try {
-			partie = partieDao.enregistrer(partie);
-		} catch (EJBException t) {
-			throw new PartieException();
-		}
+		partie = partieDao.enregistrer(partie);
 		
 		partiesEnAttente.put(partie.getId(), partie);
 
@@ -87,6 +84,8 @@ public class GestionPartiesImpl implements GestionParties {
 		// Le joueur rejoint la partie
 		Joueur joueurBleu = new Joueur(nomJoueur);
 		partie.ajouterJoueurBleu(joueurBleu);
+		
+		joueurDao.enregistrer(joueurBleu);
 
 		// La partie n'est plus en attente
 		partiesEnAttente.remove(idPartie);

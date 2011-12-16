@@ -37,12 +37,10 @@ public class Partie implements Serializable {
 			
 			public boolean ajouterJoueurBleu(Partie partie, Joueur joueur) {
 				
-				System.out.println("ajouterJoueurBleu (Partie) : 1");
 				if(partie.getJoueurRouge().getNom().equals(joueur.getNom()))
 					throw new PartieException("Le joueur rouge est déjà nommé " + partie.getJoueurRouge().getNom());
 				partie.joueurBleu = joueur;
 				partie.etat = Etat.EN_PLACEMENT;
-				System.out.println("ajouterJoueurBleu (Partie) : 2");
 				return true;
 				
 			}
@@ -53,33 +51,30 @@ public class Partie implements Serializable {
 			
 			public boolean placerVoiture(Partie partie, Joueur joueur, Voiture v)  {
 				
-				System.out.println("placerVoiture (Partie) : 1");
 				if(!partie.contientJoueur(joueur))
 					throw new PartieException("Le joueur n'appartient pas à la partie.");
-				System.out.println("placerVoiture (Partie) : 2");
 				if(v.getLigne() < 0 || v.getLigne() > Partie.LIGNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
-				System.out.println("placerVoiture (Partie) : 3");
 				if(v.getColonne() < 0 || v.getColonne() > Partie.COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
-				System.out.println("placerVoiture (Partie) : 4");
 				if(v.getDirection() == Voiture.DIRECTION_VERTICAL && v.getLigne() + v.getNbrPneus() > LIGNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
-				System.out.println("placerVoiture (Partie) : 5");
 				if(v.getDirection() == Voiture.DIRECTION_HORIZONTAL && v.getColonne() + v.getNbrPneus() > COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
-				System.out.println("placerVoiture (Partie) : 6");
+				
 				// La voiture à placer ne doit pas occuper de case utilisée par une autre voiture
 				for(Voiture autre : joueur.getVoitures())
 					if(autre.occupePlace(v.getLigne(), v.getColonne()))
 						throw new PartieException("L'emplacement [ " + v.getLigne() + ":" + v.getColonne() + "] est déjà occupé.");
-				System.out.println("placerVoiture (Partie) : 7");
+				
 				joueur.ajouterVoiture(v);
-				System.out.println("placerVoiture (Partie) : 8");
+				
 				// On lance la partie si toutes les voitures ont été placées
-				if(partie.getJoueurRouge().getVoitures().size() == 5 && partie.getJoueurBleu().getVoitures().size() == 5)
+				if(partie.getJoueurRouge().getVoitures().size() == 5 && partie.getJoueurBleu().getVoitures().size() == 5) {
 					partie.etat = Etat.EN_COURS;
-				System.out.println("placerVoiture (Partie) : 9");
+					partie.tour = partie.joueurRouge;
+				}
+
 				return false;
 			}
 			
@@ -106,12 +101,11 @@ public class Partie implements Serializable {
 					throw new PartieException("Ce n'est pas à votre tour de jouer.");
 				
 				TentativeCrevaison tentative = new TentativeCrevaison(ligne, colonne);
+				tentative.setEtatTentative(TentativeCrevaison.TENTATIVE_ETAT_RATE);
 				
-				for(Voiture v : joueur.getVoitures()) {
-					if(v.occupePlace(ligne, colonne)) {
-						v.creverPneu();
-					}
-				}
+				for(Voiture v : joueur.getVoitures())
+					if(v.occupePlace(ligne, colonne))
+						v.creverPneu(tentative);
 				
 				joueur.ajouterTentativeCrevaison(tentative);
 				
@@ -166,7 +160,8 @@ public class Partie implements Serializable {
 	private Calendar dateDebut;
 	@Enumerated
 	private Partie.Etat etat = Partie.Etat.EN_ATTENTE;
-	@Transient
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "idJoueurTour")
 	private Joueur tour;
 
 	
