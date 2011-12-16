@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 import be.ipl.tc.dao.VoitureDao;
 import be.ipl.tc.domaine.Joueur;
@@ -16,7 +16,7 @@ import be.ipl.tc.exceptions.VoitureException;
 import be.ipl.tc.usecases.GestionVoitures;
 import be.ipl.tc.usecases.GestionVoituresRemote;
 
-@Stateless
+@Singleton
 @Remote(GestionVoituresRemote.class)
 public class GestionVoituresImpl implements GestionVoitures {
 	
