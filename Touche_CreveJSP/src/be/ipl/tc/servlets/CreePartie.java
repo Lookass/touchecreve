@@ -38,8 +38,6 @@ public class CreePartie extends HttpServlet {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 				response.sendRedirect("index.html");
 		} else {
-			System.out.println(SessionManager.getNom(request.getSession()));
-			System.out.println(request.getParameter("nompartie"));
 			gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession()), request.getParameter("nompartie"));
 		}
 
