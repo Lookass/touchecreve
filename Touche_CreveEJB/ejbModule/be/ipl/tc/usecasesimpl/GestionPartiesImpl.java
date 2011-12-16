@@ -59,8 +59,8 @@ public class GestionPartiesImpl implements GestionParties {
 		try {
 			partie = partieDao.enregistrer(partie);
 		} catch (Throwable t) {
-			System.out.println("Tets clef");
-			throw new EJBException();
+			System.out.println("Test clef");
+			throw new PartieException();
 		}
 		partiesEnAttente.put(partie.getId(), partie);
 		return partie;
