@@ -1,5 +1,7 @@
 package be.ipl.tc.domaine;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import be.ipl.tc.exceptions.PartieException;
 
 @Entity
 @Table(name = "VOITURES", schema = "TC")
-public class Voiture implements Cloneable {
+public class Voiture implements Serializable,Cloneable {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -25,7 +27,10 @@ public class Voiture implements Cloneable {
 
 	public static int DIRECTION_HORIZONTAL = 0;
 	public static int DIRECTION_VERTICAL = 1;
-
+	
+	public Voiture(){
+		
+	}
 	public Voiture(String nom, int nbrPneus) {
 		super();
 		this.nom = nom;
