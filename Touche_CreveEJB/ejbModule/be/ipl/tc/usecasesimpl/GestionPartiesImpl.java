@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -21,36 +22,37 @@ import be.ipl.tc.usecases.GestionPartiesRemote;
 @Startup
 @Remote(GestionPartiesRemote.class)
 public class GestionPartiesImpl implements GestionParties {
-	
+
 	// Seules les parties terminées sont persistées
-	@EJB PartieDao partieDao; 
-	
+	@EJB
+	PartieDao partieDao;
+
 	// Les parties en attente d'adversaire sont gardées en mémoire
 	private Map<Integer, Partie> partiesEnAttente = new HashMap<Integer, Partie>();
 
 	@Override
 	public List<Partie> listerPartiesEnAttente() {
-		System.out.println("Taille de la liste " + partiesEnAttente.values().size());
 		return new LinkedList<Partie>(partiesEnAttente.values());
 	}
 
 	@Override
 	public List<Partie> listerPartiesTerminees() {
-		
+
 		List<Partie> parties = partieDao.lister();
 		List<Partie> partiesTerminees = new LinkedList<Partie>();
-		for(Partie p : parties) {
-			if(p.getEtat() == Partie.Etat.TERMINEE)
+		for (Partie p : parties) {
+			if (p.getEtat() == Partie.Etat.TERMINEE)
 				partiesTerminees.add(p);
 		}
-		
+
 		return partiesTerminees;
-		
+
 	}
 
 	@Override
-	public Partie creerPartie(String nomJoueur, String nomPartie) throws PartieException {
-		
+	public Partie creerPartie(String nomJoueur, String nomPartie)
+			throws EJBException {
+
 		Joueur joueurRouge = new Joueur(nomJoueur);
 		Partie partie = new Partie(joueurRouge, nomPartie);
 		// Persist de la partie pour générer son ID
@@ -58,42 +60,38 @@ public class GestionPartiesImpl implements GestionParties {
 			partie = partieDao.enregistrer(partie);
 		} catch (Throwable t) {
 			System.out.println("Tets clef");
-			throw new PartieException();
+			throw new EJBException();
 		}
-		
-		System.out.println("ID partie = " + partie.getId());
-		System.out.println("avant Taille 2 : " + partiesEnAttente.keySet().size()+" id partie : "+partie.getId());
 		partiesEnAttente.put(partie.getId(), partie);
-		
-		System.out.println("apres Taille 2 : " + partiesEnAttente.keySet().size()+" id partie : "+partie.getId());
-		
 		return partie;
-		
+
 	}
 
 	@Override
-	public Partie rejoindrePartie(int idPartie, String nomJoueur) throws PartieException {
-		
+	public Partie rejoindrePartie(int idPartie, String nomJoueur)
+			throws PartieException {
+
 		// Recherche de la partie
 		Partie partie = partiesEnAttente.get(idPartie);
-		
+
 		// Vérifications
-		if(partie == null)
-			throw new PartieException("La partie que vous tentez de joindre n'éxiste pas.");
-		if(partie.getJoueurBleu() != null)
-			throw new PartieException("La partie que vous tentez de joindre est pleine.");
-		
+		if (partie == null)
+			throw new PartieException(
+					"La partie que vous tentez de joindre n'éxiste pas.");
+		if (partie.getJoueurBleu() != null)
+			throw new PartieException(
+					"La partie que vous tentez de joindre est pleine.");
+
 		// Le joueur rejoint la partie
 		Joueur joueurBleu = new Joueur(nomJoueur);
 		partie.ajouterJoueurBleu(joueurBleu);
-		
+
 		// La partie n'est plus en attente
 		partiesEnAttente.remove(idPartie);
-		
-		partieDao.enregistrer(partie);
-		
+		partieDao.mettreAJour(partie);
+
 		return partie;
-		
+
 	}
 
 }
