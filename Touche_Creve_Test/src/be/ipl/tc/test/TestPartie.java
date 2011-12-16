@@ -39,9 +39,7 @@ public class TestPartie {
 
 	@Test(expected = PartieException.class)
 	public void testCreerPartie2() {
-
 		uccPartie.creerPartie("Joueur 2", "Partie 1");
-
 	}
 
 	@Test
@@ -59,34 +57,33 @@ public class TestPartie {
 		assertEquals(0, listePartiesTerminees.size());
 
 	}
-	
+
 	@Test(expected = PartieException.class)
-	public void testRejoindrePartieSiPartieNull(){
+	public void testRejoindrePartieSiPartieNull() {
 		uccPartie.rejoindrePartie(-1, "Joueur 1");
 	}
-	
+
 	@Test
-	public void testRejoindrePartie(){
-		Partie partie=uccPartie.creerPartie("Joueur 1","Partie 3");
-		Partie partie2=uccPartie.rejoindrePartie(partie.getId(),"Joueur2");
-		System.out.println(partie2.getJoueurBleu().getNom());
+	public void testRejoindrePartie() {
+		Partie partie = uccPartie.creerPartie("Joueur 1", "Partie 3");
+		Partie partie2 = uccPartie.rejoindrePartie(partie.getId(), "Joueur2");
 		assertTrue("Joueur2".equals(partie2.getJoueurBleu().getNom()));
 	}
-	
+
 	@Test(expected = PartieException.class)
-	public void testRejoindrePartieSiPleine(){
-		Partie partie=uccPartie.creerPartie("Joueur 1","Partie 4");
-		uccPartie.rejoindrePartie(partie.getId(),"Joueur 2");
-		uccPartie.rejoindrePartie(partie.getId(),"Joueur 3");
+	public void testRejoindrePartieSiPleine() {
+		Partie partie = uccPartie.creerPartie("Joueur 1", "Partie 4");
+		uccPartie.rejoindrePartie(partie.getId(), "Joueur 2");
+		uccPartie.rejoindrePartie(partie.getId(), "Joueur 3");
 	}
-	
+
 	@Test
-	public void testRejoindrePartieSuppressionListeAttente(){
-		Partie partie=uccPartie.creerPartie("Joueur 1","Partie 5");
-		uccPartie.rejoindrePartie(partie.getId(),"Joueur 2");
-		List<Partie> listePartiesEnAttente=uccPartie.listerPartiesEnAttente();
-		for(Partie p : listePartiesEnAttente){
-			if(partie.getId()==p.getId()){
+	public void testRejoindrePartieSuppressionListeAttente() {
+		Partie partie = uccPartie.creerPartie("Joueur 1", "Partie 5");
+		uccPartie.rejoindrePartie(partie.getId(), "Joueur 2");
+		List<Partie> listePartiesEnAttente = uccPartie.listerPartiesEnAttente();
+		for (Partie p : listePartiesEnAttente) {
+			if (partie.getId() == p.getId()) {
 				assertFalse(true);
 			}
 		}
