@@ -20,6 +20,7 @@ import be.ipl.tc.exceptions.PartieException;
 import be.ipl.tc.exceptions.VoitureException;
 import be.ipl.tc.usecases.GestionVoitures;
 import be.ipl.tc.usecases.GestionVoituresRemote;
+import be.ipl.tc.util.Util;
 
 @Singleton
 @Remote(GestionVoituresRemote.class)
@@ -57,40 +58,37 @@ public class GestionVoituresImpl implements GestionVoitures {
 	public void placerVoiture(int idPartie, int idJoueur,
 			String nomVoiture, int ligne, int colonne, int direction)
 			throws ArgumentInvalideException, VoitureException {
-		
 			Partie partie = partieDao.rechercher(idPartie);
 			Joueur joueur = joueurDao.rechercher(idJoueur);
-			
+			//Vérifie que le nom passé en paramètre n'est pas null
+			Util.checkObject(nomVoiture);
 			// Le joueur doit être dans la partie spécifiée
 			if(!partie.contientJoueur(joueur))
 				throw new PartieException();
-			
-			System.out.println("placerVoiture : 1");
-			// Le nom en paramètre doit correspondre au nom d'une des voitures à placer
+			//La voiture n'est pas présente dans la liste des voitures pouvant être ajoutées
+//			if(!voituresAPlacer.containsKey(nomVoiture))
+//				throw new ArgumentInvalideException("La voiture que vous avez choisi n'est pas un choix possible");
+//			// Le nom en paramètre doit correspondre au nom d'une des voitures à placer
 			Voiture newVoiture = voituresAPlacer.get(nomVoiture);
 			if(newVoiture == null)
 				throw new VoitureException();
 			newVoiture = (Voiture) newVoiture.clone();
 			
-			System.out.println("placerVoiture : 2");
 			
 			// Le joueur ne peut placer deux fois la même voiture
 			for(Voiture v : joueur.getVoitures())
 				if(v.equals(newVoiture))
 					throw new VoitureException();
 			
-			System.out.println("placerVoiture : 3");
 		
 			newVoiture.setDirection(direction);
 			newVoiture.setLigne(ligne);
 			newVoiture.setColonne(colonne);
 			partie.placerVoiture(joueur, newVoiture);
 			
-			System.out.println("placerVoiture : 4");
 			
 			voitureDao.enregistrer(newVoiture);
 			
-			System.out.println("placerVoiture : 5");
 	}
 
 }
