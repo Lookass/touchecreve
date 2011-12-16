@@ -162,6 +162,7 @@ public class Partie implements Serializable {
 	private Partie.Etat etat = Partie.Etat.EN_ATTENTE;
 	@Transient
 	private Joueur tour;
+
 	
 	public Partie(){}
 	
