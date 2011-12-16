@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
+import be.ipl.tc.dao.JoueurDao;
 import be.ipl.tc.dao.PartieDao;
 import be.ipl.tc.dao.TentativeCrevaisonDao;
 import be.ipl.tc.domaine.Joueur;
@@ -14,7 +15,6 @@ import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
-import be.ipl.tc.exceptions.TentativeCrevaisonException;
 import be.ipl.tc.usecases.GestionTentativesCrevaison;
 import be.ipl.tc.usecases.GestionTentativesCrevaisonRemote;
 
@@ -24,20 +24,23 @@ public class GestionTentativesCrevaisonImpl implements
 		GestionTentativesCrevaison {
 	
 	@EJB PartieDao partieDao;
+	@EJB JoueurDao joueurDao;
 	@EJB TentativeCrevaisonDao tentativeCrevaisonDao;
 
 	@Override
-	public TentativeCrevaison tenterCrevaison(Partie partie,
-			Joueur joueur, int ligne, int colonne)
+	public TentativeCrevaison tenterCrevaison(int idPartie,
+			int idJoueur, int ligne, int colonne)
 			throws ArgumentInvalideException, PartieException {
 		
-		System.out.println("Test 1");
+		Partie partie = partieDao.recharger(idPartie);
+		Joueur joueur = joueurDao.recharger(idJoueur);
+		
+		if(!partie.contientJoueur(joueur))
+			throw new PartieException("Le joueur n'appartient pas à cette partie.");
 		
 		TentativeCrevaison tentative = partie.tenterCrevaison(joueur, ligne, colonne);
 		
-		System.out.println("Test 1");
 		tentativeCrevaisonDao.enregistrer(tentative);
-		System.out.println("Test 2");
 		
 		return tentative;
 	}

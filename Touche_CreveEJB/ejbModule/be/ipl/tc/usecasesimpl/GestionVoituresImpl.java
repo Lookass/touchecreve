@@ -58,37 +58,34 @@ public class GestionVoituresImpl implements GestionVoitures {
 	public void placerVoiture(int idPartie, int idJoueur,
 			String nomVoiture, int ligne, int colonne, int direction)
 			throws ArgumentInvalideException, VoitureException {
-			Partie partie = partieDao.rechercher(idPartie);
-			Joueur joueur = joueurDao.rechercher(idJoueur);
+		
+			Partie partie = partieDao.recharger(idPartie);
+			Joueur joueur = joueurDao.recharger(idJoueur);
+			
 			//Vérifie que le nom passé en paramètre n'est pas null
 			Util.checkObject(nomVoiture);
 			// Le joueur doit être dans la partie spécifiée
 			if(!partie.contientJoueur(joueur))
-				throw new PartieException();
-			//La voiture n'est pas présente dans la liste des voitures pouvant être ajoutées
-//			if(!voituresAPlacer.containsKey(nomVoiture))
-//				throw new ArgumentInvalideException("La voiture que vous avez choisi n'est pas un choix possible");
-//			// Le nom en paramètre doit correspondre au nom d'une des voitures à placer
+				throw new PartieException("La partie ne contient pas le joueur.");
+
+			// Le nom en paramètre doit correspondre au nom d'une des voitures à placer
+
 			Voiture newVoiture = voituresAPlacer.get(nomVoiture);
 			if(newVoiture == null)
 				throw new VoitureException();
 			newVoiture = (Voiture) newVoiture.clone();
 			
-			
 			// Le joueur ne peut placer deux fois la même voiture
 			for(Voiture v : joueur.getVoitures())
 				if(v.equals(newVoiture))
 					throw new VoitureException();
-			
-		
+
 			newVoiture.setDirection(direction);
 			newVoiture.setLigne(ligne);
 			newVoiture.setColonne(colonne);
 			partie.placerVoiture(joueur, newVoiture);
 			
-			
 			voitureDao.enregistrer(newVoiture);
-			
 	}
 
 }

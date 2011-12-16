@@ -24,7 +24,7 @@ public interface GestionTentativesCrevaison {
 	 * @throws ArgumentInvalideException
 	 * @throws TentativeCrevaisonException
 	 */
-	TentativeCrevaison tenterCrevaison(Partie partie, Joueur joueur, int ligne, int colonne) throws ArgumentInvalideException, TentativeCrevaisonException;
+	TentativeCrevaison tenterCrevaison(int idPartie, int idJoueur, int ligne, int colonne) throws ArgumentInvalideException, TentativeCrevaisonException;
 	
 	/**
 	 * @param idPartie L'id de la partie

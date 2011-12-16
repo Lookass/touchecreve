@@ -11,6 +11,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Tentatives", schema = "TC")
 public class TentativeCrevaison implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3821664780910918594L;
+	
+	public static int TENTATIVE_ETAT_RATE;
+	public static int TENTATIVE_ETAT_TOUCHE;
+	public static int TENTATIVE_ETAT_CREVE;
+	
+	
 	@Id
 	@GeneratedValue
 	private int id;
@@ -18,6 +29,7 @@ public class TentativeCrevaison implements Serializable {
 	private int ligne;
 	@Column(nullable=false)
 	private int colonne;
+	@Column(nullable=false)
 	private int etatTentative;
 
 	public TentativeCrevaison() {

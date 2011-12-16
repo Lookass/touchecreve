@@ -22,7 +22,6 @@ public class Voiture implements Serializable,Cloneable {
 	private int colonne;
 	private int direction;
 	private int nbrPneus;
-	@Transient
 	private int nbrPneusRestant;
 
 	public static int DIRECTION_HORIZONTAL = 0;
@@ -58,10 +57,14 @@ public class Voiture implements Serializable,Cloneable {
 		return nbrPneusRestant;
 	}
 	
-	public void creverPneu() {
+	public void creverPneu(TentativeCrevaison tc) {
 		if(nbrPneusRestant == 0)
 			throw new PartieException("Tous les pneus ont déjà été crevés");
 		--nbrPneusRestant;
+		if(nbrPneusRestant == 0)
+			tc.setEtatTentative(TentativeCrevaison.TENTATIVE_ETAT_CREVE);
+		else
+			tc.setEtatTentative(TentativeCrevaison.TENTATIVE_ETAT_TOUCHE);
 	}
 
 	public int getId() {
