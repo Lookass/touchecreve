@@ -37,7 +37,10 @@ public class CreePartie extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!SessionManager.isNameSet(request.getSession(true)))
 				response.sendRedirect("index.html");
-		gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession(true)), "Beep");
+		if (request.getAttribute("nompartie") != null)
+			gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession(true)), (String)request.getAttribute("nompartie"));
+		else
+			response.sendRedirect("index.html");
 		
 	}
 
