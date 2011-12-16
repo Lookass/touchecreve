@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,8 @@ import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.domaine.Joueur;
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.sessions.SessionManager;
+import be.ipl.tc.usecases.GestionParties;
+import be.ipl.tc.usecases.GestionTentativesCrevaison;
 
 /**
  * Servlet implementation class LireJournal
@@ -36,10 +39,14 @@ public class LireJournal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     
+    @EJB GestionTentativesCrevaison gestionTC;
+    @EJB private GestionParties gestionPartiesUCC;	
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
 		} else {
+			/* Mock up object 
 			List<TentativeCrevaison> mvt  = new ArrayList<TentativeCrevaison>();
 			TentativeCrevaison tc = new TentativeCrevaison(1,1);
 			tc.setEtatTentative(0);
@@ -61,8 +68,21 @@ public class LireJournal extends HttpServlet {
 			mvt.add(tc);
 			Partie x = new Partie(new Joueur("Yassan"), "Partie de Yassan");
 			x.ajouterJoueurBleu(new Joueur("Un Inconnu"));
-			request.setAttribute("partie", x);
+			*/
+			
+			List<Partie> partieTerminee = gestionPartiesUCC.listerPartiesTerminees();
+			Partie partie = null;
+			for (Partie pt : partieTerminee) {
+				if (pt.getId() == Integer.parseInt(request.getParameter("idpartie"))) {
+					partie = pt;
+					break;
+				}
+			}
+			List<TentativeCrevaison> mvt  = gestionTC.listerTentatives(partie.getId());
+			
+			request.setAttribute("partie", partie);
 			request.setAttribute("mouvements", mvt);
+			
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
 			rd.forward(request, response);
 		}
