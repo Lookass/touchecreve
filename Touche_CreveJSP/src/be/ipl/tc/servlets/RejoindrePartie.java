@@ -2,6 +2,7 @@ package be.ipl.tc.servlets;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import be.ipl.tc.sessions.SessionManager;
+import be.ipl.tc.usecases.GestionParties;
 
 /**
  * Servlet implementation class RejoindrePartie
@@ -29,17 +31,18 @@ public class RejoindrePartie extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @EJB private GestionParties gestionPartiesUCC;	
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
 		} else {
 			if (request.getParameter("gameid") != null) {
-				
+				gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("Game");
 				rd.forward(request, response);
 			} else {
-				RequestDispatcher rd = getServletContext().getNamedDispatcher("Lobby");
-				rd.forward(request, response);
+				response.sendRedirect("index.html");
 			}
 		}
 	}
