@@ -35,12 +35,14 @@ public class CreePartie extends HttpServlet {
     @EJB private GestionParties gestionPartiesUCC;	
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (!SessionManager.isNameSet(request.getSession(true)))
+		if (!SessionManager.isNameSet(request.getSession(true))) {
 				response.sendRedirect("index.html");
-		if (request.getAttribute("nompartie") != null)
-			gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession(true)), (String)request.getAttribute("nompartie"));
-		else
-			response.sendRedirect("index.html");
+		} else {
+			System.out.println(SessionManager.getNom(request.getSession()));
+			System.out.println(request.getParameter("nompartie"));
+			gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession()), request.getParameter("nompartie"));
+		}
+
 		
 	}
 
