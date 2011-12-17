@@ -72,14 +72,14 @@ function postPlacementVoiture() {
 		if (direction == 0) { //Si horizontal
 			for(var i = colonne;i < colonne+nbRoue;i++) {
 				$('#G'+ligne+''+i).removeClass("cellule_voiture_placement");
-				$('#G'+ligne+''+i).addClass("cellule_voiture_pneu_norma");
+				$('#G'+ligne+''+i).addClass("cellule_voiture_pneu_normal");
 			}
 			
 		} else  { //Si vertical
 			for(var i = ligne;i < ligne+nbRoue;i++) {
 				
 				$('#G'+i+''+colonne).removeClass("cellule_voiture_placement");
-				$('#G'+i+''+colonne).addClass("cellule_voiture_pneu_norma");
+				$('#G'+i+''+colonne).addClass("cellule_voiture_pneu_normal");
 			}
 		}
 		if (nbRoue < 5) {
