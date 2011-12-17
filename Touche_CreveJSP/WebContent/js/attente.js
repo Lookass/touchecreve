@@ -1,4 +1,6 @@
  $(document).ready(function() {
+	 alert('lol');
+	 alert(idPartie);
    setInterval(function() {
 	   $.post("PingPartie", {id: idPartie},
 			   function(data) {

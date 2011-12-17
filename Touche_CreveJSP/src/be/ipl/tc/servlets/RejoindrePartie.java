@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.jndi.toolkit.ctx.PartialCompositeContext;
+
+import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.sessions.SessionManager;
 import be.ipl.tc.usecases.GestionParties;
 
@@ -38,8 +41,9 @@ public class RejoindrePartie extends HttpServlet {
 			response.sendRedirect("index.html");
 		} else {
 			if (request.getParameter("gameid") != null) {
-				gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
+				Partie p = gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("PrepareGame");
+				request.setAttribute("partie", p);
 				rd.forward(request, response);
 			} else {
 				response.sendRedirect("index.html");
