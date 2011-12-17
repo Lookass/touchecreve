@@ -27,6 +27,10 @@
     <jsp-file>/WEB-INF/jsp/game.jsp</jsp-file>
   </servlet>
   <servlet>
+    <servlet-name>PrepareGame</servlet-name>
+    <jsp-file>/WEB-INF/jsp/preparegame.jsp</jsp-file>
+  </servlet>
+  <servlet>
     <servlet-name>Journal</servlet-name>
     <jsp-file>/WEB-INF/jsp/journal.jsp</jsp-file>
   </servlet>
