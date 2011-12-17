@@ -50,7 +50,7 @@ function previewPlacement() {
 		
 	} else  { //Si vertical
 		for(var i = ligne;i < ligne+nbRoue;i++) {
-			if ($('#G'+i+''+colonne).addClass("cellule_voiture_pneu_normal")) {
+			if ($('#G'+i+''+colonne).hasClass("cellule_voiture_pneu_normal")) {
 				alert('Collision avec une autre voiture');
 				return 0;
 			}
