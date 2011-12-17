@@ -63,8 +63,8 @@ public class Partie implements Serializable {
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
 				// La voiture à placer ne doit pas occuper de case utilisée par une autre voiture
 				for(Voiture autre : joueur.getVoitures())
-					if(autre.occupePlace(v.getLigne(), v.getColonne()))
-						throw new PartieException("L'emplacement [ " + v.getLigne() + ":" + v.getColonne() + "] est déjà occupé.");
+					if(autre.occupePlace(v))
+						throw new PartieException("L'emplacement [ " + v.getLigne() + ":" + v.getColonne() + (v.getDirection() == Voiture.DIRECTION_HORIZONTAL ? "(Horizontal)" : "(Vertical)") + "] est déjà occupé.");
 				joueur.ajouterVoiture(v);
 				
 				// On lance la partie si toutes les voitures ont été placées
@@ -102,7 +102,7 @@ public class Partie implements Serializable {
 				tentative.setEtatTentative(TentativeCrevaison.TENTATIVE_ETAT_RATE);
 				
 				for(Voiture v : joueur.getVoitures())
-					if(v.occupePlace(ligne, colonne))
+					if(v.occupeCellule(ligne, colonne))
 						v.creverPneu(tentative);
 				
 				joueur.ajouterTentativeCrevaison(tentative);
