@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -13,13 +14,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import be.ipl.tc.domaine.Partie;
-import be.ipl.tc.exceptions.PartieException;
 import be.ipl.tc.usecases.GestionPartiesRemote;
 
 public class TestPartie {
 
 	private static GestionPartiesRemote uccPartie;
-	private static Partie partie;
 
 	@BeforeClass
 	public static void init() throws Exception {
@@ -37,7 +36,7 @@ public class TestPartie {
 		uccPartie.creerPartie("Joueur 2", "Partie 2");
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testCreerPartie2() {
 		uccPartie.creerPartie("Joueur 2", "Partie 1");
 	}
@@ -58,7 +57,7 @@ public class TestPartie {
 
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testRejoindrePartieSiPartieNull() {
 		uccPartie.rejoindrePartie(-1, "Joueur 1");
 	}
@@ -70,7 +69,7 @@ public class TestPartie {
 		assertTrue("Joueur2".equals(partie2.getJoueurBleu().getNom()));
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testRejoindrePartieSiPleine() {
 		Partie partie = uccPartie.creerPartie("Joueur 1", "Partie 4");
 		uccPartie.rejoindrePartie(partie.getId(), "Joueur 2");
