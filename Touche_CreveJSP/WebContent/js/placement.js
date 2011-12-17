@@ -26,8 +26,8 @@ function previewPlacement() {
 
 //Une fois le preview placé, on envoit dans un POST -avec ajax- le placement de la voiture en cours.
 function postPlacementVoiture() {
-	$('#displayVoiturePreview').html("");
-	for(var i = 0;i<nbRoue;i++)
+	if (nbRoue < 5) {
+		$('#nomVoiture').html(getNextVoiture());
 		$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
-	$('#nomVoiture').html(getNextVoiture());
+	}
 }
