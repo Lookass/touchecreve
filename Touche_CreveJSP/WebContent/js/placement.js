@@ -66,6 +66,9 @@ function previewPlacement() {
 //Une fois le preview placé, on envoit dans un POST -avec ajax- le placement de la voiture en cours.
 function postPlacementVoiture() {
 	if (previewPlacement() == 1) {
+		var direction = $('#selectDirection').val();
+		var ligne = $('#selectLigne').val()*1;
+		var colonne = $('#selectColonne').val()*1;
 		if (direction == 0) { //Si horizontal
 			for(var i = colonne;i < colonne+nbRoue;i++) {
 				$('#G'+ligne+''+i).removeClass("cellule_voiture_placement");
