@@ -97,18 +97,18 @@ public class Voiture implements Serializable,Cloneable {
 				if(this.ligne != autre.ligne)
 					return false;
 				if(this.colonne < autre.colonne)
-					if(this.colonne + this.nbrPneus < autre.colonne)
+					if(this.colonne + this.nbrPneus <= autre.colonne)//<=
 					return false;
 				else
-					if(autre.colonne + autre.nbrPneus < this.colonne)
+					if(autre.colonne + autre.nbrPneus <= this.colonne)//<=
 						return false;
 				return true;
 			} else {
 				if(this.ligne > autre.ligne)
 					return false;
-				if(this.colonne < autre.colonne && this.colonne > autre.colonne + autre.nbrPneus)
+				if(this.colonne < autre.colonne || this.colonne >= autre.colonne + autre.nbrPneus) // >=
 					return false;
-				if(this.ligne + this.nbrPneus < autre.ligne)
+				if(this.ligne + this.nbrPneus <= autre.ligne)//<=
 					return false;
 				return true;
 			}
