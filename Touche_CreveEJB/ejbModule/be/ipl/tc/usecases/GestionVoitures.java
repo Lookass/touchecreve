@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.Voiture;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.VoitureException;
@@ -23,6 +24,6 @@ public interface GestionVoitures {
 	 * @throws ArgumentInvalideException
 	 * @throws VoitureException
 	 */
-	Voiture placerVoiture(int partieId, int idJoueur, String nomVoiture, int ligne, int colonne, int direction) throws ArgumentInvalideException, VoitureException;
+	Partie placerVoiture(int partieId, int idJoueur, String nomVoiture, int ligne, int colonne, int direction) throws ArgumentInvalideException, VoitureException;
 
 }

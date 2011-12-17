@@ -69,12 +69,13 @@ public class GestionVoituresImpl implements GestionVoitures {
 	}
 
 	@Override
-	public Voiture placerVoiture(int idPartie, int idJoueur,
+	public Partie placerVoiture(int idPartie, int idJoueur,
 			String nomVoiture, int ligne, int colonne, int direction)
 			throws ArgumentInvalideException, VoitureException {
 		
 			Partie partie;
 			Joueur joueur;
+			
 			try{
 				partie = partieDao.recharger(idPartie);
 			}catch (Exception e) {
@@ -109,7 +110,9 @@ public class GestionVoituresImpl implements GestionVoitures {
 			newVoiture.setColonne(colonne);
 			partie.placerVoiture(joueur, newVoiture);
 			
-			return voitureDao.enregistrer(newVoiture);
+			voitureDao.enregistrer(newVoiture);
+			
+			return partie;
 	}
 
 }
