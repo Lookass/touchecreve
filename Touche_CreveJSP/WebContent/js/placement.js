@@ -3,6 +3,7 @@ var nbRoue = 1;
 var idPartie = 0;
 var idJoueur = 0;
 
+
 function setIdPartie(id) {
 	idPartie = id;
 }
