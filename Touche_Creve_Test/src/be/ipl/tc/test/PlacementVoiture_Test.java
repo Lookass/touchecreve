@@ -104,7 +104,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Break", 3, 2,
 				Voiture.DIRECTION_HORIZONTAL);
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie
-				.getJoueurRouge().getIdJoueur(), "Coupé", 3, 2,
+				.getJoueurRouge().getIdJoueur(), "Coupe", 3, 2,
 				Voiture.DIRECTION_HORIZONTAL);
 	}
 
