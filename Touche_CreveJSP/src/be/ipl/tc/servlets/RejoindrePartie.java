@@ -39,7 +39,7 @@ public class RejoindrePartie extends HttpServlet {
 		} else {
 			if (request.getParameter("gameid") != null) {
 				gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
-				RequestDispatcher rd = getServletContext().getNamedDispatcher("Game");
+				RequestDispatcher rd = getServletContext().getNamedDispatcher("PrepareGame");
 				rd.forward(request, response);
 			} else {
 				response.sendRedirect("index.html");
