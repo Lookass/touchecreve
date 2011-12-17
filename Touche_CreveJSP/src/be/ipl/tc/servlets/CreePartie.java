@@ -39,8 +39,9 @@ public class CreePartie extends HttpServlet {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 				response.sendRedirect("index.html");
 		} else {
-			gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession()), request.getParameter("nompartie"));
+			Partie p = gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession()), request.getParameter("nompartie"));
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("PrepareGame");
+			request.setAttribute("partie", p);
 			rd.forward(request, response);
 		}
 

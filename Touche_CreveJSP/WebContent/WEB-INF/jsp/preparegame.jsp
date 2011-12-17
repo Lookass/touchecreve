@@ -16,8 +16,8 @@
 	   <script type="text/javascript" src="js/placement.js"></script>
 	   <script type="text/javascript">
 	   $(document).ready(function() {
-		   setIdPartie($(partie.id));
-		   setIdJoueur($(partie.joueurRouge.id));
+		   setIdPartie(<c:out value="${partie.id}" />);
+		   setIdJoueur(<c:out value="${partie.joueurRouge.idJoueur}" />);
 		});
 	   </script>
     </head>

@@ -94,6 +94,7 @@ function postPlacementVoiture() {
 		}
 		$.post("placer", { idpartie: idPartie, idjoueur: idJoueur, voiture: $('#nomVoiture').html(), l: ligne, c: colonne, d: direction},
 				   function(data) {
+					 alert("Data Loaded: " + data);
 					 if (data == "1") { //La requête à réussie
 						 if (nbRoue < 5) {
 								$('#nomVoiture').html(getNextVoiture());
