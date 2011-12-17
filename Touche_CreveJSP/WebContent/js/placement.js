@@ -1,8 +1,8 @@
-var voituresAPlacer = new Array("Citadine", "Coupé", "Berline", "Break", "Limousine");
+var voituresAPlacer = new Array(2, "Citadine", 3, "Coupé", 3, "Berline", 4, "Break", 5, "Limousine");
 var nbRoue = 1;
 
 function getNextVoiture() {
-	nbRoue++;
+	nbRoue = voituresAPlacer.shift();
 	return voituresAPlacer.shift();
 }
 
@@ -28,6 +28,9 @@ function previewPlacement() {
 function postPlacementVoiture() {
 	if (nbRoue < 5) {
 		$('#nomVoiture').html(getNextVoiture());
-		$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
+		$('#displayVoiturePreview').html("");
+		for(var i = 0;i < nbRoue;i++) {
+			$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
+		}
 	}
 }
