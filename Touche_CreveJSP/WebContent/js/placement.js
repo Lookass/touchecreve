@@ -13,7 +13,11 @@ function setIdJoueur(id) {
 	
 function getNextVoiture() {
 	nbRoue = voituresAPlacer.shift();
-	return voituresAPlacer.shift();
+	$('#nomVoiture').html(voituresAPlacer.shift());
+	$('#displayVoiturePreview').html("");
+	for(var i = 0;i < nbRoue;i++) {
+		$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
+	}
 }
 
 //Fonction permet de verifier si les coordonnées sont OK et affiche un preview dans le tableau.
@@ -75,40 +79,39 @@ function previewPlacement() {
 
 //Une fois le preview placé, on envoit dans un POST -avec ajax- le placement de la voiture en cours.
 function postPlacementVoiture() {
-	if (previewPlacement() == 1) {
-		var direction = $('#selectDirection').val();
-		var ligne = $('#selectLigne').val()*1;
-		var colonne = $('#selectColonne').val()*1;
-		if (direction == 0) { //Si horizontal
-			for(var i = colonne;i < colonne+nbRoue;i++) {
-				$('#G'+ligne+''+i).removeClass("cellule_voiture_placement");
-				$('#G'+ligne+''+i).addClass("cellule_voiture_pneu_normal");
-			}
-			
-		} else  { //Si vertical
-			for(var i = ligne;i < ligne+nbRoue;i++) {
-				
-				$('#G'+i+''+colonne).removeClass("cellule_voiture_placement");
-				$('#G'+i+''+colonne).addClass("cellule_voiture_pneu_normal");
-			}
-		}
-		$.post("placer", { idpartie: idPartie, idjoueur: idJoueur, voiture: $('#nomVoiture').html(), l: ligne, c: colonne, d: direction},
-				   function(data) {
-					 alert("Data Loaded: " + data);
-					 if (data == "1") { //La requête à réussie
-						 if (nbRoue < 5) {
-								$('#nomVoiture').html(getNextVoiture());
-								$('#displayVoiturePreview').html("");
-								for(var i = 0;i < nbRoue;i++) {
-									$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
+	if (nbRoue < 5) { 
+		
+	
+		if (previewPlacement() == 1) {
+			var direction = $('#selectDirection').val();
+			var ligne = $('#selectLigne').val()*1;
+			var colonne = $('#selectColonne').val()*1;
+			$.post("placer", { idpartie: idPartie, idjoueur: idJoueur, voiture: $('#nomVoiture').html(), l: ligne, c: colonne, d: direction},
+					   function(data) {
+						 alert("Data Loaded: " + data);
+	
+						 if (data == "1") { //La requête à réussie
+							if (direction == 0) { //Si horizontal
+								for(var i = colonne;i < colonne+nbRoue;i++) {
+									$('#G'+ligne+''+i).removeClass("cellule_voiture_placement");
+									$('#G'+ligne+''+i).addClass("cellule_voiture_pneu_normal");
+								}
+								
+							} else  { //Si vertical
+								for(var i = ligne;i < ligne+nbRoue;i++) {
+									
+									$('#G'+i+''+colonne).removeClass("cellule_voiture_placement");
+									$('#G'+i+''+colonne).addClass("cellule_voiture_pneu_normal");
 								}
 							}
-					 } else { //On affiche l'exception
-						 alert("Data Loaded: " + data);
-					 }
-				   });
-		
-		
-	}
+							getNextVoiture();
 	
+						 } else { //On affiche l'exception
+							 alert("Data Loaded: " + data);
+						 }
+					   });
+			
+			
+		}
+	}
 }
