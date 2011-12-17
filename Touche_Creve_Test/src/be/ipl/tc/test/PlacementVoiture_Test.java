@@ -245,6 +245,36 @@ public class PlacementVoiture_Test {
 	@Test 
 	public void testPlacerVoitureCroiseAutreVoitureB()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 8, 1, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 2, 0, 1);
+
 	}
+	@Test 
+	public void testPlacerVoitureCroiseAutreVoitureC()
+			throws ArgumentInvalideException, VoitureException {
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 0, 2, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 0);
+	}
+	@Test(expected= EJBException.class)
+	public void testPlacerVoitureCroiseAutreVoitureD()
+			throws ArgumentInvalideException, VoitureException {
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 0, 1, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 2, 0, 0);
+	}
+	@Test 
+	public void testPlacerVoitureCroiseAutreVoitureE()
+			throws ArgumentInvalideException, VoitureException {
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 0, 8, 0);
+	}
+	@Test 
+	public void testPlacerVoitureCroiseAutreVoitureF()
+			throws ArgumentInvalideException, VoitureException {
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 8, 0, 1);
+	}
+	@Test 
+	public void testPlacerVoitureCroiseAutreVoitureG()
+			throws ArgumentInvalideException, VoitureException {
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 9, 8, 0);
+	}
+	
 }
