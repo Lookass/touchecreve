@@ -126,6 +126,8 @@ public class TestPartie {
 		
 		} catch (EJBException e) {
 			fail();
+		} catch (VoitureException e) {
+			fail();
 		}
 		
 		assertEquals(Partie.Etat.EN_COURS, p.getEtat());
@@ -205,6 +207,8 @@ public class TestPartie {
 				uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Citadine", 6, 6, Voiture.DIRECTION_HORIZONTAL);
 				fail();
 			} catch (EJBException e) {
+				assertTrue(true);
+			} catch (VoitureException e) {
 				assertTrue(true);
 			}
 			
