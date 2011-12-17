@@ -61,12 +61,10 @@ public class Partie implements Serializable {
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
 				if(v.getDirection() == Voiture.DIRECTION_HORIZONTAL && v.getColonne() + v.getNbrPneus() > COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
-				
 				// La voiture à placer ne doit pas occuper de case utilisée par une autre voiture
 				for(Voiture autre : joueur.getVoitures())
 					if(autre.occupePlace(v.getLigne(), v.getColonne()))
 						throw new PartieException("L'emplacement [ " + v.getLigne() + ":" + v.getColonne() + "] est déjà occupé.");
-				
 				joueur.ajouterVoiture(v);
 				
 				// On lance la partie si toutes les voitures ont été placées
