@@ -19,6 +19,17 @@
 		   setIdPartie(<c:out value="${partie.id}" />);
 		   setIdJoueur(<c:out value="${idJoueur}" />);
 		   getNextVoiture();
+		   setInterval(function() {
+			   $.post("PingPartie", {id: idPartie},
+					   function(data) {
+				   if (data == "EN_COURS") {
+					   alert("Les deux parties ont placé leurs voitures!");
+					   $('#redirectGame').append('<input type="hidden" name="gameid" value="'+ <c:out value="${partie.id}" /> +'" />');
+					   $('#redirectGame').submit();
+				   }
+			   })
+		   }, 5000);
+		   $.ajaxSetup({ cache: false });
 		});
 	   </script>
     </head>
@@ -231,6 +242,6 @@
 			</div>
 			
 		</div>
-		
+		<form id="redirectGame" METHOD="POST" ACTION="game.html"></form>
 	</body>
 </html>

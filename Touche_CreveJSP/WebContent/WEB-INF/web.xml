@@ -60,16 +60,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>AfficherPartie</display-name>
-    <servlet-name>AfficherPartie</servlet-name>
-    <servlet-class>be.ipl.tc.servlets.AfficherPartie</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AfficherPartie</servlet-name>
-    <url-pattern>/AfficherPartie</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>PingPartie</display-name>
     <servlet-name>PingPartie</servlet-name>
     <servlet-class>be.ipl.tc.servlets.PingPartie</servlet-class>
