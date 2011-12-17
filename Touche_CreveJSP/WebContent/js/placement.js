@@ -1,6 +1,16 @@
 var voituresAPlacer = new Array(2, "Citadine", 3, "Coupé", 3, "Berline", 4, "Break", 5, "Limousine");
 var nbRoue = 1;
+var idPartie = 0;
+var idJoueur = 0;
 
+function setIdPartie(id) {
+	idPartie = id;
+}
+
+function setIdJoueur(id) {
+	idJoueur = id;
+}
+	
 function getNextVoiture() {
 	nbRoue = voituresAPlacer.shift();
 	return voituresAPlacer.shift();
@@ -82,6 +92,11 @@ function postPlacementVoiture() {
 				$('#G'+i+''+colonne).addClass("cellule_voiture_pneu_normal");
 			}
 		}
+		$.post("placer", { idpartie: idPartie, idjoueur: idJoueur, voiture: $('#nomVoiture').html(), l: ligne, c: colonne, d: direction},
+				   function(data) {
+				     alert("Data Loaded: " + data);
+				   });
+		
 		if (nbRoue < 5) {
 			$('#nomVoiture').html(getNextVoiture());
 			$('#displayVoiturePreview').html("");
