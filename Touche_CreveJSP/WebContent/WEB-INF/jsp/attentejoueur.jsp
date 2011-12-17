@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript">
-var idPartie = <c:out value="${partie.joueurRouge.idJoueur}" />;
+var idPartie = <c:out value="${partie.id}" />;
 </script>
 <script src="js/attente.js" type="text/javascript" />
 <title>En attente d'un adversaire..</title>
