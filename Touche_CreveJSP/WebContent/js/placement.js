@@ -94,16 +94,20 @@ function postPlacementVoiture() {
 		}
 		$.post("placer", { idpartie: idPartie, idjoueur: idJoueur, voiture: $('#nomVoiture').html(), l: ligne, c: colonne, d: direction},
 				   function(data) {
-				     alert("Data Loaded: " + data);
+					 if (data == "1") { //La requête à réussie
+						 if (nbRoue < 5) {
+								$('#nomVoiture').html(getNextVoiture());
+								$('#displayVoiturePreview').html("");
+								for(var i = 0;i < nbRoue;i++) {
+									$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
+								}
+							}
+					 } else { //On affiche l'exception
+						 alert("Data Loaded: " + data);
+					 }
 				   });
 		
-		if (nbRoue < 5) {
-			$('#nomVoiture').html(getNextVoiture());
-			$('#displayVoiturePreview').html("");
-			for(var i = 0;i < nbRoue;i++) {
-				$('#displayVoiturePreview').append("<td class=\"cellule_voiture_pneu_normal\"></td>");
-			}
-		}
+		
 	}
 	
 }
