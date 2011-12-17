@@ -1,4 +1,4 @@
-var voituresAPlacer = new Array(2, "Citadine", 3, "Coupé", 3, "Berline", 4, "Break", 5, "Limousine");
+var voituresAPlacer = new Array(2, "Citadine", 3, "Coupe", 3, "Berline", 4, "Break", 5, "Limousine");
 var nbRoue = 1;
 var idPartie = 0;
 var idJoueur = 0;
