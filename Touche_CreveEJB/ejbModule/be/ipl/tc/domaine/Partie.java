@@ -50,7 +50,6 @@ public class Partie implements Serializable {
 		EN_PLACEMENT {
 			
 			public boolean placerVoiture(Partie partie, Joueur joueur, Voiture v)  {
-				System.out.println("LIGNE :"+((v.getLigne() + v.getNbrPneus())-1));
 				if(!partie.contientJoueur(joueur))
 					throw new PartieException("Le joueur n'appartient pas à la partie.");
 				if(v.getLigne() < 0 || v.getLigne() > Partie.LIGNE_INDICE_MAX)

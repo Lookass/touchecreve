@@ -96,12 +96,14 @@ public class Voiture implements Serializable,Cloneable {
 			if(this.direction == DIRECTION_HORIZONTAL) {
 				if(this.ligne != autre.ligne)
 					return false;
-				if(this.colonne < autre.colonne)
+				if(this.colonne < autre.colonne){
 					if(this.colonne + this.nbrPneus <= autre.colonne)//<=
 					return false;
-				else
+				}
+				else{
 					if(autre.colonne + autre.nbrPneus <= this.colonne)//<=
 						return false;
+				}
 				return true;
 			} else {
 				if(this.ligne > autre.ligne)
@@ -118,23 +120,24 @@ public class Voiture implements Serializable,Cloneable {
 			if(this.direction == DIRECTION_HORIZONTAL) {
 				if(autre.ligne > this.ligne)
 					return false;
-				if(autre.colonne < this.colonne && autre.colonne > this.colonne + this.nbrPneus)
+				if(autre.colonne < this.colonne || autre.colonne >= this.colonne + this.nbrPneus)
 					return false;
-				if(autre.ligne + autre.nbrPneus < this.ligne)
+				if(autre.ligne + autre.nbrPneus <= this.ligne)
 					return false;
 				return true;
 			} else {
-				if(autre.ligne != this.ligne)
+				if(autre.colonne != this.colonne)
 					return false;
-				if(autre.colonne < this.colonne)
-					if(autre.colonne + autre.nbrPneus < this.colonne)
+				if(autre.ligne < this.ligne){
+					if(autre.ligne + autre.nbrPneus <= this.ligne)
 					return false;
-				else
-					if(this.colonne + this.nbrPneus < autre.colonne)
+				}
+				else{
+					if(this.ligne + this.nbrPneus <= autre.ligne)
 						return false;
+				}
 				return true;
 			}
-			
 		}
 	}
 	
