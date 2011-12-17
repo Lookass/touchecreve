@@ -48,7 +48,6 @@ public class GestionVoituresImpl implements GestionVoitures {
 
 	@Override
 	public List<Voiture> listerVoituresAPlacer() {
-		
 		List<Voiture> listeVoitures = new ArrayList<Voiture>(voituresAPlacer.size());
 		Set<String> nomsVoituresAPlacer = voituresAPlacer.keySet();
 		for(String nomVoiture : nomsVoituresAPlacer) {
@@ -70,13 +69,23 @@ public class GestionVoituresImpl implements GestionVoitures {
 	}
 
 	@Override
-	public void placerVoiture(int idPartie, int idJoueur,
+	public Voiture placerVoiture(int idPartie, int idJoueur,
 			String nomVoiture, int ligne, int colonne, int direction)
 			throws ArgumentInvalideException, VoitureException {
 		
-			Partie partie = partieDao.recharger(idPartie);
-			Joueur joueur = joueurDao.recharger(idJoueur);
-			
+			Partie partie;
+			Joueur joueur;
+			try{
+				partie = partieDao.recharger(idPartie);
+			}catch (Exception e) {
+				throw new PartieException("Partie inexistante");
+			}
+			try{
+				joueur = joueurDao.recharger(idJoueur);
+			}catch (Exception e) {
+				throw new PartieException("Joueur inexistant");
+			}
+				
 			//Vérifie que le nom passé en paramètre n'est pas null
 			Util.checkObject(nomVoiture);
 			// Le joueur doit être dans la partie spécifiée
@@ -92,7 +101,7 @@ public class GestionVoituresImpl implements GestionVoitures {
 			
 			// Le joueur ne peut placer deux fois la même voiture
 			for(Voiture v : joueur.getVoitures())
-				if(v.equals(newVoiture))
+				if(v.getNom().equals(nomVoiture))
 					throw new VoitureException();
 
 			newVoiture.setDirection(direction);
@@ -100,7 +109,7 @@ public class GestionVoituresImpl implements GestionVoitures {
 			newVoiture.setColonne(colonne);
 			partie.placerVoiture(joueur, newVoiture);
 			
-			voitureDao.enregistrer(newVoiture);
+			return voitureDao.enregistrer(newVoiture);
 	}
 
 }
