@@ -228,11 +228,16 @@ public class PlacementVoiture_Test {
 	/*
 	 * Vérifie que le joueur ne peut placer une voiture qui se croise avec une autre.
 	 */
-	@Test(expected = EJBException.class) 
+	@Test 
 	public void testPlacerVoitureCroiseAutreVoiture()
 			throws ArgumentInvalideException, VoitureException {
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Berline", 2, 0, 0);
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 0, 1, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Break", 2, 3, 0);
 	}
 	
+	@Test 
+	public void testPlacerVoitureCroiseAutreVoitureB()
+			throws ArgumentInvalideException, VoitureException {
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 8, 1, 1);
+	}
 }
