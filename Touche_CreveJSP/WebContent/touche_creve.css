@@ -24,7 +24,6 @@ body
 h2
 {
 	display: block;
-	font-family: "Times New Roman", Arial, Verdana, sans-serif;
 	text-align: center;
 	background-image: url("img/bg_black_a75.png");
 	border: 1px solid white;
@@ -37,7 +36,9 @@ h2
 	padding: 15px;
 }
 
-table
+	/**** Lobby ***/
+
+#liste_parties
 {
 	margin: auto;
 	margin-bottom: 25px;
@@ -58,7 +59,7 @@ th
 	background-image: url("img/bg_white_a50.png");
 }
 
-table .selected
+#liste_parties .selected
 {
 	background-image: url("img/bg_blue_a50.png");
 }
@@ -75,7 +76,8 @@ td:hover
 	margin-bottom: 20px;
 	background-image: url("img/bg_black_a75.png");
 	border: 1px solid white;
-	width: 35%;
+	width: 50%;
+	text-align: center;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
@@ -89,7 +91,7 @@ td:hover
 
 .nom_joueur_container
 {
-	font-family: calibri, sans-serif;
+
 }
 
 .nom_joueur
@@ -97,14 +99,18 @@ td:hover
 	font-weight: bold;
 }
 
+	/*** Journal ***/
+
 .joueur_rouge
 {
 	color: rgba(255, 0, 0, 0.5);
+	font-weight: bold;
 }
 
 .joueur_bleu
 {
 	color: rgba(81, 175, 206, 0.8);
+	font-weight: bold;
 }
 
 .journal_container
@@ -133,15 +139,189 @@ td:hover
 
 .tentative_rate
 {
-	color: rgba(100, 100, 100, 75);
+	color: rgba(100, 100, 100, 0.50);
 }
 
 .tentative_touche
 {
-	color: rgba(0, 255, 0, 75);
+	color: rgba(0, 255, 0, 1);
 }
 
 .tentative_creve
 {
-	color: rgba(200, 170, 30, 75);
+	color: rgba(200, 170, 30, 1);
+}
+
+	/*** Partie ***/
+	
+.joueurs_info_container
+{
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px;
+	text-align: center;
+	background-image: url("img/bg_black_a75.png");
+	border: 1px solid white;
+	width: 45%;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.tour_info
+{
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 5px;
+	text-align: center;
+	background-image: url("img/bg_black_a75.png");
+	border: 1px solid white;
+	width: 30%;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.grilles_container
+{
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+#grille_voitures, #grille_tentatives
+{
+	margin: auto;
+	background-image: url("img/bg_black_a75.png");
+	text-align: center;
+	border-collapse: collapse;
+	width: 100%;
+	
+}
+
+#grille_voitures td, #grille_tentatives td
+{
+	height: 20px;
+}
+
+.grille_voitures_container
+{
+	float: left;
+	width: 33.3%;
+}
+
+#tentative_info_container
+{
+	float: left;
+	width: 33.3%;
+}
+
+.grille_tentatives_container
+{
+	width: 33.3%;
+}
+
+#tentative_info_container div
+{
+	text-align: center;
+	margin: auto;
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
+
+.cellule_voiture_rate
+{
+	background-color: rgba(100, 100, 100, 0.75);
+}
+
+.cellule_voiture_pneu_normal
+{
+	background-color: rgba(81, 175, 206, 0.75);
+}
+
+.cellule_voiture_pneu_touche
+{
+	background-color: rgba(200, 170, 30, 0.75);
+}
+
+.cellule_voiture_pneu_creve
+{
+	background-color: rgba(200, 15, 15, 0.75);
+}
+
+.cellule_voiture_placement
+{
+	background-color: rgba(30, 200, 15, 0.45);
+}
+	
+.cellule_tentative_rate
+{
+	background-color: rgba(100, 100, 100, 0.75);
+}
+
+.cellule_tentative_touche
+{
+	background-color: rgba(200, 170, 30, 0.75);
+}
+
+.cellule_tentative_creve
+{
+	background-color: rgba(200, 15, 15, 0.75);
+}
+
+.placement_voiture_container_1st_level
+{
+	width: 400px;
+	margin: auto;
+	background-image: url("img/bg_black_a50.png");
+	padding: 10px;
+	margin-bottom: 30px;
+	border: 1px solid white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.placement_voiture_caracteristiques_left
+{
+	float: left;
+}
+
+.placement_voiture_caracteristiques_right
+{
+	text-align: right;
+}
+
+.selection_caracteristique_voiture
+{
+	margin-left: 3%;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.voiture_selection_display
+{
+	background-image: url("img/bg_black_a75.png");
+	padding: 5px;
+	margin-left: 3%;
+	margin-bottom: 10px;
+	border: 1px solid white;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	width: 200px;
+}
+
+.voiture_selection_display table
+{
+	background-image: url("img/bg_black_a75.png");
+	border-collapse: collapse;
+	margin: auto;
+}
+
+.voiture_selection_display td
+{
+	height: 20px;
+}
+
+.b_placement_voiture
+{
+	margin-top: 75px;
 }
