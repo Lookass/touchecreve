@@ -50,16 +50,16 @@ public class Partie implements Serializable {
 		EN_PLACEMENT {
 			
 			public boolean placerVoiture(Partie partie, Joueur joueur, Voiture v)  {
-				
+				System.out.println("LIGNE :"+((v.getLigne() + v.getNbrPneus())-1));
 				if(!partie.contientJoueur(joueur))
 					throw new PartieException("Le joueur n'appartient pas à la partie.");
 				if(v.getLigne() < 0 || v.getLigne() > Partie.LIGNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
 				if(v.getColonne() < 0 || v.getColonne() > Partie.COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
-				if(v.getDirection() == Voiture.DIRECTION_VERTICAL && v.getLigne() + v.getNbrPneus() > LIGNE_INDICE_MAX)
+				if(v.getDirection() == Voiture.DIRECTION_VERTICAL && (v.getLigne() + v.getNbrPneus())-1 > LIGNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la ligne incorrect : " + v.getLigne());
-				if(v.getDirection() == Voiture.DIRECTION_HORIZONTAL && v.getColonne() + v.getNbrPneus() > COLONNE_INDICE_MAX)
+				if(v.getDirection() == Voiture.DIRECTION_HORIZONTAL && (v.getColonne() + v.getNbrPneus())-1 > COLONNE_INDICE_MAX)
 					throw new ArgumentInvalideException("Indice de la colonne incorrect : " + v.getColonne());
 				// La voiture à placer ne doit pas occuper de case utilisée par une autre voiture
 				for(Voiture autre : joueur.getVoitures())
