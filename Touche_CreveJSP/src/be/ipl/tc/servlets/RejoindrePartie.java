@@ -45,11 +45,13 @@ public class RejoindrePartie extends HttpServlet {
 				Partie p = null;
 				if (request.getParameter("owner") == null) {
 					p = gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
+					request.setAttribute("idJoueur", p.getJoueurBleu().getIdJoueur());
 				} else {
 					List<Partie> lp = gestionPartiesUCC.listerParties();
 					for (Partie partie : lp) {
 						if (partie.getId() == Integer.parseInt(request.getParameter("gameid"))) {
 							p = partie;
+							request.setAttribute("idJoueur", p.getJoueurRouge().getIdJoueur());
 							break;
 						}
 					}

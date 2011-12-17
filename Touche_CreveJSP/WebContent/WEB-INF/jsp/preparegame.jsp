@@ -17,7 +17,7 @@
 	   <script type="text/javascript">
 	   $(document).ready(function() {
 		   setIdPartie(<c:out value="${partie.id}" />);
-		   setIdJoueur(<c:out value="${partie.joueurRouge.idJoueur}" />);
+		   setIdJoueur(<c:out value="${idJoueur}" />);
 		   getNextVoiture();
 		});
 	   </script>
