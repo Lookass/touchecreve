@@ -46,11 +46,14 @@ public class PlacementVoiture extends HttpServlet {
 		} else {
 			try {
 				gestionVoituresUCC.placerVoiture(Integer.parseInt(request.getParameter("idpartie")),Integer.parseInt(request.getParameter("idjoueur")), request.getParameter("voiture"), Integer.parseInt(request.getParameter("l")), Integer.parseInt(request.getParameter("c")), Integer.parseInt(request.getParameter("d")));
+				response.getWriter().write("1");
 			} catch (NumberFormatException e) {
 				response.getWriter().write(e.getMessage());  //Message brute reçu en AJAX
 			} catch (ArgumentInvalideException e) {
 				response.getWriter().write(e.getMessage()); //Message brute reçu en AJAX
 			} catch (VoitureException e) {
+				response.getWriter().write(e.getMessage()); //Message brute reçu en AJAX
+			} catch (Throwable e) {
 				response.getWriter().write(e.getMessage()); //Message brute reçu en AJAX
 			}
 		}
