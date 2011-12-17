@@ -9,7 +9,7 @@ function getNextVoiture() {
 //Fonction permet de verifier si les coordonnées sont OK et affiche un preview dans le tableau.
 function previewPlacement() {
 	var direction = $('#selectDirection').val();
-	var ligne = $('#selectligne').val();
+	var ligne = $('#selectLigne').val();
 	var colonne = $('#selectColonne').val();
 	if (direction == 0) { //Si horizontal
 		if (ligne+nbRoue > 10) {
