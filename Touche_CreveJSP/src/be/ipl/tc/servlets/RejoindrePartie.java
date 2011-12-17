@@ -1,6 +1,7 @@
 package be.ipl.tc.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -41,7 +42,18 @@ public class RejoindrePartie extends HttpServlet {
 			response.sendRedirect("index.html");
 		} else {
 			if (request.getParameter("gameid") != null) {
-				Partie p = gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
+				Partie p = null;
+				if (request.getParameter("owner") == null) {
+					p = gestionPartiesUCC.rejoindrePartie(Integer.parseInt(request.getParameter("gameid")), SessionManager.getNom(request.getSession()));
+				} else {
+					List<Partie> lp = gestionPartiesUCC.listerParties();
+					for (Partie partie : lp) {
+						if (partie.getId() == Integer.parseInt(request.getParameter("gameid"))) {
+							p = partie;
+							break;
+						}
+					}
+				}
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("PrepareGame");
 				request.setAttribute("partie", p);
 				rd.forward(request, response);
@@ -55,7 +67,7 @@ public class RejoindrePartie extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

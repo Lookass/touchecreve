@@ -15,5 +15,6 @@ var idPartie = <c:out value="${partie.id}" />;
 </head>
 <body>
 En attente d'un adversaire...
+<FORM id="redirectPlacement" METHOD="POST" ACTION="join.html"></FORM>
 </body>
 </html>
