@@ -40,7 +40,7 @@ public class GestionVoituresImpl implements GestionVoitures {
 	
 	{
 		voituresAPlacer.put("Citadine", new Voiture("Citadine", 2));
-		voituresAPlacer.put("Coupé", new Voiture("Coupé", 3));
+		voituresAPlacer.put("Coupe", new Voiture("Coupe", 3));
 		voituresAPlacer.put("Berline", new Voiture("Berline", 3));
 		voituresAPlacer.put("Break", new Voiture("Break", 4));
 		voituresAPlacer.put("Limousine", new Voiture("Limousine", 5));
