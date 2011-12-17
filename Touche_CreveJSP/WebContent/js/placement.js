@@ -66,6 +66,19 @@ function previewPlacement() {
 //Une fois le preview placé, on envoit dans un POST -avec ajax- le placement de la voiture en cours.
 function postPlacementVoiture() {
 	if (previewPlacement() == 1) {
+		if (direction == 0) { //Si horizontal
+			for(var i = colonne;i < colonne+nbRoue;i++) {
+				$('#G'+ligne+''+i).removeClass("cellule_voiture_placement");
+				$('#G'+ligne+''+i).addClass("cellule_voiture_pneu_norma");
+			}
+			
+		} else  { //Si vertical
+			for(var i = ligne;i < ligne+nbRoue;i++) {
+				
+				$('#G'+i+''+colonne).removeClass("cellule_voiture_placement");
+				$('#G'+i+''+colonne).addClass("cellule_voiture_pneu_norma");
+			}
+		}
 		if (nbRoue < 5) {
 			$('#nomVoiture').html(getNextVoiture());
 			$('#displayVoiturePreview').html("");
