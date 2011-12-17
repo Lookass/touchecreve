@@ -9,8 +9,8 @@ function getNextVoiture() {
 //Fonction permet de verifier si les coordonnées sont OK et affiche un preview dans le tableau.
 function previewPlacement() {
 	var direction = $('#selectDirection').val();
-	var ligne = parseInt($('#selectLigne').val());
-	var colonne = parseInt($('#selectColonne').val());
+	var ligne = $('#selectLigne').val()*1;
+	var colonne = $('#selectColonne').val()*1;
 	
 	if (direction == 0) { //Si horizontal
 		if (ligne+nbRoue > 10) {
