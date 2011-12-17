@@ -102,7 +102,7 @@ public class TestPartie {
 	@Test
 	public void testPartieComplete() {
 		
-		Partie p = uccPartie.creerPartie("Joeuur rouge", "Partie complète");
+		Partie p = uccPartie.creerPartie("Joueur rouge", "Partie complète");
 		
 		assertEquals(Partie.Etat.EN_ATTENTE, p.getEtat());
 		
@@ -113,13 +113,13 @@ public class TestPartie {
 		try {
 		
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, Voiture.DIRECTION_HORIZONTAL);
-			uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Coupé", 1, 0, Voiture.DIRECTION_HORIZONTAL);
+			uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Coupe", 1, 0, Voiture.DIRECTION_HORIZONTAL);
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Berline", 2, 0, Voiture.DIRECTION_HORIZONTAL);
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Break", 3, 0, Voiture.DIRECTION_HORIZONTAL);
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurRouge().getIdJoueur(), "Limousine", 4, 0, Voiture.DIRECTION_HORIZONTAL);
 			
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurBleu().getIdJoueur(), "Citadine", 5, 0, Voiture.DIRECTION_HORIZONTAL);
-			uccVoitures.placerVoiture(p.getId(), p.getJoueurBleu().getIdJoueur(), "Coupé", 6, 0, Voiture.DIRECTION_HORIZONTAL);
+			uccVoitures.placerVoiture(p.getId(), p.getJoueurBleu().getIdJoueur(), "Coupe", 6, 0, Voiture.DIRECTION_HORIZONTAL);
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurBleu().getIdJoueur(), "Berline", 7, 0, Voiture.DIRECTION_HORIZONTAL);
 			uccVoitures.placerVoiture(p.getId(), p.getJoueurBleu().getIdJoueur(), "Break", 8, 0, Voiture.DIRECTION_HORIZONTAL);
 			p = uccVoitures.placerVoiture(p.getId(), p.getJoueurBleu().getIdJoueur(), "Limousine", 9, 0, Voiture.DIRECTION_HORIZONTAL);
