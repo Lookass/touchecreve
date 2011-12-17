@@ -103,13 +103,13 @@ td:hover
 
 .joueur_rouge
 {
-	color: rgba(255, 0, 0, 0.5);
+	color: rgb(255, 0, 0);
 	font-weight: bold;
 }
 
 .joueur_bleu
 {
-	color: rgba(81, 175, 206, 0.8);
+	color: rgb(81, 175, 206);
 	font-weight: bold;
 }
 
@@ -139,17 +139,17 @@ td:hover
 
 .tentative_rate
 {
-	color: rgba(100, 100, 100, 0.50);
+	color: rgb(100, 100, 100);
 }
 
 .tentative_touche
 {
-	color: rgba(0, 255, 0, 1);
+	color: rgb(0, 255, 0);
 }
 
 .tentative_creve
 {
-	color: rgba(200, 170, 30, 1);
+	color: rgb(200, 170, 30);
 }
 
 	/*** Partie ***/
@@ -230,42 +230,42 @@ td:hover
 
 .cellule_voiture_rate
 {
-	background-color: rgba(100, 100, 100, 0.75);
+	background-color: rgba(100, 100, 100);
 }
 
 .cellule_voiture_pneu_normal
 {
-	background-color: rgba(81, 175, 206, 0.75);
+	background-color: rgba(81, 175, 206);
 }
 
 .cellule_voiture_pneu_touche
 {
-	background-color: rgba(200, 170, 30, 0.75);
+	background-color: rgba(200, 170, 30);
 }
 
 .cellule_voiture_pneu_creve
 {
-	background-color: rgba(200, 15, 15, 0.75);
+	background-color: rgba(200, 15, 15);
 }
 
 .cellule_voiture_placement
 {
-	background-color: rgba(30, 200, 15, 0.45);
+	background-color: rgb(30, 200, 15);
 }
 	
 .cellule_tentative_rate
 {
-	background-color: rgba(100, 100, 100, 0.75);
+	background-color: rgb(100, 100, 100);
 }
 
 .cellule_tentative_touche
 {
-	background-color: rgba(200, 170, 30, 0.75);
+	background-color: rgb(200, 170, 30);
 }
 
 .cellule_tentative_creve
 {
-	background-color: rgba(200, 15, 15, 0.75);
+	background-color: rgb(200, 15, 15);
 }
 
 .placement_voiture_container_1st_level
@@ -324,4 +324,16 @@ td:hover
 .b_placement_voiture
 {
 	margin-top: 75px;
+}
+
+.creation_partie_container
+{
+	background-image: url("img/bg_black_a75.png");
+	padding: 5px;
+	margin: auto;
+	margin-bottom: 35px;
+	border: 1px solid white;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	width: 50%;
 }
