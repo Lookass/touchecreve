@@ -79,9 +79,7 @@ function previewPlacement() {
 
 //Une fois le preview placé, on envoit dans un POST -avec ajax- le placement de la voiture en cours.
 function postPlacementVoiture() {
-	if (nbRoue < 5) { 
-		
-	
+	if (nbRoue <= 5) { 
 		if (previewPlacement() == 1) {
 			var direction = $('#selectDirection').val();
 			var ligne = $('#selectLigne').val()*1;
