@@ -88,8 +88,73 @@ public class Voiture implements Serializable,Cloneable {
 	public int getNbrPneus() {
 		return nbrPneus;
 	}
+	
+	public boolean occupePlace(Voiture autre) {
+		
+		if(autre.direction == DIRECTION_HORIZONTAL) {
+			
+			if(this.direction == DIRECTION_HORIZONTAL) {
+				if(this.ligne != autre.ligne)
+					return false;
+				if(this.colonne < autre.colonne)
+					if(this.colonne + this.nbrPneus < autre.colonne)
+					return false;
+				else
+					if(autre.colonne + autre.nbrPneus < this.colonne)
+						return false;
+				return true;
+			} else {
+				if(this.ligne > autre.ligne)
+					return false;
+				if(this.colonne < autre.colonne && this.colonne > autre.colonne + autre.nbrPneus)
+					return false;
+				if(this.ligne + this.nbrPneus < autre.ligne)
+					return false;
+				return true;
+			}
+		
+		} else { // autre.direction == DIRECTION_VERTICAL
+			
+			if(this.direction == DIRECTION_HORIZONTAL) {
+				if(autre.ligne > this.ligne)
+					return false;
+				if(autre.colonne < this.colonne && autre.colonne > this.colonne + this.nbrPneus)
+					return false;
+				if(autre.ligne + autre.nbrPneus < this.ligne)
+					return false;
+				return true;
+			} else {
+				if(autre.ligne != this.ligne)
+					return false;
+				if(autre.colonne < this.colonne)
+					if(autre.colonne + autre.nbrPneus < this.colonne)
+					return false;
+				else
+					if(this.colonne + this.nbrPneus < autre.colonne)
+						return false;
+				return true;
+			}
+			
+		}
+	}
+	
+    /*
+	public boolean occupePlace(Voiture autre) {
+		
+		for(int col = autre.colonne; col < autre.colonne + autre.nbrPneus; ++col)
+			if(occupeCellule(autre.ligne, col))
+				return true;
+			return false;
+		} else {
+			for(int row = autre.ligne; row < autre.ligne + autre.nbrPneus; ++row)
+				if(occupeCellule(row, autre.colonne))
+					return true;
+			return false;
+		}
+			
+	}*/
 
-	public boolean occupePlace(int ligne, int colonne) {
+	public boolean occupeCellule(int ligne, int colonne) {
 
 		if (direction == DIRECTION_HORIZONTAL) {
 
