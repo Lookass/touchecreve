@@ -41,11 +41,11 @@ public class PingPartie extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("id") != null) {
-				List<Partie> lp = gestionPartiesUCC.listerPartiesEnAttente();
-				for (Partie partie : lp) {
-					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
-						response.getWriter().write(partie.getEtat().toString());
-					}
+			List<Partie> lp = gestionPartiesUCC.listerParties();
+			for (Partie partie : lp) {
+				if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
+					response.getWriter().write(partie.getEtat().name());
+				}
 			}
 		}
 	}
