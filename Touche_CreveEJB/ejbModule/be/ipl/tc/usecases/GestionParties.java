@@ -12,6 +12,7 @@ public interface GestionParties {
 	
 	List<Partie> listerPartiesEnAttente();
 	List<Partie> listerPartiesTerminees();
+	List<Partie> listerParties();
 	
 	Partie creerPartie(String nomJoueur,String nom) throws PartieException;
 	Partie rejoindrePartie(int idPartie, String nomJoueur) throws PartieException;

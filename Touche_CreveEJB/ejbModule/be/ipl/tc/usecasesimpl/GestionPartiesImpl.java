@@ -96,4 +96,10 @@ public class GestionPartiesImpl implements GestionParties {
 
 	}
 
+	@Override
+	public List<Partie> listerParties() {
+		List<Partie> parties = partieDao.lister();
+		return parties;
+	}
+
 }
