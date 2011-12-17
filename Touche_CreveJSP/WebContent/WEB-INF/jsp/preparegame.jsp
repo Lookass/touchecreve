@@ -18,6 +18,7 @@
 	   $(document).ready(function() {
 		   setIdPartie(<c:out value="${partie.id}" />);
 		   setIdJoueur(<c:out value="${partie.joueurRouge.idJoueur}" />);
+		   getNextVoiture();
 		});
 	   </script>
     </head>
@@ -173,13 +174,11 @@
 		
 			<div class="placement_voiture_caracteristiques_left">
 		
-				Voiture à placer : <div id="nomVoiture"><script type="text/javascript">document.write(getNextVoiture());</script></div><br/>
+				Voiture à placer : <div id="nomVoiture"></div><br/>
 				
 				<div class="voiture_selection_display">
 					<table style="width:75%">
 						<tr id="displayVoiturePreview">
-							<td class="cellule_voiture_pneu_normal"></td>
-							<td class="cellule_voiture_pneu_normal"></td>
 						</tr>
 					</table>
 				</div>

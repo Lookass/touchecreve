@@ -41,6 +41,7 @@ public class PlacementVoiture extends HttpServlet {
 	 */
 	@EJB GestionVoitures gestionVoituresUCC;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("On est dans placement");
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
 		} else {
@@ -48,13 +49,15 @@ public class PlacementVoiture extends HttpServlet {
 				gestionVoituresUCC.placerVoiture(Integer.parseInt(request.getParameter("idpartie")),Integer.parseInt(request.getParameter("idjoueur")), request.getParameter("voiture"), Integer.parseInt(request.getParameter("l")), Integer.parseInt(request.getParameter("c")), Integer.parseInt(request.getParameter("d")));
 				response.getWriter().write("1");
 			} catch (NumberFormatException e) {
-				response.getWriter().write(e.getMessage());  //Message brute reçu en AJAX
+				response.getWriter().write(e.toString());  //Message brute reçu en AJAX
 			} catch (ArgumentInvalideException e) {
-				response.getWriter().write(e.getMessage()); //Message brute reçu en AJAX
+				response.getWriter().write(e.toString()); //Message brute reçu en AJAX
 			} catch (VoitureException e) {
-				response.getWriter().write(e.getMessage()); //Message brute reçu en AJAX
+				System.out.println(e);
+				System.out.println(e.getMessage());
+				System.out.println(e.getCause());
 			} catch (Throwable e) {
-				response.getWriter().write(e.getMessage()); //Message brute reçu en AJAX
+				response.getWriter().write(e.toString()); //Message brute reçu en AJAX
 			}
 		}
 	}
