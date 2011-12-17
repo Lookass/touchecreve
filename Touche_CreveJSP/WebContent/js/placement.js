@@ -27,7 +27,7 @@ function previewPlacement() {
 	
 	//On supprime les anciens previews
 	for(var i = 0;i<10;i++) {
-		for(var j = 0;j<10;i++) {
+		for(var j = 0;j<10;j++) {
 			if ($('#G'+i+''+j).hasClass("cellule_voiture_placement")) {
 				$('#G'+i+''+j).removeClass("cellule_voiture_placement");
 			}
