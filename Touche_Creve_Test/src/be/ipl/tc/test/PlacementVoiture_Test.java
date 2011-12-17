@@ -62,9 +62,16 @@ public class PlacementVoiture_Test {
 	@Test
 	public void testPlacerVoiture() throws ArgumentInvalideException,
 			VoitureException {
-		voiture = uccPlacementVoiture.placerVoiture(partie.getId(), partie
+		partie = uccPlacementVoiture.placerVoiture(partie.getId(), partie
 				.getJoueurRouge().getIdJoueur(), "Break", 2, 2,
 				Voiture.DIRECTION_HORIZONTAL);
+		List<Voiture> voitures = partie.getJoueurRouge().getVoitures();
+		for(Voiture v : voitures) {
+			if(v.getNom().equals("Break")) {
+				voiture = v;
+				break;
+			}
+		}
 		assertEquals(2, voiture.getColonne());
 		assertEquals(2, voiture.getLigne());
 		assertEquals(0, voiture.getDirection());
