@@ -15,10 +15,25 @@ function previewPlacement() {
 	if (direction == 0) { //Si horizontal
 		if (ligne+nbRoue > 10) {
 			alert("Débordement ligne")
+			return;
 		}
 	} else  { //Si vertical
 		if (colonne+nbRoue > 10) {
 			alert("Débordement colonne")
+			return;
+		}
+	}
+	
+	//On verifie si il n'y a pas déjà de voitures sur ces positions
+	
+	if (direction == 0) { //Si horizontal
+		for(var i = colonne;i < colonne+nbRoue;i++) {
+			$('#G'+ligne+''+i).addClass("cellule_voiture_placement");
+		}
+		
+	} else  { //Si vertical
+		for(var i = ligne;i < ligne+nbRoue;i++) {
+			$('#G'+i+''+colonne).addClass("cellule_voiture_placement");
 		}
 	}
 	
