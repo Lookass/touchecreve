@@ -27,7 +27,7 @@
 					   $('#redirectGame').append('<input type="hidden" name="gameid" value="'+ <c:out value="${partie.id}" /> +'" />');
 					   $('#redirectGame').submit();
 				   }
-			   })
+			   }, "text")
 		   }, 5000);
 		   $.ajaxSetup({ cache: false });
 		});
@@ -45,7 +45,9 @@
 			Placement des voitures
 		</div>
 		
-		<div class="grille_voitures_placement_container">
+		<div class="grilles_container">
+		
+			<div class="grille_voitures_container">
 				<table id="grille_voitures">
 					<thead>
 						<tr>
@@ -176,6 +178,8 @@
 					</tbody>
 				</table>
 			</div>
+		
+		</div>
 		
 		<div class="placement_voiture_container_1st_level">
 		
