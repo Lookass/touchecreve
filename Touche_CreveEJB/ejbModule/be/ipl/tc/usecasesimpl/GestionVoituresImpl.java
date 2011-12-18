@@ -115,4 +115,12 @@ public class GestionVoituresImpl implements GestionVoitures {
 			return partie;
 	}
 
+	@Override
+	public List<Voiture> getVoitures(int idJoueur) {
+		
+		Joueur j = joueurDao.rechercher(idJoueur);
+		return j.getVoitures();
+		
+	}
+
 }
