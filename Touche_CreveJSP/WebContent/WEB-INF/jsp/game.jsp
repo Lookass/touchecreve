@@ -318,7 +318,7 @@
 
 			<div id="tentative_info_container">
 
-				<form>
+			
 
 					<div>Colonne : <select name="colonne" size="1">
 
@@ -372,7 +372,7 @@
 
 					<div><button id="boutonCrever" disabled="disabled" onClick="crever();">Crever !</button></div>
 
-				</form>
+				
 
 			</div>
 
