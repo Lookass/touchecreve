@@ -32,13 +32,10 @@ public class SessionManager {
     throws ServletException, IOException {
         String url = request.getServletPath();
         HttpSession sess = request.getSession(true);
-        System.out.println("1");
         if (SessionManager.isNameSet(sess)) {
-        	System.out.println("2");
         	RequestDispatcher rd  = context.getRequestDispatcher("/parties.html");
         	rd.forward(request, reponse);
         } else {
-        	System.out.println("3");
             if (url.equals("")) {
                 url = "/index.html";
             }

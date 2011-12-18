@@ -92,16 +92,21 @@ $(document).ready(function() {
 		var colonne = $('#selectColonne').val()*1;
 		$.post("gameaction.html", { idpartie: idPartie, l: ligne, c: colonne},
 				   function(data) {
+						var tourJoue = false;
 						if (data == "0") {
-							alert("Raté!");
+							alert("Raté !");
+							tourJoue = true;
 						} else if (data == "1") {
-							alert("Touché!");
+							alert("Touché !");
+							tourJoue = true;
 						} else if (data == "2") {
-							alert("Crevé!!!");
+							alert("Crevé !");
+							tourJoue = true;
 						} else {
 							alert("Erreur : " + data);
 						}
-						$("#boutonCrever").attr("disabled", "disabled");
+						if(tourJoue)
+							$("#boutonCrever").attr("disabled", "disabled");
 				   }, "text");
 		
  }

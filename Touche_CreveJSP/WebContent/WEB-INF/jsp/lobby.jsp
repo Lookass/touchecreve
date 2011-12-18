@@ -39,14 +39,13 @@
 			<div class="action_buttons_container">
 				<button id="b_creer_partie" onclick='document.location.href="cree.html";' >Créer une partie</button>
 			</div>
-			<div>Partie en attente de joueur</div>
+			<div class="table_parties_filter_label">Parties en attente de joueur</div>
 			<table id="liste_parties">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Nom</th>
 						<th>Joueur Rouge</th>
-						<th>Date</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,7 +55,6 @@
 								<td>${parties.id}</td>
 								<td>${parties.nom}</td>
 								<td>${parties.joueurRouge.nom}</td>
-								<td>${parties.dateDebut}</td>
 							</tr>
 						</c:if>
 					</c:forEach>
@@ -64,7 +62,7 @@
 					
 				</tbody>
 			</table>
-			<div>Partie terminée</div>
+			<div class="table_parties_filter_label">Parties terminée</div>
 						<table id="liste_parties">
 				<thead>
 					<tr>
