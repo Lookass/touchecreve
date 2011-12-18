@@ -62,7 +62,7 @@
 					
 				</tbody>
 			</table>
-			<div class="table_parties_filter_label">Parties terminée</div>
+			<div class="table_parties_filter_label">Parties terminées</div>
 						<table id="liste_parties">
 				<thead>
 					<tr>
