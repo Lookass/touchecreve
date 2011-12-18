@@ -1,4 +1,5 @@
  $(document).ready(function() {
+	 loadVoiture();
    setInterval(function() {
 	   $.post("PingPartie", {id: idPartie, action: "getTour"},
 			   function(data) {
@@ -15,6 +16,15 @@
    $.ajaxSetup({ cache: false });
 });
  
+ function loadVoiture() {
+	   $.post("PingPartie", {id: idPartie, action: "getVoiture"},
+			   function(data) {
+			   		var mesVoitures = data.split(";");
+			   		while (mesVoitures.size > 0) {
+			   			alert(mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift());
+			   		}
+	   			}, "text"); 	
+ }
  function crever() {
 		var ligne = $('#selectLigne').val()*1;
 		var colonne = $('#selectColonne').val()*1;
