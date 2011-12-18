@@ -41,6 +41,17 @@ public class RejoindrePartie extends HttpServlet {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
 			response.sendRedirect("index.html");
 		} else {
+			
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!SessionManager.isNameSet(request.getSession(true))) {
+			response.sendRedirect("index.html");
+		} else {
 			if (request.getParameter("gameid") != null) {
 				Partie p = null;
 				if (request.getParameter("owner") == null) {
@@ -63,13 +74,6 @@ public class RejoindrePartie extends HttpServlet {
 				response.sendRedirect("index.html");
 			}
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

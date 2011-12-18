@@ -37,22 +37,29 @@ public class CreePartie extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!SessionManager.isNameSet(request.getSession(true))) {
-				response.sendRedirect("index.html");
+			response.sendRedirect("index.html");
 		} else {
-			Partie p = gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession()), request.getParameter("nompartie"));
-			RequestDispatcher rd = getServletContext().getNamedDispatcher("AttenteAdversaire");
-			request.setAttribute("partie", p);
+			RequestDispatcher rd = getServletContext().getNamedDispatcher("CreateForm");
 			rd.forward(request, response);
 		}
 
-		
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (!SessionManager.isNameSet(request.getSession(true))) {
+			response.sendRedirect("index.html");
+	} else {
+		Partie p = gestionPartiesUCC.creerPartie(SessionManager.getNom(request.getSession()), request.getParameter("nompartie"));
+		RequestDispatcher rd = getServletContext().getNamedDispatcher("AttenteAdversaire");
+		request.setAttribute("partie", p);
+		rd.forward(request, response);
+	}
+
+	
 	}
 
 }

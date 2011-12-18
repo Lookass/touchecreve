@@ -12,9 +12,14 @@
 	   <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
  	   <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
  	   <script type="text/javascript">
- 	  $(document).ready(function() {
- 		 
- 		});
+ 	  	function joinGame(id) {
+ 			  var r = confirm("Voulez vous rejoindre cette partie?");
+ 			  if (r==true) {
+ 				 $('body').append('<form id="redirectJoin" METHOD="POST" ACTION="join.html"></form>');
+				 $('#redirectJoin').append('<input type="hidden" name="gameid" value="'+ id +'" />');
+				 $('#redirectJoin').submit();
+ 			  } 
+ 	  	}
  	  </script>
     </head>
 	<body>
@@ -29,7 +34,7 @@
 			</div>
 			
 			<div class="action_buttons_container">
-				<button id="b_creer_partie" onclick='document.location.href="createform.html";' >Créer une partie</button>
+				<button id="b_creer_partie" onclick='document.location.href="cree.html";' >Créer une partie</button>
 			</div>
 			
 			<table>
