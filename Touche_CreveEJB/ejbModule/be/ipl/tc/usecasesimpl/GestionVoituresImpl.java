@@ -116,7 +116,7 @@ public class GestionVoituresImpl implements GestionVoitures {
 	}
 
 	@Override
-	public List<Voiture> getVoitures(int idPartie, String nomJoueur) {
+	public String getVoitures(int idPartie, String nomJoueur) {
 		
 		Partie p;
 		
@@ -126,12 +126,24 @@ public class GestionVoituresImpl implements GestionVoitures {
 			throw new PartieException(e.getMessage());
 		}
 		
-		if(p.getJoueurRouge().getNom().equals(nomJoueur))
-			return p.getJoueurRouge().getVoitures();
-		if(p.getJoueurBleu().getNom().equals(nomJoueur))
-			return p.getJoueurBleu().getVoitures();
+		List<Voiture> voitures = null;
+		if(p.getJoueurRouge().getNom().equals(nomJoueur)) {
+			voitures = p.getJoueurRouge().getVoitures();
+		} else if(p.getJoueurBleu().getNom().equals(nomJoueur)) {
+			voitures = p.getJoueurBleu().getVoitures();
+		}
+		if (voitures == null)
+			throw new PartieException("Le joueur " + nomJoueur + " ne joue pas à la partie spécifiée [idPartie = " + idPartie + "]?");
+		String responseString = "";
 		
-		throw new PartieException("Le joueur " + nomJoueur + " ne joue pas à la partie spécifiée [idPartie = " + idPartie + "]?");
+		for (Voiture voiture : voitures) {
+	     	if (responseString == "")
+	     		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+	     	else
+	     		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+		}
+		
+		return responseString;
 		
 	}
 
