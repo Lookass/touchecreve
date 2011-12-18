@@ -20,8 +20,28 @@
 	   $.post("PingPartie", {id: idPartie, action: "getVoiture"},
 			   function(data) {
 			   		var mesVoitures = data.split(';');
-			   		while (mesVoitures.size() > 0) {
-			   			alert(mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift());
+			   		while (mesVoitures.length > 0) {
+			   			var creve = mesVoitures.shift();
+			   			var ligne = mesVoitures.shift();
+			   			var colonne = mesVoitures.shift();
+			   			var nbRoue = mesVoitures.shift();
+			   			var direction = mesVoitures.shift();
+			   			var nomClasse;
+			   			if (creve == false) {
+			   				nomClasse = "cellule_voiture_pneu_normal";
+			   			} else {
+			   				nomClasse = "cellule_voiture_pneu_creve";
+			   			}
+			   			if (direction == 0) { //Si horizontal
+							for(var i = colonne;i < colonne+nbRoue;i++) {
+								$('#G'+ligne+''+i).addClass(nomClasse);
+							}
+							
+						} else  { //Si vertical
+							for(var i = ligne;i < ligne+nbRoue;i++) {
+								$('#G'+i+''+colonne).addClass(nomClasse);
+							}
+						}
 			   		}
 	   			}, "text"); 	
  }
