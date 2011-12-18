@@ -9,7 +9,13 @@
 	   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	   <meta name="description" content="Liste des parties">
 	   <link rel="stylesheet" media="screen" type="text/css" title="Design" href="touche_creve.css">
-	  
+	   <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+ 	   <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+ 	   <script type="text/javascript">
+ 	  $(document).ready(function() {
+ 		 
+ 		});
+ 	  </script>
     </head>
 	<body>
 	
@@ -23,9 +29,7 @@
 			</div>
 			
 			<div class="action_buttons_container">
-				<button id="b_creer_partie" disabled="disabled">Créer une partie</button>
-				<button id="b_rejoindre_partie">Rejoindre la partie</button>
-				<button id="b_voir_journal" disabled="disabled">Voir le journal de la partie</button>
+				<button id="b_creer_partie" onclick='document.location.href="createform.html";' >Créer une partie</button>
 			</div>
 			
 			<table>
@@ -39,13 +43,13 @@
 				</thead>
 				<tbody>
 					<c:forEach var="parties" items="${parties}">
-					<tr>
+					<tr onClick='joinGame(${parties.id});'>
 						<td>${parties.id}</td>
 						<td>${parties.nom}</td>
 						<td>${parties.joueurRouge.nom}</td>
 						<td>${parties.dateDebut}</td>
 					</tr>
-				
+					
 					</c:forEach>
 					
 					
