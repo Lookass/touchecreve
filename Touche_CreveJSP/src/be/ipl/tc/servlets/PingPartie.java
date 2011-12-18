@@ -60,8 +60,18 @@ public class PingPartie extends HttpServlet {
 				response.getWriter().write(gestionPartiesUCC.getTour(Integer.parseInt(request.getParameter("id"))).getNom());
 			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getVoiture")) {
 				
-
-                response.getWriter().write(gestionVoituresUCC.getVoitures(Integer.parseInt(request.getParameter("id")), SessionManager.getNom(request.getSession())));
+				List<Voiture> voitures  = gestionVoituresUCC.getVoitures(Integer.parseInt(request.getParameter("id")), SessionManager.getNom(request.getSession()));
+				String responseString = "";
+				
+				for (Voiture voiture : voitures) {
+			     	if (responseString == "")
+			     		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+			     	else
+			     		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+				}
+				System.out.println("voiture : " + responseString);
+				
+                response.getWriter().write(responseString);
 			}
 		}
 	}
