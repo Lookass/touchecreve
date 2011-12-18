@@ -6,14 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
 
 @Entity
 @Table(name = "VOITURES", schema = "TC")
-public class Voiture implements Serializable,Cloneable {
+public class Voiture implements Serializable, Cloneable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private int id;
@@ -26,10 +29,11 @@ public class Voiture implements Serializable,Cloneable {
 
 	public static int DIRECTION_HORIZONTAL = 0;
 	public static int DIRECTION_VERTICAL = 1;
-	
-	public Voiture(){
-		
+
+	public Voiture() {
+
 	}
+
 	public Voiture(String nom, int nbrPneus) {
 		super();
 		this.nom = nom;
@@ -56,21 +60,22 @@ public class Voiture implements Serializable,Cloneable {
 	public int getNbrPneusRestant() {
 		return nbrPneusRestant;
 	}
-	
-	public void creverPneu(TentativeCrevaison tc) {
-		if(nbrPneusRestant == 0)
+
+	public TentativeCrevaison creverPneu(TentativeCrevaison tc) {
+		if (nbrPneusRestant == 0)
 			throw new PartieException("Tous les pneus ont déjà été crevés");
 		--nbrPneusRestant;
-		if(nbrPneusRestant == 0)
+		if (nbrPneusRestant == 0)
 			tc.setEtatTentative(TentativeCrevaison.TENTATIVE_ETAT_CREVE);
 		else
 			tc.setEtatTentative(TentativeCrevaison.TENTATIVE_ETAT_TOUCHE);
+		return tc;
 	}
 
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getNom() {
 		return nom;
 	}
@@ -78,9 +83,10 @@ public class Voiture implements Serializable,Cloneable {
 	public int getDirection() {
 		return direction;
 	}
-	
+
 	public void setDirection(int direction) throws ArgumentInvalideException {
-		if(direction != DIRECTION_HORIZONTAL && direction != DIRECTION_VERTICAL)
+		if (direction != DIRECTION_HORIZONTAL
+				&& direction != DIRECTION_VERTICAL)
 			throw new ArgumentInvalideException("Direction invalide");
 		this.direction = direction;
 	}
@@ -88,98 +94,94 @@ public class Voiture implements Serializable,Cloneable {
 	public int getNbrPneus() {
 		return nbrPneus;
 	}
-	
+
 	public boolean occupePlace(Voiture autre) {
-		
-		if(autre.direction == DIRECTION_HORIZONTAL) {
-			
-			if(this.direction == DIRECTION_HORIZONTAL) {
-				if(this.ligne != autre.ligne)
+
+		if (autre.direction == DIRECTION_HORIZONTAL) {
+
+			if (this.direction == DIRECTION_HORIZONTAL) {
+				if (this.ligne != autre.ligne)
 					return false;
-				if(this.colonne < autre.colonne){
-					if(this.colonne + this.nbrPneus <= autre.colonne)//<=
-					return false;
-				}
-				else{
-					if(autre.colonne + autre.nbrPneus <= this.colonne)//<=
+				if (this.colonne < autre.colonne) {
+					if (this.colonne + this.nbrPneus <= autre.colonne)// <=
+						return false;
+				} else {
+					if (autre.colonne + autre.nbrPneus <= this.colonne)// <=
 						return false;
 				}
 				return true;
 			} else {
-				if(this.ligne > autre.ligne)
+				if (this.ligne > autre.ligne)
 					return false;
-				if(this.colonne < autre.colonne || this.colonne >= autre.colonne + autre.nbrPneus) // >=
+				if (this.colonne < autre.colonne
+						|| this.colonne >= autre.colonne + autre.nbrPneus) // >=
 					return false;
-				if(this.ligne + this.nbrPneus <= autre.ligne)//<=
+				if (this.ligne + this.nbrPneus <= autre.ligne)// <=
 					return false;
 				return true;
 			}
-		
+
 		} else { // autre.direction == DIRECTION_VERTICAL
-			
-			if(this.direction == DIRECTION_HORIZONTAL) {
-				if(autre.ligne > this.ligne)
+
+			if (this.direction == DIRECTION_HORIZONTAL) {
+				if (autre.ligne > this.ligne)
 					return false;
-				if(autre.colonne < this.colonne || autre.colonne >= this.colonne + this.nbrPneus)
+				if (autre.colonne < this.colonne
+						|| autre.colonne >= this.colonne + this.nbrPneus)
 					return false;
-				if(autre.ligne + autre.nbrPneus <= this.ligne)
+				if (autre.ligne + autre.nbrPneus <= this.ligne)
 					return false;
 				return true;
 			} else {
-				if(autre.colonne != this.colonne)
+				if (autre.colonne != this.colonne)
 					return false;
-				if(autre.ligne < this.ligne){
-					if(autre.ligne + autre.nbrPneus <= this.ligne)
-					return false;
-				}
-				else{
-					if(this.ligne + this.nbrPneus <= autre.ligne)
+				if (autre.ligne < this.ligne) {
+					if (autre.ligne + autre.nbrPneus <= this.ligne)
+						return false;
+				} else {
+					if (this.ligne + this.nbrPneus <= autre.ligne)
 						return false;
 				}
 				return true;
 			}
 		}
 	}
-	
-    /*
-	public boolean occupePlace(Voiture autre) {
-		
-		for(int col = autre.colonne; col < autre.colonne + autre.nbrPneus; ++col)
-			if(occupeCellule(autre.ligne, col))
-				return true;
-			return false;
-		} else {
-			for(int row = autre.ligne; row < autre.ligne + autre.nbrPneus; ++row)
-				if(occupeCellule(row, autre.colonne))
-					return true;
-			return false;
-		}
-			
-	}*/
+
+	/*
+	 * public boolean occupePlace(Voiture autre) {
+	 * 
+	 * for(int col = autre.colonne; col < autre.colonne + autre.nbrPneus; ++col)
+	 * if(occupeCellule(autre.ligne, col)) return true; return false; } else {
+	 * for(int row = autre.ligne; row < autre.ligne + autre.nbrPneus; ++row)
+	 * if(occupeCellule(row, autre.colonne)) return true; return false; }
+	 * 
+	 * }
+	 */
 
 	public boolean occupeCellule(int ligne, int colonne) {
 
 		if (direction == DIRECTION_HORIZONTAL) {
-
-			if (ligne != this.ligne)
+			if (ligne != this.ligne) {
 				return false;
+			}
 			if (colonne < this.colonne
-					|| colonne > this.colonne + this.nbrPneus)
+					|| colonne >= this.colonne + this.nbrPneus)
 				return false;
+
 			return true;
 
 		} else {
 
 			if (colonne != this.colonne)
 				return false;
-			if (ligne < this.ligne || ligne > this.ligne + this.nbrPneus)
+			if (ligne < this.ligne || ligne >= this.ligne + this.nbrPneus)
 				return false;
 			return true;
 
 		}
 
 	}
-	
+
 	public Object clone() {
 		Object clone;
 		try {
