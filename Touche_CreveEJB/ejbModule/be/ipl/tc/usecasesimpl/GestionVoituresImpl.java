@@ -116,7 +116,7 @@ public class GestionVoituresImpl implements GestionVoitures {
 	}
 
 	@Override
-	public String getVoitures(int idPartie, String nomJoueur) {
+	public List<Voiture> getVoitures(int idPartie, String nomJoueur) {
 		
 		Partie p;
 		
@@ -125,25 +125,18 @@ public class GestionVoituresImpl implements GestionVoitures {
 		} catch (Exception e) {
 			throw new PartieException(e.getMessage());
 		}
+
+		Joueur rouge = joueurDao.recharger(p.getJoueurRouge().getIdJoueur());
+		Joueur bleu = joueurDao.recharger(p.getJoueurBleu().getIdJoueur());
+
+		rouge.getVoitures().size();
 		
-		List<Voiture> voitures = null;
-		if(p.getJoueurRouge().getNom().equals(nomJoueur)) {
-			voitures = p.getJoueurRouge().getVoitures();
-		} else if(p.getJoueurBleu().getNom().equals(nomJoueur)) {
-			voitures = p.getJoueurBleu().getVoitures();
-		}
-		if (voitures == null)
-			throw new PartieException("Le joueur " + nomJoueur + " ne joue pas à la partie spécifiée [idPartie = " + idPartie + "]?");
-		String responseString = "";
+		if(rouge.getNom().equals(nomJoueur))
+			return rouge.getVoitures();
+		if(bleu.getNom().equals(nomJoueur))
+			return bleu.getVoitures();
 		
-		for (Voiture voiture : voitures) {
-	     	if (responseString == "")
-	     		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
-	     	else
-	     		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
-		}
-		
-		return responseString;
+		throw new PartieException(nomJoueur + " n'appartient pas à cette partie.");
 		
 	}
 

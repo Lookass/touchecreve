@@ -13,7 +13,7 @@ import be.ipl.tc.exceptions.VoitureException;
 public interface GestionVoitures {
 	
 	List<Voiture> listerVoituresAPlacer();
-	String getVoitures(int idPartie, String nomJoueur);
+	List<Voiture> getVoitures(int idPartie, String nomJoueur);
 	
 	/**
 	 * @param partie La partie en cours pour l'utilisateur
