@@ -38,6 +38,10 @@
     <servlet-name>Journal</servlet-name>
     <jsp-file>/WEB-INF/jsp/journal.jsp</jsp-file>
   </servlet>
+    <servlet>
+    <servlet-name>createform.html</servlet-name>
+    <jsp-file>/WEB-INF/jsp/createform.jsp</jsp-file>
+  </servlet>
   <servlet>
     <servlet-name>Controleur</servlet-name>
     <servlet-class>be.ipl.tc.servlets.Controleur</servlet-class>
