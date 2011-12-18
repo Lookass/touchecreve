@@ -43,7 +43,7 @@
 
 		
 
-		<div class="tour_info">
+		<div id="tour_info" class="tour_info">
 		</div>
 
 		
