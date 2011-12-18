@@ -116,10 +116,22 @@ public class GestionVoituresImpl implements GestionVoitures {
 	}
 
 	@Override
-	public List<Voiture> getVoitures(int idJoueur) {
+	public List<Voiture> getVoitures(int idPartie, String nomJoueur) {
 		
-		Joueur j = joueurDao.rechercher(idJoueur);
-		return j.getVoitures();
+		Partie p;
+		
+		try {
+			p = partieDao.rechercher(idPartie);
+		} catch (Exception e) {
+			throw new PartieException(e.getMessage());
+		}
+		
+		if(p.getJoueurRouge().getNom().equals(nomJoueur))
+			return p.getJoueurRouge().getVoitures();
+		if(p.getJoueurBleu().getNom().equals(nomJoueur))
+			return p.getJoueurBleu().getVoitures();
+		
+		throw new PartieException("Le joueur " + nomJoueur + " ne joue pas à la partie spécifiée [idPartie = " + idPartie + "]?");
 		
 	}
 
