@@ -27,7 +27,7 @@
 			   			var nbRoue = mesVoitures.shift();
 			   			var direction = mesVoitures.shift();
 			   			var nomClasse;
-			   			if (creve == false) {
+			   			if (creve == "false") {
 			   				nomClasse = "cellule_voiture_pneu_normal";
 			   			} else {
 			   				nomClasse = "cellule_voiture_pneu_creve";
