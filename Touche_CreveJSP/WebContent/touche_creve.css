@@ -230,22 +230,22 @@ td:hover
 
 .cellule_voiture_rate
 {
-	background-color: rgba(100, 100, 100);
+	background-color: rgb(100, 100, 100);
 }
 
 .cellule_voiture_pneu_normal
 {
-	background-color: rgba(81, 175, 206);
+	background-color: rgb(81, 175, 206);
 }
 
 .cellule_voiture_pneu_touche
 {
-	background-color: rgba(200, 170, 30);
+	background-color: rgb(200, 170, 30);
 }
 
 .cellule_voiture_pneu_creve
 {
-	background-color: rgba(200, 15, 15);
+	background-color: rgb(200, 15, 15);
 }
 
 .cellule_voiture_placement
