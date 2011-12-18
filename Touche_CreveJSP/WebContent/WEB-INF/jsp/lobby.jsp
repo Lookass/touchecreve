@@ -20,6 +20,14 @@
 				 $('#redirectJoin').submit();
  			  } 
  	  	}
+ 	  	function lireJournalGame(id) {
+			  var r = confirm("Voulez vous lire le journal de cette partie?");
+ 			  if (r==true) {
+ 				 $('body').append('<form id="redirectJoin" METHOD="POST" ACTION="journal.html"></form>');
+				 $('#redirectJoin').append('<input type="hidden" name="idpartie" value="'+ id +'" />');
+				 $('#redirectJoin').submit();
+ 			  } 
+ 	  	}
  	  </script>
     </head>
 	<body>
