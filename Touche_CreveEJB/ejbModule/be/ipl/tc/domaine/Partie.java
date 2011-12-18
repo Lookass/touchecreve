@@ -207,8 +207,7 @@ public class Partie implements Serializable {
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "idJoueurBleu")
 	private Joueur joueurBleu;
-	@Column
-	private long dateDebut;
+	private Long dateDebut;
 	@Enumerated
 	private Partie.Etat etat = Partie.Etat.EN_ATTENTE;
 	@OneToOne(cascade = { CascadeType.ALL })
@@ -222,7 +221,6 @@ public class Partie implements Serializable {
 		this.joueurRouge = joueurRouge;
 		this.nom = nom;
 		this.tour = joueurRouge;
-		Calendar date = new GregorianCalendar();
 	}
 
 	public int getId() {
