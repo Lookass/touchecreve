@@ -28,15 +28,10 @@
 		
 			<h2>Lobby</h2>
 			
-			<div class="table_filter_container">
-				<input type="radio" name="filtre_parties" value="0" id="rb_en_attente"/><label for="rb_en_attente">Parties en attente</label>
-				<input type="radio" name="filtre_parties" value="1" id="rb_terminees"/><label for="rb_terminees">Parties terminées</label>
-			</div>
-			
 			<div class="action_buttons_container">
 				<button id="b_creer_partie" onclick='document.location.href="cree.html";' >Créer une partie</button>
 			</div>
-			
+			<div>Partie en attente de joueur</div>
 			<table id="liste_parties">
 				<thead>
 					<tr>
@@ -48,19 +43,45 @@
 				</thead>
 				<tbody>
 					<c:forEach var="parties" items="${parties}">
-					<tr onClick='joinGame(${parties.id});'>
-						<td>${parties.id}</td>
-						<td>${parties.nom}</td>
-						<td>${parties.joueurRouge.nom}</td>
-						<td>${parties.dateDebut}</td>
+						<c:if test='${parties.etat == "EN_ATTENTE"}'>
+							<tr onClick='joinGame(${parties.id});'>
+								<td>${parties.id}</td>
+								<td>${parties.nom}</td>
+								<td>${parties.joueurRouge.nom}</td>
+								<td>${parties.dateDebut}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+					
+					
+				</tbody>
+			</table>
+			<div>Partie terminée</div>
+						<table id="liste_parties">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nom</th>
+						<th>Joueur Rouge</th>
+						<th>Date</th>
 					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="parties" items="${parties}">
+						<c:if test='${parties.etat == "TERMINEE"}'>
+							<tr onClick='lireJournalGame(${parties.id});'>
+								<td>${parties.id}</td>
+								<td>${parties.nom}</td>
+								<td>${parties.joueurRouge.nom}</td>
+								<td>${parties.dateDebut}</td>
+							</tr>
+						</c:if>
 					
 					</c:forEach>
 					
 					
 				</tbody>
 			</table>
-			
 			<div class="nom_joueur_container">Connecté en tant que : <span class="nom_joueur"><c:out value="${sessionScope.nom}" /></span></div>
 		
 		</div>
