@@ -7,7 +7,7 @@
 		   			$("#boutonCrever").removeAttr("disabled");
 		   		} else {
 		   			$("#tour_info").html("Au tour de " + data);
-		   			$("#boutonCrever").removeAttr("disabled");
+		   			$("#boutonCrever").disabled = true;
 		   		}
 	   			}, "text") 	
    	          }, 1000);
@@ -17,7 +17,7 @@
  function crever() {
 		var ligne = $('#selectLigne').val()*1;
 		var colonne = $('#selectColonne').val()*1;
-		$.post("gameaction.html", { idpartie: idPartie, l: ligne, c: colonne,},
+		$.post("gameaction.html", { idpartie: idPartie, l: ligne, c: colonne},
 				   function(data) {
 						alert(data);
 						$("#boutonCrever").removeAttr("disabled");
