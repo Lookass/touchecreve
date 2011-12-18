@@ -68,7 +68,7 @@ public class TentativeCrevaison extends HttpServlet {
 			}
 			
 			be.ipl.tc.domaine.TentativeCrevaison tc = gestionTentativesUCC.tenterCrevaison(p.getId(), idJoueur, Integer.parseInt(request.getParameter("l")), Integer.parseInt(request.getParameter("c")));
-			response.getWriter().write(tc.getEtatTentative());
+			response.getWriter().write(String.valueOf(tc.getEtatTentative()));
 		}
 	}
 
