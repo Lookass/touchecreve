@@ -2,6 +2,7 @@
    setInterval(function() {
 	   $.post("PingPartie", {id: idPartie, action: "getEtat"},
 			   function(data) {
+		   
 		   if (data == "EN_PLACEMENT") {
 			   alert("Un adversaire a rejoint la partie!");
 			   $('#redirectPlacement').append('<input type="hidden" name="gameid" value="'+ idPartie +'" />');
