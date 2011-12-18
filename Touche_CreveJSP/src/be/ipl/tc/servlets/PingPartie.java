@@ -43,27 +43,28 @@ public class PingPartie extends HttpServlet {
 	@EJB GestionTentativesCrevaison gestionTentativesUCC;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("id") != null && request.getParameter("action").equals("getEtat")) {
-			List<Partie> lp = gestionPartiesUCC.listerParties();
-			for (Partie partie : lp) {
-				if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
-					response.getWriter().write(partie.getEtat().name());
+		if (request.getParameter("action") != null) {
+			if (request.getParameter("id") != null && request.getParameter("action").equals("getEtat")) {
+				List<Partie> lp = gestionPartiesUCC.listerParties();
+				for (Partie partie : lp) {
+					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
+						response.getWriter().write(partie.getEtat().name());
+					}
 				}
-			}
-		} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
-			List<Partie> lp = gestionPartiesUCC.listerParties();
-			for (Partie partie : lp) {
-				if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
-					List<TentativeCrevaison> lt = gestionTentativesUCC.listerTentatives(partie.getId());
-					if (lt.size()%2 == 0) { //Tour de joueur rouge
-						response.getWriter().write(partie.getJoueurRouge().getNom()); //Réponse brut pour AJAX
-					} else { //Tour de joueur bleu
-						response.getWriter().write(partie.getJoueurBleu().getNom()); //Réponse brut pour AJAX
+			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
+				List<Partie> lp = gestionPartiesUCC.listerParties();
+				for (Partie partie : lp) {
+					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
+						List<TentativeCrevaison> lt = gestionTentativesUCC.listerTentatives(partie.getId());
+						if (lt.size()%2 == 0) { //Tour de joueur rouge
+							response.getWriter().write(partie.getJoueurRouge().getNom()); //Réponse brut pour AJAX
+						} else { //Tour de joueur bleu
+							response.getWriter().write(partie.getJoueurBleu().getNom()); //Réponse brut pour AJAX
+						}
 					}
 				}
 			}
 		}
-		
 	}
 
 }
