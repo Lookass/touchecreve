@@ -320,7 +320,7 @@
 
 			
 
-					<div>Colonne : <select name="colonne" size="1">
+					<div>Colonne : <select id="selectColonne" name="colonne" size="1">
 
 									<option selected="selected" value="1">A</option>
 
@@ -346,7 +346,7 @@
 
 					</div>
 
-					<div>Ligne : <select name="ligne" size="1">
+					<div>Ligne : <select id="selectLigne" name="ligne" size="1">
 
 									<option selected="selected" value="1">1</option>
 
