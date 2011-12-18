@@ -45,9 +45,7 @@
 			Placement des voitures
 		</div>
 		
-		<div class="grilles_container">
-		
-			<div class="grille_voitures_container">
+		<div class="grille_voitures_placement_container">
 				<table id="grille_voitures">
 					<thead>
 						<tr>
@@ -178,8 +176,6 @@
 					</tbody>
 				</table>
 			</div>
-		
-		</div>
 		
 		<div class="placement_voiture_container_1st_level">
 		
