@@ -130,6 +130,7 @@ public class GestionVoituresImpl implements GestionVoitures {
 		Joueur bleu = joueurDao.recharger(p.getJoueurBleu().getIdJoueur());
 
 		rouge.getVoitures().size();
+		bleu.getVoitures().size();
 		
 		if(rouge.getNom().equals(nomJoueur))
 			return rouge.getVoitures();
