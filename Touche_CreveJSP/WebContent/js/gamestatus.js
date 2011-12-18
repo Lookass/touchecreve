@@ -1,18 +1,42 @@
  $(document).ready(function() {
 	 loadVoiture();
    setInterval(function() {
+	   
 	   $.post("PingPartie", {id: idPartie, action: "getTour"},
 			   function(data) {
 		   		if (monNom == data) {
 		   			$("#tour_info").html("C'est à votre tour de jouer");
-		   			$("#boutonCrever").addAttr("disabled");
+		   			$("#boutonCrever").attr("disabled", "disabled");
 		   			$("#boutonCrever").removeAttr("disabled");
 		   		} else {
 		   			$("#tour_info").html("Au tour de " + data);
-		   			$("#boutonCrever").addAttr("disabled");
+		   			$("#boutonCrever").attr("disabled", "disabled");
 		   		}
 	   			}, "text") 	
-   	          }, 1000);
+   	          }, 3000);
+   setInterval(function() {   
+      $.post("PingPartie", {id: idPartie, action: "getTentative"},
+		   function(data) {
+    	  var mesVoitures = data.split(';');
+		   		while (mesVoitures.length > 0) {
+		   			var classe = mesVoitures.shift();
+		   			var colonne = mesVoitures.shift();
+		   			var ligne = mesVoitures.shift();
+		   			var resultat = mesVoitures.shift();
+		   			var nomClasse = "";
+		   			
+		   			if (resultat == "0") {
+		   				nomClasse = "cellule_tentative_rate";
+		   			} else if (resultat == "1") {
+		   				nomClasse = "cellule_tentative_touche";
+		   			} else if(resultat == "2") {
+		   				nomClasse = "cellule_tentative_creve";
+		   			}
+		   		
+				    $('#'+ classe + '' + ligne + '' + colonne).addClass(nomClasse);
+		   		}
+   			}, "text") 	
+	          }, 3000);
    $.ajaxSetup({ cache: false });
 });
  
@@ -59,7 +83,7 @@
 						} else {
 							alert("Erreur : " + data);
 						}
-						$("#boutonCrever").addAttr("disabled");
+						$("#boutonCrever").attr("disabled", "disabled");
 				   }, "text");
 		
  }

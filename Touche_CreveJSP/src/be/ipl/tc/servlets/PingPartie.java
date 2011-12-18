@@ -69,9 +69,44 @@ public class PingPartie extends HttpServlet {
 			     	else
 			     		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
 				}
-				System.out.println("voiture : " + responseString);
 				
                 response.getWriter().write(responseString);
+			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTentative")) {
+				List<Partie> lp = gestionPartiesUCC.listerParties();
+				boolean isRed = false;
+
+				for (Partie partie : lp) {
+					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
+						if (partie.getJoueurRouge().getNom().equals(SessionManager.getNom(request.getSession()))) 
+							isRed = true;
+						break;
+					}
+				}
+				
+				List<TentativeCrevaison> tcs = gestionTentativesUCC.listerTentatives(Integer.parseInt(request.getParameter("id")));
+				String responseString = "";
+				int i = 0;
+				
+				for (TentativeCrevaison tentativeCrevaison : tcs) {
+					String classe = "";
+					if (isRed) {
+						if (i%2 == 0)
+							classe = "D";
+						else
+							classe = "G";
+					} else {
+						if (i%2 == 0)
+						classe = "G";
+							else
+						classe = "D";
+					}
+					if (responseString == "")
+			     		responseString += classe + ";" + tentativeCrevaison.getColonne() + ";" + tentativeCrevaison.getLigne() + ";" + String.valueOf(tentativeCrevaison.getEtatTentative());
+			     	else
+			     		responseString += ";" + classe + ";" + tentativeCrevaison.getColonne() + ";" + tentativeCrevaison.getLigne() + ";" + String.valueOf(tentativeCrevaison.getEtatTentative());
+					i++;
+				}
+				   response.getWriter().write(responseString);
 			}
 		}
 	}
