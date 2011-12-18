@@ -20,7 +20,7 @@
 	 	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript">
 		var idPartie = <c:out value="${partie.id}" />;
-		var monNom = <c:out value="${sessionScope.nom}" />; 
+		var monNom = '<c:out value="${sessionScope.nom}" />'; 
 		</script>
 		<script src="js/gamestatus.js" type="text/javascript"></script>
 	  
