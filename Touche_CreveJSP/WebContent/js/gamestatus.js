@@ -5,11 +5,11 @@
 			   function(data) {
 		   		if (monNom == data) {
 		   			$("#tour_info").html("C'est à votre tour de jouer");
-		   			$("#boutonCrever").disabled = true;
+		   			$("#boutonCrever").addAttr("disabled");
 		   			$("#boutonCrever").removeAttr("disabled");
 		   		} else {
 		   			$("#tour_info").html("Au tour de " + data);
-		   			$("#boutonCrever").disabled = true;
+		   			$("#boutonCrever").addAttr("disabled");
 		   		}
 	   			}, "text") 	
    	          }, 1000);
@@ -59,7 +59,7 @@
 						} else {
 							alert("Erreur : " + data);
 						}
-						$("#boutonCrever").removeAttr("disabled");
+						$("#boutonCrever").addAttr("disabled");
 				   }, "text");
 		
  }
