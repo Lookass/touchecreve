@@ -101,4 +101,11 @@ public class GestionPartiesImpl implements GestionParties {
 		return parties;
 	}
 
+	@Override
+	public Joueur getTour(int idPartie) {
+		
+		Partie p = partieDao.rechercher(idPartie);
+		return p.getTour();
+	}
+
 }
