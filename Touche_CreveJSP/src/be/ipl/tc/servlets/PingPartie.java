@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.Partie.Etat;
 import be.ipl.tc.domaine.TentativeCrevaison;
+import be.ipl.tc.domaine.Voiture;
+import be.ipl.tc.sessions.SessionManager;
 import be.ipl.tc.usecases.GestionParties;
 import be.ipl.tc.usecases.GestionTentativesCrevaison;
+import be.ipl.tc.usecases.GestionVoitures;
 
 /**
  * Servlet implementation class PingPartie
@@ -41,6 +44,7 @@ public class PingPartie extends HttpServlet {
 	 */
 	@EJB GestionParties gestionPartiesUCC;
 	@EJB GestionTentativesCrevaison gestionTentativesUCC;
+	@EJB GestionVoitures gestionVoituresUCC;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("action") != null) {
@@ -53,6 +57,32 @@ public class PingPartie extends HttpServlet {
 				}
 			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
 				response.getWriter().write(gestionPartiesUCC.getTour(Integer.parseInt(request.getParameter("id"))).getNom());
+			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getVoiture")) {
+				int idJoueur = 0;
+				Partie p = null;
+				List<Partie> lp = gestionPartiesUCC.listerParties();
+                for (Partie partie : lp) {
+                        if (partie.getId() == Integer.parseInt(request.getParameter("idpartie"))) {
+                                p = partie;
+                                if(p.getJoueurRouge().getNom().equals(SessionManager.getNom(request.getSession())))
+                                        idJoueur = p.getJoueurRouge().getIdJoueur();
+                                else 
+                                        idJoueur = p.getJoueurBleu().getIdJoueur();
+                                break;
+                        }
+                }
+                List<Voiture> voitures = gestionVoituresUCC.getVoitures(idJoueur);
+                
+                String responseString = ""; //Va être parsé par notre script js - requête ajax
+                
+                for (Voiture voiture : voitures) {
+                	if (responseString == "")
+                		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+                	else
+                		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+				}
+                
+                response.getWriter().write(responseString);
 			}
 		}
 	}
