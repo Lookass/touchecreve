@@ -20,7 +20,15 @@
 		var colonne = $('#selectColonne').val()*1;
 		$.post("gameaction.html", { idpartie: idPartie, l: ligne, c: colonne},
 				   function(data) {
-						alert(data);
+						if (data == "0") {
+							alert("Raté!");
+						} else if (data == "1") {
+							alert("Touché!");
+						} else if (data == "2") {
+							alert("Crevé!!!");
+						} else {
+							alert("Erreur : " + data);
+						}
 						$("#boutonCrever").removeAttr("disabled");
 				   }, "text");
 		
