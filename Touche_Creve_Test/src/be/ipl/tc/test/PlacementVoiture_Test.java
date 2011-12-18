@@ -16,7 +16,6 @@ import org.junit.Test;
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.Voiture;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
-import be.ipl.tc.exceptions.PartieException;
 import be.ipl.tc.exceptions.VoitureException;
 import be.ipl.tc.usecases.GestionPartiesRemote;
 import be.ipl.tc.usecases.GestionVoituresRemote;
@@ -66,8 +65,8 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Break", 2, 2,
 				Voiture.DIRECTION_HORIZONTAL);
 		List<Voiture> voitures = partie.getJoueurRouge().getVoitures();
-		for(Voiture v : voitures) {
-			if(v.getNom().equals("Break")) {
+		for (Voiture v : voitures) {
+			if (v.getNom().equals("Break")) {
 				voiture = v;
 				break;
 			}
@@ -200,81 +199,111 @@ public class PlacementVoiture_Test {
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie
 				.getJoueurRouge().getIdJoueur(), "Berline", 1, 1, 10);
 	}
+
 	/*
-	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de jeu.
+	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
+	 * jeu.
 	 */
 	@Test(expected = EJBException.class)
 	public void testPlacerVoitureQuiDebordeDeLaTableCoinBasGaucheVertical()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Berline", 9, 0, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Berline", 9, 0, 1);
 	}
+
 	/*
-	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de jeu.
+	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
+	 * jeu.
 	 */
 	@Test(expected = EJBException.class)
 	public void testPlacerVoitureQuiDebordeDeLaTableCoinBasDroitVertical()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Berline", 9, 9, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Berline", 9, 9, 1);
 	}
+
 	/*
-	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de jeu.
+	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
+	 * jeu.
 	 */
 	@Test(expected = EJBException.class)
 	public void testPlacerVoitureQuiDebordeDeLaTableCoinBasDroitHorizontal()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Berline", 9, 9, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Berline", 9, 9, 0);
 	}
+
 	/*
-	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de jeu.
+	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
+	 * jeu.
 	 */
 	@Test(expected = EJBException.class)
 	public void testPlacerVoitureQuiDebordeDeLaTableCoinHautDroitHorizontal()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Berline", 0, 9, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Berline", 0, 9, 0);
 	}
+
 	/*
-	 * Vérifie que le joueur ne peut placer une voiture qui se croise avec une autre.
+	 * Vérifie que le joueur ne peut placer une voiture qui se croise avec une
+	 * autre.
 	 */
-	@Test 
+	@Test
 	public void testPlacerVoitureCroiseAutreVoiture()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Berline", 2, 0, 0);
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Break", 2, 3, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Berline", 2, 0, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Break", 2, 3, 0);
 	}
-	
-	@Test 
+
+	@Test
 	public void testPlacerVoitureCroiseAutreVoitureB()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 1);
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 2, 0, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Limousine", 2, 0, 1);
 
 	}
-	@Test 
+
+	@Test
 	public void testPlacerVoitureCroiseAutreVoitureC()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 0, 2, 0);
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Limousine", 0, 2, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 0);
 	}
-	@Test(expected= EJBException.class)
+
+	@Test(expected = EJBException.class)
 	public void testPlacerVoitureCroiseAutreVoitureD()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Limousine", 0, 1, 1);
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 2, 0, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Limousine", 0, 1, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Citadine", 2, 0, 0);
 	}
-	@Test 
+
+	@Test
 	public void testPlacerVoitureCroiseAutreVoitureE()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 0, 8, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Citadine", 0, 8, 0);
 	}
-	@Test 
+
+	@Test
 	public void testPlacerVoitureCroiseAutreVoitureF()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 8, 0, 1);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Citadine", 8, 0, 1);
 	}
-	@Test 
+
+	@Test
 	public void testPlacerVoitureCroiseAutreVoitureG()
 			throws ArgumentInvalideException, VoitureException {
-		uccPlacementVoiture.placerVoiture(partie.getId(), partie.getJoueurRouge().getIdJoueur(), "Citadine", 9, 8, 0);
+		uccPlacementVoiture.placerVoiture(partie.getId(), partie
+				.getJoueurRouge().getIdJoueur(), "Citadine", 9, 8, 0);
 	}
-	
+
 }
