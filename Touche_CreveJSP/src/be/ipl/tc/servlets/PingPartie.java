@@ -62,7 +62,7 @@ public class PingPartie extends HttpServlet {
 				Partie p = null;
 				List<Partie> lp = gestionPartiesUCC.listerParties();
                 for (Partie partie : lp) {
-                        if (partie.getId() == Integer.parseInt(request.getParameter("idpartie"))) {
+                        if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
                                 p = partie;
                                 if(p.getJoueurRouge().getNom().equals(SessionManager.getNom(request.getSession())))
                                         idJoueur = p.getJoueurRouge().getIdJoueur();
