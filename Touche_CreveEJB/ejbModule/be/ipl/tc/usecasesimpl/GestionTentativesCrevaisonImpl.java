@@ -59,7 +59,7 @@ public class GestionTentativesCrevaisonImpl implements
 		for(int i = 0; i < tentativesJoueurRouge.size(); ++i) {
 			listeTentatives.add(tentativesJoueurRouge.get(i));
 			// Ne pas ajouter null si le joueur rouge a effectué la dernière tentative
-			if(i != tentativesJoueurRouge.size() || tentativesJoueurBleu.get(i) != null)
+			if(i != tentativesJoueurRouge.size() || tentativesJoueurBleu.size() == tentativesJoueurRouge.size())
 				listeTentatives.add(tentativesJoueurBleu.get(i));
 		}
 		
