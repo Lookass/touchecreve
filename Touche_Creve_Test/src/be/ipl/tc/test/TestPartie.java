@@ -17,7 +17,6 @@ import org.junit.Test;
 import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.domaine.Voiture;
-import be.ipl.tc.exceptions.TentativeCrevaisonException;
 import be.ipl.tc.exceptions.VoitureException;
 import be.ipl.tc.usecases.GestionPartiesRemote;
 import be.ipl.tc.usecases.GestionTentativesCrevaisonRemote;
