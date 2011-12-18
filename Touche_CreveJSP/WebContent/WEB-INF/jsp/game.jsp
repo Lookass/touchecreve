@@ -16,7 +16,12 @@
 	   <meta name="description" content="Plateau de jeu">
 
 	   <link rel="stylesheet" media="screen" type="text/css" title="Design" href="touche_creve.css">
-
+	    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	 	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript">
+		var idPartie = <c:out value="${partie.id}" />;
+		</script>
+		<script src="js/gamestatus.js" type="text/javascript"></script>
 	  
 
     </head>
@@ -38,9 +43,6 @@
 		
 
 		<div class="tour_info">
-
-			À votre tour de jouer
-
 		</div>
 
 		
@@ -143,13 +145,13 @@
 
 							<td id="G31"></td>
 
-							<td id="G32" class="cellule_voiture_pneu_normal"></td>
+							<td id="G32"></td>
 
-							<td id="G33" class="cellule_voiture_pneu_normal"></td>
+							<td id="G33"></td>
 
-							<td id="G34" class="cellule_voiture_pneu_touche"></td>
+							<td id="G34"></td>
 
-							<td id="G35" class="cellule_voiture_pneu_normal"></td>
+							<td id="G35"></td>
 
 							<td id="G36"></td>
 
@@ -225,11 +227,11 @@
 
 							<td id="G66"></td>
 
-							<td id="G67" class="cellule_voiture_pneu_creve"></td>
+							<td id="G67"></td>
 
-							<td id="G68" class="cellule_voiture_pneu_creve"></td>
+							<td id="G68"></td>
 
-							<td id="G69" class="cellule_voiture_pneu_creve"></td>
+							<td id="G69"></td>
 
 						</tr>
 
@@ -271,7 +273,7 @@
 
 							<td id="G85"></td>
 
-							<td id="G86" class="cellule_voiture_rate"></td>
+							<td id="G86"></td>
 
 							<td id="G87"></td>
 
@@ -295,9 +297,9 @@
 
 							<td id="G95"></td>
 
-							<td id="G96" class="cellule_voiture_rate"></td>
+							<td id="G96"></td>
 
-							<td id="G97" class="cellule_voiture_rate"></td>
+							<td id="G97"></td>
 
 							<td id="G98"></td>
 
