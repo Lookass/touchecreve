@@ -1,5 +1,6 @@
 package be.ipl.tc.test;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 import javax.naming.Context;
@@ -10,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import be.ipl.tc.domaine.Partie;
+import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.domaine.Voiture;
 import be.ipl.tc.usecases.GestionPartiesRemote;
 import be.ipl.tc.usecases.GestionTentativesCrevaisonRemote;
@@ -305,21 +307,81 @@ public class TentativeCrevaison_Test {
 	}
 
 	/**
-	 * Tentative de crevaison valide
+	 * Tentative de crevaison valide (Etat = Touche)
 	 * 
-	 * @throws Exception
 	 */
 	@Test
 	public void testTenterCrevaison15() throws Exception {
-
-		try {
-			uccTentatives.tenterCrevaison(partieEnCours.getId(), partieEnCours
-					.getJoueurRouge().getIdJoueur(), 0, 0);
-		} catch (Throwable t) {
-			System.out.println(t);
-			fail();
-		}
-
+		TentativeCrevaison tentative15;
+		tentative15 = uccTentatives.tenterCrevaison(partieEnCours.getId(),
+				partieEnCours.getJoueurRouge().getIdJoueur(), 5, 0);
+		assertTrue(tentative15.getEtatTentative() == TentativeCrevaison.TENTATIVE_ETAT_TOUCHE);
 	}
+	/**
+	 * Tentative de crevaison valide (Etat = Creve)
+	 * (On a touche 2 fois une Citadine et donc elle est crevée)
+	 */
+	@Test
+	public void testTenterCrevaison16() throws Exception {
+		TentativeCrevaison tentative15;
+		uccTentatives.tenterCrevaison(partieEnCours.getId(), partieEnCours
+				.getJoueurRouge().getIdJoueur(), 5, 0);
+		uccTentatives.tenterCrevaison(partieEnCours.getId(), partieEnCours
+				.getJoueurBleu().getIdJoueur(), 0, 0);
+		tentative15 = uccTentatives.tenterCrevaison(partieEnCours.getId(),
+				partieEnCours.getJoueurRouge().getIdJoueur(), 5, 1);
+		assertTrue(tentative15.getEtatTentative() == TentativeCrevaison.TENTATIVE_ETAT_CREVE);
+	}
+	
+	/**
+	 * Tentative de crevaison valide (Etat = Rate)
+	 * On tire juste à cote d'une voiture.
+	 */
+	@Test
+	public void testTenterCrevaison17() throws Exception {
+		TentativeCrevaison tentative15;
+		tentative15 = uccTentatives.tenterCrevaison(partieEnCours.getId(),
+				partieEnCours.getJoueurRouge().getIdJoueur(), 5, 2);
+		assertTrue(tentative15.getEtatTentative() == TentativeCrevaison.TENTATIVE_ETAT_RATE);
+	}
+	/**
+	 * Tentative de crevaison valide (Etat = Rate)
+	 * On tire en position (0.9). 
+	 */
+	@Test
+	public void testTenterCrevaison18() throws Exception {
+		TentativeCrevaison tentative15;
+		tentative15 = uccTentatives.tenterCrevaison(partieEnCours.getId(),
+				partieEnCours.getJoueurRouge().getIdJoueur(), 0, 9);
+		assertTrue(tentative15.getEtatTentative() == TentativeCrevaison.TENTATIVE_ETAT_RATE);
+	}
+	/**
+	 * Tentative de crevaison valide (Etat = Rate)
+	 * On tire en position (9.9). 
+	 */
+	@Test
+	public void testTenterCrevaison19() throws Exception {
+		TentativeCrevaison tentative15;
+		tentative15 = uccTentatives.tenterCrevaison(partieEnCours.getId(),
+				partieEnCours.getJoueurRouge().getIdJoueur(), 9, 9);
+		assertTrue(tentative15.getEtatTentative() == TentativeCrevaison.TENTATIVE_ETAT_RATE);
+	}
+	/**
+	 * Tentative de crevaison valide (Etat = Rate)
+	 * On tire en position (0.0) pour vérifier qu'on ne peut pas touché ca propre voiture. 
+	 */
+	@Test
+	public void testTenterCrevaison20() throws Exception {
+		TentativeCrevaison tentative15;
+		tentative15 = uccTentatives.tenterCrevaison(partieEnCours.getId(),
+				partieEnCours.getJoueurRouge().getIdJoueur(), 0, 0);
+		assertTrue(tentative15.getEtatTentative() == TentativeCrevaison.TENTATIVE_ETAT_RATE);
+	}
+	
+	
+	
+	
+	
+	
 
 }
