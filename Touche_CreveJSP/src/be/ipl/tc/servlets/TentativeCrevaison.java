@@ -57,7 +57,7 @@ public class TentativeCrevaison extends HttpServlet {
 			int idJoueur = 0;
 			List<Partie> lp = gestionPartiesUCC.listerParties();
 			for (Partie partie : lp) {
-				if (partie.getId() == Integer.parseInt(request.getParameter("partieid"))) {
+				if (partie.getId() == Integer.parseInt(request.getParameter("idpartie"))) {
 					p = partie;
 					if(p.getJoueurRouge().getNom().equals(SessionManager.getNom(request.getSession())))
 						idJoueur = p.getJoueurRouge().getIdJoueur();
