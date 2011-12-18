@@ -43,14 +43,14 @@ public class PingPartie extends HttpServlet {
 	@EJB GestionTentativesCrevaison gestionTentativesUCC;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("id") != null && request.getParameter("action") == "getEtat") {
+		if (request.getParameter("id") != null && request.getParameter("action").equals("getEtat")) {
 			List<Partie> lp = gestionPartiesUCC.listerParties();
 			for (Partie partie : lp) {
 				if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
 					response.getWriter().write(partie.getEtat().name());
 				}
 			}
-		} else if (request.getParameter("id") != null && request.getParameter("action") == "getTour") {
+		} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
 			List<Partie> lp = gestionPartiesUCC.listerParties();
 			for (Partie partie : lp) {
 				if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
