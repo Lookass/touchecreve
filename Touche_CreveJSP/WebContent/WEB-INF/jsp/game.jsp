@@ -370,7 +370,7 @@
 
 					</div>
 
-					<div><input id="boutonCrever" type="submit" disabled="disabled" onClick="crever();" value="Crever !"/></div>
+					<div><button id="boutonCrever" disabled="disabled" onClick="crever();">Crever !</button></div>
 
 				</form>
 
