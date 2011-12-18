@@ -10,6 +10,17 @@
 		   			$("#boutonCrever").removeAttr("disabled");
 		   		}
 	   			}, "text") 	
-   	          }, 5000);
+   	          }, 1000);
    $.ajaxSetup({ cache: false });
 });
+ 
+ function crever() {
+		var ligne = $('#selectLigne').val()*1;
+		var colonne = $('#selectColonne').val()*1;
+		$.post("gameaction.html", { idpartie: idPartie, l: ligne, c: colonne,},
+				   function(data) {
+						alert(data);
+						$("#boutonCrever").removeAttr("disabled");
+				   }, "text");
+		
+ }
