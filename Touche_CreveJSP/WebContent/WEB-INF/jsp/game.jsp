@@ -489,9 +489,9 @@
 
 							<td id="D41"></td>
 
-							<td id="D42" class="cellule_tentative_rate"></td>
+							<td id="D42"></td>
 
-							<td id="D43" class="cellule_tentative_rate"></td>
+							<td id="D43"></td>
 
 							<td id="D44"></td>
 
@@ -541,7 +541,7 @@
 
 							<td id="D63"></td>
 
-							<td id="D64" class="cellule_tentative_rate"></td>
+							<td id="D64"></td>
 
 							<td id="D65"></td>
 
@@ -565,7 +565,7 @@
 
 							<td id="D73"></td>
 
-							<td id="D74" class="cellule_tentative_touche"></td>
+							<td id="D74"></td>
 
 							<td id="D75"></td>
 
@@ -589,7 +589,7 @@
 
 							<td id="D83"></td>
 
-							<td id="D84" class="cellule_tentative_rate"></td>
+							<td id="D84"></td>
 
 							<td id="D85"></td>
 
@@ -615,13 +615,13 @@
 
 							<td id="D94"></td>
 
-							<td id="D95" class="cellule_tentative_rate"></td>
+							<td id="D95"></td>
 
-							<td id="D96" class="cellule_tentative_creve"></td>
+							<td id="D96"></td>
 
-							<td id="D97" class="cellule_tentative_creve"></td>
+							<td id="D97"></td>
 
-							<td id="D98" class="cellule_tentative_creve"></td>
+							<td id="D98"></td>
 
 							<td id="D99"></td>
 

@@ -37,7 +37,7 @@
 				<button id="b_creer_partie" onclick='document.location.href="cree.html";' >Créer une partie</button>
 			</div>
 			
-			<table>
+			<table id="liste_parties">
 				<thead>
 					<tr>
 						<th>#</th>

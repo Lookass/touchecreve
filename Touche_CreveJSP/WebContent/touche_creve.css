@@ -203,21 +203,29 @@ td:hover
 	height: 20px;
 }
 
+.grille_voitures_placement_container
+{
+	width: 275px;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
 .grille_voitures_container
 {
 	float: left;
-	width: 33.3%;
+	width: 200px;
 }
 
 #tentative_info_container
 {
 	float: left;
-	width: 33.3%;
+	width: 200px;
 }
 
 .grille_tentatives_container
 {
-	width: 33.3%;
+	width: 200px;
 }
 
 #tentative_info_container div
