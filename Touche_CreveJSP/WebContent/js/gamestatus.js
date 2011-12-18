@@ -4,7 +4,8 @@
 			   function(data) {
 		   		if (monNom == data) {
 		   			$("#tour_info").html("C'est à votre tour de jouer");
-		   			$("#boutonCrever").disabled = false;
+		   			$("#boutonCrever").disabled = true;
+		   			$("#boutonCrever").removeAttr("disabled");
 		   		} else {
 		   			$("#tour_info").html("Au tour de " + data);
 		   			$("#boutonCrever").disabled = true;
