@@ -46,9 +46,9 @@
 			   		var mesVoitures = data.split(';');
 			   		while (mesVoitures.length > 0) {
 			   			var creve = mesVoitures.shift();
-			   			var ligne = mesVoitures.shift();
-			   			var colonne = mesVoitures.shift();
-			   			var nbRoue = mesVoitures.shift();
+			   			var ligne = mesVoitures.shift()*1;
+			   			var colonne = mesVoitures.shift()*1;
+			   			var nbRoue = mesVoitures.shift()*1;
 			   			var direction = mesVoitures.shift();
 			   			var nomClasse;
 			   			if (creve == "false") {
