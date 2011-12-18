@@ -1,7 +1,9 @@
- $(document).ready(function() {
+var etatFini = false;
+
+$(document).ready(function() {
 	 loadVoiture();
    setInterval(function() {
-	   
+	   if (!etatFini) {
 	   $.post("PingPartie", {id: idPartie, action: "getTour"},
 			   function(data) {
 		   		if (monNom == data) {
@@ -12,9 +14,11 @@
 		   			$("#tour_info").html("Au tour de " + data);
 		   			$("#boutonCrever").attr("disabled", "disabled");
 		   		}
-	   			}, "text") 	
+	   			}, "text");
+	   }
    	          }, 3000);
    setInterval(function() {   
+	  if (etatFini) {
       $.post("PingPartie", {id: idPartie, action: "getTentative"},
 		   function(data) {
     	  var mesVoitures = data.split(';');
@@ -35,8 +39,20 @@
 		   		
 				    $('#'+ classe + '' + ligne + '' + colonne).addClass(nomClasse);
 		   		}
-   			}, "text") 	
+   			}, "text"); 	
+	  }
 	          }, 3000);
+   setInterval(function() {
+	   $.post("PingPartie", {id: idPartie, action: "getEtat"},
+			   function(data) {
+		   
+		   if (data == "TERMINEE") {
+			   alert("Partie terminée");
+			   $("#boutonCrever").attr("disabled", "disabled");
+			   etatFini = true;
+		   }
+	   }, "text")
+   }, 5000);
    $.ajaxSetup({ cache: false });
 });
  
