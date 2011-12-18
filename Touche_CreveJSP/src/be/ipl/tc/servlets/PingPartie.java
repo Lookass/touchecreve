@@ -59,18 +59,9 @@ public class PingPartie extends HttpServlet {
 			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
 				response.getWriter().write(gestionPartiesUCC.getTour(Integer.parseInt(request.getParameter("id"))).getNom());
 			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getVoiture")) {
-				List<Voiture> voitures  = gestionVoituresUCC.getVoitures(Integer.parseInt(request.getParameter("id")), SessionManager.getNom(request.getSession()));
-				System.out.println(voitures.size());
-                String responseString = ""; //Va être parsé par notre script js - requête ajax
-                /*
-                for (Voiture voiture : voitures) {
-                	if (responseString == "")
-                		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
-                	else
-                		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
-				}
-                */
-                response.getWriter().write(responseString);
+				
+
+                response.getWriter().write(gestionVoituresUCC.getVoitures(Integer.parseInt(request.getParameter("id")), SessionManager.getNom(request.getSession())));
 			}
 		}
 	}
