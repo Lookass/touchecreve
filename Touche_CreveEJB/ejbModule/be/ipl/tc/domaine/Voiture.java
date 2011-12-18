@@ -60,6 +60,10 @@ public class Voiture implements Serializable, Cloneable {
 	public int getNbrPneusRestant() {
 		return nbrPneusRestant;
 	}
+	
+	public boolean estCrevée() {
+		return nbrPneusRestant == 0;
+	}
 
 	public TentativeCrevaison creverPneu(TentativeCrevaison tc) {
 		if (nbrPneusRestant == 0)
