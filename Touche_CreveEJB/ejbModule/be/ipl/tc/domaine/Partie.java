@@ -88,6 +88,7 @@ public class Partie implements Serializable {
 						&& partie.getJoueurBleu().getVoitures().size() == 5) {
 					partie.etat = Etat.EN_COURS;
 					partie.tour = partie.joueurRouge;
+					partie.dateDebut = new GregorianCalendar().getTimeInMillis();
 				}
 
 				return false;
@@ -143,8 +144,20 @@ public class Partie implements Serializable {
 					}
 				}
 				joueur.ajouterTentativeCrevaison(tentative);
-
-				partie.tourSuivant();
+				
+				Joueur j = (joueur == partie.joueurRouge ? partie.joueurBleu : partie.joueurRouge);
+				boolean terminee = true;
+				for(Voiture v : j.getVoitures()) {
+					if(!v.estCrevée()) {
+						terminee = false;
+						break;
+					}
+				}
+				
+				if(terminee)
+					partie.etat = Etat.TERMINEE;	
+				else
+					partie.tourSuivant();
 
 				return tentative;
 			}
@@ -195,15 +208,14 @@ public class Partie implements Serializable {
 	@JoinColumn(name = "idJoueurBleu")
 	private Joueur joueurBleu;
 	@Column
-	private String dateDebut;
+	private long dateDebut;
 	@Enumerated
 	private Partie.Etat etat = Partie.Etat.EN_ATTENTE;
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "idJoueurTour")
 	private Joueur tour;
 
-	public Partie() {
-	}
+	public Partie() {}
 
 	public Partie(Joueur joueurRouge, String nom) {
 		super();
@@ -211,11 +223,6 @@ public class Partie implements Serializable {
 		this.nom = nom;
 		this.tour = joueurRouge;
 		Calendar date = new GregorianCalendar();
-		this.dateDebut = String.valueOf(date.get(Calendar.YEAR)) + "/"
-				+ String.valueOf(date.get(Calendar.MONTH)) + "/"
-				+ String.valueOf(date.get(Calendar.DAY_OF_MONTH)) + " "
-				+ String.valueOf(date.get(Calendar.HOUR_OF_DAY)) + ":"
-				+ String.valueOf(date.get(Calendar.MINUTE));
 	}
 
 	public int getId() {
@@ -276,7 +283,7 @@ public class Partie implements Serializable {
 		return this.etat.getVainqueur(this);
 	}
 
-	public String getDateDebut() {
+	public long getDateDebut() {
 		return dateDebut;
 	}
 
