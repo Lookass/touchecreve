@@ -108,7 +108,7 @@ function postPlacementVoiture() {
 						 } else { //On affiche l'exception
 							 alert("Data Loaded: " + data);
 						 }
-					   });
+					   }, "text");
 			
 			
 		}

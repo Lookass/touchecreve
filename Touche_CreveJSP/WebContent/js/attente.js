@@ -8,7 +8,7 @@
 			   $('#redirectPlacement').append('<input type="hidden" name="owner" value="1" />');
 			   $('#redirectPlacement').submit();
 		   }
-	   })
+	   }, "text")
    }, 5000);
    $.ajaxSetup({ cache: false });
 });
