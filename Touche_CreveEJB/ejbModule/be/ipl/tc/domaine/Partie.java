@@ -166,6 +166,10 @@ public class Partie implements Serializable {
 
 				return tentative;
 			}
+			
+			public Joueur getTour(Partie partie) {
+				return partie.tour;
+			}
 
 		},
 
@@ -196,6 +200,10 @@ public class Partie implements Serializable {
 		}
 
 		public Joueur getVainqueur(Partie partie) {
+			throw new PartieException("Etat inccorect");
+		}
+		
+		public Joueur getTour(Partie partie) {
 			throw new PartieException("Etat inccorect");
 		}
 
@@ -256,7 +264,7 @@ public class Partie implements Serializable {
 		return false;
 	}
 
-	private Joueur getTour() {
+	public Joueur getTour() {
 		return tour;
 	}
 
