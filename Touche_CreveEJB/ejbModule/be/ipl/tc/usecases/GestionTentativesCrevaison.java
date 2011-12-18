@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import be.ipl.tc.domaine.Joueur;
-import be.ipl.tc.domaine.Partie;
 import be.ipl.tc.domaine.TentativeCrevaison;
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.exceptions.PartieException;
