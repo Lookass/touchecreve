@@ -48,65 +48,69 @@ public class PingPartie extends HttpServlet {
 	@EJB GestionVoitures gestionVoituresUCC;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("action") != null) {
-			if (request.getParameter("id") != null && request.getParameter("action").equals("getEtat")) {
-				List<Partie> lp = gestionPartiesUCC.listerParties();
-				for (Partie partie : lp) {
-					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
-						response.getWriter().write(partie.getEtat().name());
+		if (!SessionManager.isNameSet(request.getSession(true))) {
+			response.sendRedirect("index.html");
+		} else {
+			if (request.getParameter("action") != null) {
+				if (request.getParameter("id") != null && request.getParameter("action").equals("getEtat")) {
+					List<Partie> lp = gestionPartiesUCC.listerParties();
+					for (Partie partie : lp) {
+						if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
+							response.getWriter().write(partie.getEtat().name());
+						}
 					}
-				}
-			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
-				response.getWriter().write(gestionPartiesUCC.getTour(Integer.parseInt(request.getParameter("id"))).getNom());
-			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getVoiture")) {
-				
-				List<Voiture> voitures  = gestionVoituresUCC.getVoitures(Integer.parseInt(request.getParameter("id")), SessionManager.getNom(request.getSession()));
-				String responseString = "";
-				
-				for (Voiture voiture : voitures) {
-			     	if (responseString == "")
-			     		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
-			     	else
-			     		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
-				}
-				
-                response.getWriter().write(responseString);
-			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTentative")) {
-				List<Partie> lp = gestionPartiesUCC.listerParties();
-				boolean isRed = false;
-
-				for (Partie partie : lp) {
-					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
-						if (partie.getJoueurRouge().getNom().equals(SessionManager.getNom(request.getSession()))) 
-							isRed = true;
-						break;
+				} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
+					response.getWriter().write(gestionPartiesUCC.getTour(Integer.parseInt(request.getParameter("id"))).getNom());
+				} else if (request.getParameter("id") != null && request.getParameter("action").equals("getVoiture")) {
+					
+					List<Voiture> voitures  = gestionVoituresUCC.getVoitures(Integer.parseInt(request.getParameter("id")), SessionManager.getNom(request.getSession()));
+					String responseString = "";
+					
+					for (Voiture voiture : voitures) {
+				     	if (responseString == "")
+				     		responseString += voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
+				     	else
+				     		responseString += ";" + voiture.estCrevée() + ";" + voiture.getLigne()  + ";" + voiture.getColonne()  + ";" + voiture.getNbrPneus() + ";" + voiture.getDirection();
 					}
-				}
-				
-				List<TentativeCrevaison> tcs = gestionTentativesUCC.listerTentatives(Integer.parseInt(request.getParameter("id")));
-				String responseString = "";
-				int i = 0;
-				
-				for (TentativeCrevaison tentativeCrevaison : tcs) {
-					String classe = "";
-					if (isRed) {
-						if (i%2 == 0)
-							classe = "D";
-						else
-							classe = "G";
-					} else {
-						if (i%2 == 0)
-						classe = "G";
+					
+	                response.getWriter().write(responseString);
+				} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTentative")) {
+					List<Partie> lp = gestionPartiesUCC.listerParties();
+					boolean isRed = false;
+	
+					for (Partie partie : lp) {
+						if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
+							if (partie.getJoueurRouge().getNom().equals(SessionManager.getNom(request.getSession()))) 
+								isRed = true;
+							break;
+						}
+					}
+					
+					List<TentativeCrevaison> tcs = gestionTentativesUCC.listerTentatives(Integer.parseInt(request.getParameter("id")));
+					String responseString = "";
+					int i = 0;
+					
+					for (TentativeCrevaison tentativeCrevaison : tcs) {
+						String classe = "";
+						if (isRed) {
+							if (i%2 == 0)
+								classe = "D";
 							else
-						classe = "D";
+								classe = "G";
+						} else {
+							if (i%2 == 0)
+							classe = "G";
+								else
+							classe = "D";
+						}
+						if (responseString == "")
+				     		responseString += classe + ";" + tentativeCrevaison.getColonne() + ";" + tentativeCrevaison.getLigne() + ";" + String.valueOf(tentativeCrevaison.getEtatTentative());
+				     	else
+				     		responseString += ";" + classe + ";" + tentativeCrevaison.getColonne() + ";" + tentativeCrevaison.getLigne() + ";" + String.valueOf(tentativeCrevaison.getEtatTentative());
+						i++;
 					}
-					if (responseString == "")
-			     		responseString += classe + ";" + tentativeCrevaison.getColonne() + ";" + tentativeCrevaison.getLigne() + ";" + String.valueOf(tentativeCrevaison.getEtatTentative());
-			     	else
-			     		responseString += ";" + classe + ";" + tentativeCrevaison.getColonne() + ";" + tentativeCrevaison.getLigne() + ";" + String.valueOf(tentativeCrevaison.getEtatTentative());
-					i++;
+					   response.getWriter().write(responseString);
 				}
-				   response.getWriter().write(responseString);
 			}
 		}
 	}
