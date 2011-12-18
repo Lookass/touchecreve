@@ -320,55 +320,33 @@
 
 			
 
-					<div>Colonne : <select id="selectColonne" name="colonne" size="1">
-
-									<option selected="selected" value="0">A</option>
-
-									<option value="1">B</option>
-
-									<option value="2">C</option>
-
-									<option value="3">D</option>
-
-									<option value="4">E</option>
-
-									<option value="5">F</option>
-
-									<option value="6">G</option>
-
-									<option value="7">H</option>
-
-									<option value="8">I</option>
-
-									<option value="9">J</option>
-
-								   </select>
+					<div>Colonne : <select id="selectColonne" name="select_placement_voiture_colonne">
+									<option selected="selected" value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+								</select>
 
 					</div>
 
-					<div>Ligne : <select id="selectLigne" name="ligne" size="1">
-
-									<option selected="selected" value="0">1</option>
-
-									<option value="1">2</option>
-
-									<option value="2">3</option>
-
-									<option value="3">4
-									
-									</option value="4">5</option>
-
-									<option value="5">6</option>
-
-									<option value="6">7</option>
-
-									<option value="7">8</option>
-
-									<option value="8">9</option>
-
-									<option value="9">10</option>
-
-								</select>
+					<div>Ligne : <select id="selectLigne" name="select_placement_voiture_ligne">
+								<option selected="selected" value="0">A</option>
+								<option value="1">B</option>
+								<option value="2">C</option>
+								<option value="3">D</option>
+								<option value="4">E</option>
+								<option value="5">F</option>
+								<option value="6">G</option>
+								<option value="7">H</option>
+								<option value="8">I</option>
+								<option value="9">J</option>
+							</select>
 
 					</div>
 
@@ -645,5 +623,5 @@
 		
 
 	</body>
-a
+
 </html>
