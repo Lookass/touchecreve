@@ -110,7 +110,7 @@ public class TestPartie {
 	}
 
 	/**
-	 * Vérification que l'on ne peut pas rejoindre une partie pleine.
+	 * Vérification que l'on ne peut pas rejoindre une partie EN_PLACEMENT.
 	 * 
 	 * @throws EJBException
 	 */

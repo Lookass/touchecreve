@@ -46,11 +46,19 @@ public class PlacementVoiture_Test {
 				"Joueur de test bleu");
 	}
 
+	/**
+	 * Vérification que l'état de la partie est bien en placement
+	 * 
+	 */
 	@Test
 	public void testEtatPartie() {
 		assertTrue(partie.getEtat().equals(Partie.Etat.EN_PLACEMENT));
 	}
 
+	/**
+	 * Vérification qu'il y a bien 5 voitures que l'on doit placer.
+	 * 
+	 */
 	@Test
 	public void testListerVoituresAPlacer() {
 		List<Voiture> listeVoiture = uccPlacementVoiture
@@ -58,6 +66,10 @@ public class PlacementVoiture_Test {
 		assertEquals(5, listeVoiture.size());
 	}
 
+	/**
+	 * Vérification que l'on a bien placer la voiture à la bonne position.
+	 * 
+	 */
 	@Test
 	public void testPlacerVoiture() throws ArgumentInvalideException,
 			VoitureException {
@@ -77,6 +89,12 @@ public class PlacementVoiture_Test {
 		assertEquals(4, voiture.getNbrPneusRestant());
 	}
 
+	/**
+	 * Tentative de placement d'une voiture qui porte un nom différent des 5 de
+	 * la liste.
+	 * 
+	 * @throws VoitureException
+	 */
 	@Test(expected = VoitureException.class)
 	public void testPlacerVoitureMauvaisNom() throws ArgumentInvalideException,
 			VoitureException {
@@ -85,6 +103,11 @@ public class PlacementVoiture_Test {
 				Voiture.DIRECTION_HORIZONTAL);
 	}
 
+	/**
+	 * Tentative de placement d'une voiture qui a déja été placé.
+	 * 
+	 * @throws VoitureException
+	 */
 	@Test(expected = VoitureException.class)
 	public void testPlacerVoitureCollisionNom()
 			throws ArgumentInvalideException, VoitureException {
@@ -96,6 +119,11 @@ public class PlacementVoiture_Test {
 				Voiture.DIRECTION_HORIZONTAL);
 	}
 
+	/**
+	 * Tentative de placement d'une voiture à la meme position qu'une autre.
+	 * 
+	 * @throws EJBException
+	 */
 	@Test(expected = EJBException.class)
 	public void testPlacerVoitureCollisionPosition()
 			throws ArgumentInvalideException, VoitureException {
@@ -107,7 +135,7 @@ public class PlacementVoiture_Test {
 				Voiture.DIRECTION_HORIZONTAL);
 	}
 
-	/*
+	/**
 	 * Vérifie que le nom de la voiture créée n'est pas nul
 	 */
 	@Test(expected = EJBException.class)
@@ -118,7 +146,7 @@ public class PlacementVoiture_Test {
 				Voiture.DIRECTION_HORIZONTAL);
 	}
 
-	/*
+	/**
 	 * Vérifie qu'un joueur,qui n'appartient pas à la partie, ne puisse placer
 	 * sa voiture.
 	 */
@@ -129,7 +157,7 @@ public class PlacementVoiture_Test {
 				Voiture.DIRECTION_HORIZONTAL);
 	}
 
-	/*
+	/**
 	 * Vérifie qu'un joueur ne puisse placer sa voiture sur une partie
 	 * inexistante.
 	 */
@@ -140,7 +168,7 @@ public class PlacementVoiture_Test {
 				.getIdJoueur(), "Break", 3, 2, Voiture.DIRECTION_HORIZONTAL);
 	}
 
-	/*
+	/**
 	 * Insertion d'une coordonnée négative sur l'axe horizontal
 	 */
 	@Test(expected = EJBException.class)
@@ -150,7 +178,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", -1, 1, 1);
 	}
 
-	/*
+	/**
 	 * Insertion d'une coordonnée négative sur l'axe vertical
 	 */
 	@Test(expected = EJBException.class)
@@ -160,7 +188,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 1, -1, 1);
 	}
 
-	/*
+	/**
 	 * Insertion d'une coordonnée négative pour la direction
 	 */
 	@Test(expected = EJBException.class)
@@ -170,7 +198,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 1, 1, -1);
 	}
 
-	/*
+	/**
 	 * Insertion d'une coordonnée supérieure à la limite sur l'axe horizontal
 	 */
 	@Test(expected = EJBException.class)
@@ -180,7 +208,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 10, 1, 1);
 	}
 
-	/*
+	/**
 	 * Insertion d'une coordonnée supérieure à la limite sur l'axe vertical
 	 */
 	@Test(expected = EJBException.class)
@@ -190,7 +218,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 1, 10, 1);
 	}
 
-	/*
+	/**
 	 * Insertion d'une coordonnée supérieure à la limite pour la direction
 	 */
 	@Test(expected = EJBException.class)
@@ -200,7 +228,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 1, 1, 10);
 	}
 
-	/*
+	/**
 	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
 	 * jeu.
 	 */
@@ -211,7 +239,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 9, 0, 1);
 	}
 
-	/*
+	/**
 	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
 	 * jeu.
 	 */
@@ -222,7 +250,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 9, 9, 1);
 	}
 
-	/*
+	/**
 	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
 	 * jeu.
 	 */
@@ -233,7 +261,7 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 9, 9, 0);
 	}
 
-	/*
+	/**
 	 * Vérifie que le joueur ne peut placer une voiture qui déborde du champ de
 	 * jeu.
 	 */
@@ -244,9 +272,8 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Berline", 0, 9, 0);
 	}
 
-	/*
-	 * Vérifie que le joueur ne peut placer une voiture qui se croise avec une
-	 * autre.
+	/**
+	 * Placement d'une voiture juste derrière une autre.(Les 2 en horizontale)
 	 */
 	@Test
 	public void testPlacerVoitureCroiseAutreVoiture()
@@ -257,6 +284,9 @@ public class PlacementVoiture_Test {
 				.getJoueurRouge().getIdJoueur(), "Break", 2, 3, 0);
 	}
 
+	/**
+	 * Placement d'une voiture juste en dessous d'une autre(Les 2 en verticale)
+	 */
 	@Test
 	public void testPlacerVoitureCroiseAutreVoitureB()
 			throws ArgumentInvalideException, VoitureException {
@@ -267,6 +297,10 @@ public class PlacementVoiture_Test {
 
 	}
 
+	/**
+	 * Placement d'une voiture juste avant une autre.(Les 2 en horizontale)
+	 * 
+	 */
 	@Test
 	public void testPlacerVoitureCroiseAutreVoitureC()
 			throws ArgumentInvalideException, VoitureException {
@@ -275,7 +309,10 @@ public class PlacementVoiture_Test {
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie
 				.getJoueurRouge().getIdJoueur(), "Citadine", 0, 0, 0);
 	}
-
+	/**
+	 * Tentative de placement d'une voiture sur une autre.
+	 * @throws EJBException
+	 */
 	@Test(expected = EJBException.class)
 	public void testPlacerVoitureCroiseAutreVoitureD()
 			throws ArgumentInvalideException, VoitureException {
@@ -284,21 +321,27 @@ public class PlacementVoiture_Test {
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie
 				.getJoueurRouge().getIdJoueur(), "Citadine", 2, 0, 0);
 	}
-
+	/**
+	 * Placement d'une voiture en fin de ligne. (0.8)
+	 */
 	@Test
 	public void testPlacerVoitureCroiseAutreVoitureE()
 			throws ArgumentInvalideException, VoitureException {
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie
 				.getJoueurRouge().getIdJoueur(), "Citadine", 0, 8, 0);
 	}
-
+	/**
+	 * Placement d'une voiture en fin de colonne. (8.0)
+	 */
 	@Test
 	public void testPlacerVoitureCroiseAutreVoitureF()
 			throws ArgumentInvalideException, VoitureException {
 		uccPlacementVoiture.placerVoiture(partie.getId(), partie
 				.getJoueurRouge().getIdJoueur(), "Citadine", 8, 0, 1);
 	}
-
+	/**
+	 * Placement d'une voiture dans le coin bas à droite. (9.8)
+	 */
 	@Test
 	public void testPlacerVoitureCroiseAutreVoitureG()
 			throws ArgumentInvalideException, VoitureException {
