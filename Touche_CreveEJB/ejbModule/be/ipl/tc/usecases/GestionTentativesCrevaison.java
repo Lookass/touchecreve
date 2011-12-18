@@ -29,5 +29,12 @@ public interface GestionTentativesCrevaison {
 	 * @return La liste des tentatives de crevaison de la partie correspondant à idPartie
 	 */
 	List<TentativeCrevaison> listerTentatives(int idPartie) throws PartieException;
+	
+	/**
+	 * @param idPartie L'id de la partie
+	 * @param idJoueur L'id du joueur
+	 * @return La liste des tentatives de crevaison du joueur spécifié au sein de la partie correspondant à idPartie
+	 */
+	List<TentativeCrevaison> listerTentativesJoueur(int idPartie, int idJoueur) throws PartieException;
 
 }

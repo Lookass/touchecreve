@@ -66,4 +66,25 @@ public class GestionTentativesCrevaisonImpl implements
 		return listeTentatives;
 	}
 
+	@Override
+	public List<TentativeCrevaison> listerTentativesJoueur(int idPartie,
+			int idJoueur) throws PartieException {
+	
+		Partie p;
+		Joueur j;
+		
+		try {
+			p = partieDao.rechercher(idPartie);
+			j = joueurDao.rechercher(idJoueur);
+		} catch (Exception e) {
+			throw new PartieException(e.getMessage());
+		}
+		
+		if(!p.contientJoueur(j))
+			throw new PartieException("Le joueur n'appartient pas à cette partie.");
+		
+		return j.getTentativesCrevaison();
+		
+	}
+
 }
