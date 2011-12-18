@@ -72,6 +72,14 @@ td:hover
 	cursor: pointer;
 }
 
+.table_parties_filter_label
+{
+	margin-left: 12.5%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+/*
 .table_filter_container
 {
 	margin-left: 12.5%;
@@ -90,7 +98,7 @@ td:hover
 	margin-left: 12.5%;
 	margin-top: 20px;
 	margin-bottom: 20px;
-}
+}*/
 
 .nom_joueur_container
 {
