@@ -88,7 +88,12 @@ public class Partie implements Serializable {
 						&& partie.getJoueurBleu().getVoitures().size() == 5) {
 					partie.etat = Etat.EN_COURS;
 					partie.tour = partie.joueurRouge;
-					partie.dateDebut = new GregorianCalendar().getTimeInMillis();
+					Calendar date = new GregorianCalendar();
+					partie.dateDebut = String.valueOf(date.get(Calendar.YEAR)) + "/"
+							+ String.valueOf(date.get(Calendar.MONTH)) + "/"
+							+ String.valueOf(date.get(Calendar.DAY_OF_MONTH)) + " "
+							+ String.valueOf(date.get(Calendar.HOUR_OF_DAY)) + ":"
+							+ String.valueOf(date.get(Calendar.MINUTE));
 				}
 
 				return false;
@@ -207,14 +212,16 @@ public class Partie implements Serializable {
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "idJoueurBleu")
 	private Joueur joueurBleu;
-	private Long dateDebut;
+	@Column
+	private String dateDebut;
 	@Enumerated
 	private Partie.Etat etat = Partie.Etat.EN_ATTENTE;
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "idJoueurTour")
 	private Joueur tour;
 
-	public Partie() {}
+	public Partie() {
+	}
 
 	public Partie(Joueur joueurRouge, String nom) {
 		super();
@@ -281,7 +288,7 @@ public class Partie implements Serializable {
 		return this.etat.getVainqueur(this);
 	}
 
-	public long getDateDebut() {
+	public String getDateDebut() {
 		return dateDebut;
 	}
 
