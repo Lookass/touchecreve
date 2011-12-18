@@ -17,9 +17,9 @@ public class TentativeCrevaison implements Serializable {
 	 */
 	private static final long serialVersionUID = 3821664780910918594L;
 	
-	public static int TENTATIVE_ETAT_RATE;
-	public static int TENTATIVE_ETAT_TOUCHE;
-	public static int TENTATIVE_ETAT_CREVE;
+	public static int TENTATIVE_ETAT_RATE = 0;
+	public static int TENTATIVE_ETAT_TOUCHE = 1;
+	public static int TENTATIVE_ETAT_CREVE = 2;
 	
 	
 	@Id

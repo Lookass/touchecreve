@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import be.ipl.tc.exceptions.ArgumentInvalideException;
 import be.ipl.tc.util.Util;
@@ -75,6 +74,7 @@ public class Joueur implements Serializable {
 		}
 		return nbVoituresRestantes;
 	}
+
 	public List<Voiture> getVoitures() {
 		return Collections.unmodifiableList(voitures);
 	}
