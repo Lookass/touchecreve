@@ -18,7 +18,7 @@ $(document).ready(function() {
 	   }
    	          }, 3000);
    setInterval(function() {   
-	  if (etatFini) {
+	  if (!etatFini) {
       $.post("PingPartie", {id: idPartie, action: "getTentative"},
 		   function(data) {
     	  var mesVoitures = data.split(';');
@@ -43,6 +43,7 @@ $(document).ready(function() {
 	  }
 	          }, 3000);
    setInterval(function() {
+	   if (!etatFini) {
 	   $.post("PingPartie", {id: idPartie, action: "getEtat"},
 			   function(data) {
 		   
@@ -51,7 +52,8 @@ $(document).ready(function() {
 			   $("#boutonCrever").attr("disabled", "disabled");
 			   etatFini = true;
 		   }
-	   }, "text")
+	   }, "text");
+	  }
    }, 5000);
    $.ajaxSetup({ cache: false });
 });
