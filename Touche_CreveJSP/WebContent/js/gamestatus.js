@@ -19,9 +19,8 @@
  function loadVoiture() {
 	   $.post("PingPartie", {id: idPartie, action: "getVoiture"},
 			   function(data) {
-		   			alert(data);
-			   		var mesVoitures = data.split(";");
-			   		while (mesVoitures.size > 0) {
+			   		var mesVoitures = data.split(';');
+			   		while (mesVoitures.size() > 0) {
 			   			alert(mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift() + " " + mesVoitures.shift());
 			   		}
 	   			}, "text"); 	
