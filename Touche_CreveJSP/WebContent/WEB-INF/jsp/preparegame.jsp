@@ -20,7 +20,7 @@
 		   setIdJoueur(<c:out value="${idJoueur}" />);
 		   getNextVoiture();
 		   setInterval(function() {
-			   $.post("PingPartie", {id: idPartie},
+			   $.post("PingPartie", {id: idPartie, action: "getEtat"},
 					   function(data) {
 				   if (data == "EN_COURS") {
 					   alert("Les deux parties ont placé leurs voitures!");

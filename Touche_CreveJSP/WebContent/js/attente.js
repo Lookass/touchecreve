@@ -1,6 +1,6 @@
  $(document).ready(function() {
    setInterval(function() {
-	   $.post("PingPartie", {id: idPartie},
+	   $.post("PingPartie", {id: idPartie, action: "getEtat"},
 			   function(data) {
 		   if (data == "EN_PLACEMENT") {
 			   alert("Un adversaire a rejoint la partie!");
