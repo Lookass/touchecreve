@@ -52,17 +52,7 @@ public class PingPartie extends HttpServlet {
 					}
 				}
 			} else if (request.getParameter("id") != null && request.getParameter("action").equals("getTour")) {
-				List<Partie> lp = gestionPartiesUCC.listerParties();
-				for (Partie partie : lp) {
-					if (partie.getId() == Integer.parseInt(request.getParameter("id"))) {
-						List<TentativeCrevaison> lt = gestionTentativesUCC.listerTentatives(partie.getId());
-						if (lt.size()%2 == 0) { //Tour de joueur rouge
-							response.getWriter().write(partie.getJoueurRouge().getNom()); //Réponse brut pour AJAX
-						} else { //Tour de joueur bleu
-							response.getWriter().write(partie.getJoueurBleu().getNom()); //Réponse brut pour AJAX
-						}
-					}
-				}
+				response.getWriter().write(gestionPartiesUCC.getTour(Integer.parseInt(request.getParameter("id"))).getNom());
 			}
 		}
 	}
