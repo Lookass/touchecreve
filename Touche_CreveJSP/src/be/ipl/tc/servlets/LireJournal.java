@@ -43,10 +43,7 @@ public class LireJournal extends HttpServlet {
     @EJB private GestionParties gestionPartiesUCC;	
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (!SessionManager.isNameSet(request.getSession(true))) {
-			response.sendRedirect("index.html");
-		} else {
-			/* Mock up object 
+/*
 			List<TentativeCrevaison> mvt  = new ArrayList<TentativeCrevaison>();
 			TentativeCrevaison tc = new TentativeCrevaison(1,1);
 			tc.setEtatTentative(0);
@@ -68,7 +65,22 @@ public class LireJournal extends HttpServlet {
 			mvt.add(tc);
 			Partie x = new Partie(new Joueur("Yassan"), "Partie de Yassan");
 			x.ajouterJoueurBleu(new Joueur("Un Inconnu"));
-			*/
+
+			request.setAttribute("partie",x);
+			request.setAttribute("mouvements", mvt);
+			
+			RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
+			rd.forward(request, response);
+*/
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!SessionManager.isNameSet(request.getSession(true))) {
+			response.sendRedirect("index.html");
+		} else {
 			
 			List<Partie> partieTerminee = gestionPartiesUCC.listerPartiesTerminees();
 			Partie partie = null;
@@ -79,7 +91,7 @@ public class LireJournal extends HttpServlet {
 				}
 			}
 			if (partie == null) {
-				response.sendRedirect("index.html"); //TODO Erreur pour dire ID de la partie incorrecte
+				response.sendRedirect("index.html"); 
 			} else {
 				List<TentativeCrevaison> mvt  = gestionTC.listerTentatives(partie.getId());
 				
@@ -90,13 +102,6 @@ public class LireJournal extends HttpServlet {
 				rd.forward(request, response);
 			}
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
